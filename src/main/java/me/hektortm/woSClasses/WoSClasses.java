@@ -25,13 +25,14 @@ public final class WoSClasses extends JavaPlugin {
         commandReg("gms", gamemodeExe);
         commandReg("gma", gamemodeExe);
         commandReg("gmsp", gamemodeExe);
+        commandReg("fly", gamemodeExe);
+        commandReg("speed", gamemodeExe);
         commandReg("day", timeExe);
         commandReg("night", timeExe);
         commandReg("ptime", timeExe);
         commandReg("sun", weatherExe);
         commandReg("rain", weatherExe);
         commandReg("storm", weatherExe);
-        commandReg("pweather", weatherExe);
 
     }
 

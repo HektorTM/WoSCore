@@ -27,6 +27,14 @@ commands:
     permission: essentials.gmsp
     aliases:
       - spectator
+  fly:
+    description: toggle fly
+    usage: /fly [player]
+    permission: essentials.fly
+  speed:
+    description: change your speed
+    usage: /speed <0-10> [player]
+    permission: essentials.speed
   tp:
     description: teleport to a player
     usage: /tp <player>
@@ -61,7 +69,3 @@ commands:
     description: change the weather to sunny
     usage: /storm
     permission: essentials.storm
-  pweather:
-    description: change the weather to sunny
-    usage: /pweather [sun|rain|storm]
-    permission: essentials.pweather
