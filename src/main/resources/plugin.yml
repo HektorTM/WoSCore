@@ -1,6 +1,6 @@
-name: WoSClasses
-version: '1.0-SNAPSHOT'
-main: me.hektortm.woSClasses.WoSClasses
+name: WoS_Essentials
+version: '1.0'
+main: me.hektortm.wosEssentials.WoSEssentials
 api-version: '1.21'
 commands:
   gmc:
@@ -39,12 +39,10 @@ commands:
     description: teleport to a player
     usage: /tp <player>
     permission: essentials.tp
-    permission-message: "§cERROR: §7You don't have permission to do that."
   tphere:
     description: teleport a player to you
     usage: /tphere <player>
     permission: essentials.tphere
-    permission-message: "§cERROR: §7You don't have permission to do that."
   day:
     description: set the time to day
     usage: /day

@@ -1,6 +1,6 @@
-package me.hektortm.woSClasses.essentials;
+package me.hektortm.wosEssentials.essentials;
 
-import me.hektortm.woSClasses.utils;
+import me.hektortm.wosEssentials.utils;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
@@ -9,7 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import static me.hektortm.woSClasses.utils.*;
+import static me.hektortm.wosEssentials.utils.*;
 
 public class gamemode implements CommandExecutor {
     @Override

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="WoS_Essentials">
+    <output-path>$USER_HOME$/Desktop/1.20.1 Server/plugins</output-path>
+    <root id="archive" name="WoS_Essentials.jar">
+      <element id="module-output" name="wosessentials" />
+    </root>
+  </artifact>
+</component>

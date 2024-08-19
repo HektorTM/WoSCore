@@ -1,4 +1,4 @@
-package me.hektortm.woSClasses;
+package me.hektortm.wosEssentials;
 
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;

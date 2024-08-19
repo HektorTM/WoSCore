@@ -1,13 +1,13 @@
-package me.hektortm.woSClasses;
+package me.hektortm.wosEssentials;
 
-import me.hektortm.woSClasses.essentials.gamemode;
-import me.hektortm.woSClasses.essentials.teleport;
-import me.hektortm.woSClasses.essentials.time;
-import me.hektortm.woSClasses.essentials.weather;
+import me.hektortm.wosEssentials.essentials.gamemode;
+import me.hektortm.wosEssentials.essentials.teleport;
+import me.hektortm.wosEssentials.essentials.time;
+import me.hektortm.wosEssentials.essentials.weather;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class WoSClasses extends JavaPlugin {
+public final class WoSEssentials extends JavaPlugin {
 
     @Override
     public void onEnable() {
