@@ -1,0 +1,67 @@
+name: WoSClasses
+version: '1.0-SNAPSHOT'
+main: me.hektortm.woSClasses.WoSClasses
+api-version: '1.21'
+commands:
+  gmc:
+    description: set your gamemode to creative
+    usage: /gmc [player]
+    permission: essentials.gmc
+    aliases:
+      - creative
+  gms:
+    description: set your gamemode to survival
+    usage: /gms [player]
+    permission: essentials.gms
+    aliases:
+      - survival
+  gma:
+    description: set your gamemode to adventure
+    usage: /gma [player]
+    permission: essentials.gma
+    aliases:
+      - adventure
+  gmsp:
+    description: set your gamemode to spectator
+    usage: /gmsp [player]
+    permission: essentials.gmsp
+    aliases:
+      - spectator
+  tp:
+    description: teleport to a player
+    usage: /tp <player>
+    permission: essentials.tp
+    permission-message: "§cERROR: §7You don't have permission to do that."
+  tphere:
+    description: teleport a player to you
+    usage: /tphere <player>
+    permission: essentials.tphere
+    permission-message: "§cERROR: §7You don't have permission to do that."
+  day:
+    description: set the time to day
+    usage: /day
+    permission: essentials.day
+  night:
+    description: set the time to night
+    usage: /night
+    permission: essentials.night
+  ptime:
+    description: set your personal time
+    usage: /ptime [day|night|number]
+    permission: essentials.ptime
+  sun:
+    description: change the weather to sunny
+    usage: /sun
+    permission: essentials.sun
+  rain:
+    description: change the weather to sunny
+    usage: /rain
+    permission: essentials.rain
+  storm:
+    description: change the weather to sunny
+    usage: /storm
+    permission: essentials.storm
+  pweather:
+    description: change the weather to sunny
+    usage: /pweather [sun|rain|storm]
+    permission: essentials.pweather
