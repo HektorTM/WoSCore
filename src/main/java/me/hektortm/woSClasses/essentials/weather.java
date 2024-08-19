@@ -50,36 +50,6 @@ public class weather implements CommandExecutor {
             }
         }
 
-        if (command.getName().equalsIgnoreCase("pweather")) {
-            if (sender instanceof Player p) {
-                if (args.length == 1) {
-                    String weatherArg = args[0].toLowerCase();
-
-                    switch (weatherArg) {
-                        case "clear":
-                            setPlayerWeather(p, 1.0f);
-                            p.sendMessage(utils.getPrefix()+"§7You have set your personal weather to §eSunny§7.");
-                    }
-                }
-            }
-        }
         return true;
-    }
-    private void setPlayerWeather(Player p, float type) {
-        try {
-            Object packet = Class.forName("net.minecraft.server." + getServerVersion() + "PacketPlayOutGameStateChange")
-                .getConstructor(int.class, float.class)
-                .newInstance(7, type);
-            Object nmsPlayer = p.getClass().getMethod("getHandle").invoke(p);
-            Object playerConnection = nmsPlayer.getClass().getField("playerConnection").get(nmsPlayer);
-            playerConnection.getClass().getMethod("sendPacket",Class.forName("net.minecraft.server." + getServerVersion() + ".Packet"))
-                    .invoke(playerConnection, packet);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private String getServerVersion() {
-        return org.bukkit.Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
     }
 }
