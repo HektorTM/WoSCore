@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 import static me.hektortm.wosCore.utils.*;
 
+@SuppressWarnings({"SpellCheckingInspection"})
 public class teleport implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
@@ -30,15 +31,14 @@ public class teleport implements CommandExecutor {
                         p.playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);
                     }
                 } else if (args.length == 0) {
-                    utils.error(p, "Please provide an argument");
-                } else if (args.length > 1) {
-                    utils.error(p, "Too many arguments");
+                    utils.error(p, errorNoArgs);
+                } else if (args.length == 2) {
+                    utils.error(p, errorArgs);
                 }
             }
         }
         if (command.getName().equalsIgnoreCase("tphere")) {
-            if (sender instanceof Player) {
-                Player p = (Player) sender;
+            if (sender instanceof Player p) {
                 if (args.length == 1) {
                     String pN = args[0];
                     Player t = Bukkit.getServer().getPlayerExact(pN);
@@ -52,7 +52,7 @@ public class teleport implements CommandExecutor {
                     }
                 } else if(args.length == 0) {
                     utils.error(p, errorNoArgs);
-                } else if (args.length > 1) {
+                } else if (args.length == 2) {
                     utils.error(p, errorArgs);
                 }
             }

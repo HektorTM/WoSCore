@@ -1,9 +1,8 @@
 package me.hektortm.wosCore.pvpsystem;
 
-
-import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -12,13 +11,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
 public class PvPManager {
-    private final HashMap<UUID, Boolean> pvpStatus = new HashMap<>();
     private final File dataFile;
     private final Gson gson;
     private final Set<UUID> pvpEnabledPlayers;
@@ -30,25 +27,28 @@ public class PvPManager {
         loadStatus();
     }
 
+    // Toggle PvP status and update player tab name accordingly
     public boolean togglePvP(Player player) {
         UUID playerId = player.getUniqueId();
-        if (pvpEnabledPlayers.contains(playerId)) {
+        boolean pvpEnabled = pvpEnabledPlayers.contains(playerId);
+
+        if (pvpEnabled) {
             pvpEnabledPlayers.remove(playerId);
-            updatePlayerTabName(player, false);
-            return false;
         } else {
             pvpEnabledPlayers.add(playerId);
-            updatePlayerTabName(player, true);
-            return true;
         }
+
+        updatePlayerTabName(player, !pvpEnabled);
+        saveStatus(); // Save status after toggling
+        return !pvpEnabled;
     }
 
+    // Check if PvP is enabled for a player
     public boolean pvpEnabled(Player player) {
         return pvpEnabledPlayers.contains(player.getUniqueId());
     }
 
-
-
+    // Load PvP status from JSON file
     public void loadStatus() {
         if (dataFile.exists()) {
             try (FileReader reader = new FileReader(dataFile)) {
@@ -58,18 +58,24 @@ public class PvPManager {
                     pvpEnabledPlayers.addAll(loadedData);
                 }
             } catch (IOException e) {
+                //noinspection CallToPrintStackTrace
                 e.printStackTrace();
             }
         }
     }
 
+    // Save PvP status to JSON file
     public void saveStatus() {
         try (FileWriter writer = new FileWriter(dataFile)) {
             gson.toJson(pvpEnabledPlayers, writer);
         } catch (IOException e) {
+            //noinspection CallToPrintStackTrace
             e.printStackTrace();
         }
     }
+
+    // Update the player's name in the tab list based on PvP status
+    @SuppressWarnings("deprecation")
     public void updatePlayerTabName(Player player, boolean pvpEnabled) {
         String newName = pvpEnabled ? ChatColor.RED + "⚔ " + player.getName() : ChatColor.GRAY + player.getName();
         player.setPlayerListName(newName);

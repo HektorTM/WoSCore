@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+@SuppressWarnings({"SpellCheckingInspection"})
 public class PvPCommands implements CommandExecutor {
     private final PvPManager pvpManager;
 

@@ -72,3 +72,7 @@ commands:
   pvp:
     description: combat system commands
     usage: /pvp [toggle|status|help]
+#
+  playtime:
+    description: Check your playtime
+    usage: /playtime

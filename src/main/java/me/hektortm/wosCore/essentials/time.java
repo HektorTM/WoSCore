@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 import static me.hektortm.wosCore.utils.errorArgs;
 
+@SuppressWarnings({"SpellCheckingInspection"})
 public class time implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {

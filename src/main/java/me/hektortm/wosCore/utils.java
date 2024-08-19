@@ -1,10 +1,6 @@
 package me.hektortm.wosCore;
 
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.ProtocolManager;
-import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.wrappers.WrappedChatComponent;
+
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -30,22 +26,5 @@ public class utils {
         }
 
     }
-    //public static void sendActionBar(Player player, String message) {
-    //    ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
-    //
-    //    PacketContainer packet = protocolManager.createPacket(PacketType.Play.Server.CHAT);
-    //
-    //    WrappedChatComponent chatComponent = WrappedChatComponent.fromText(message);
-    //    packet.getChatComponents().write(0, chatComponent);
-    //
-    //    packet.getBytes().write(0, (byte) 2); // ActionBar ID is 2
-    //
-    //    try {
-    //        protocolManager.sendServerPacket(player, packet);
-    //    } catch (Exception e) {
-    //        e.printStackTrace();
-    //    }
-    //}
-
 
 }

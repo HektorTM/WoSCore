@@ -6,6 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+@SuppressWarnings("SpellCheckingInspection")
 public class PvPListeners implements Listener {
     private final PvPManager pvpManager;
 

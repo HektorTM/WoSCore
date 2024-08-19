@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 import static me.hektortm.wosCore.utils.*;
 
+@SuppressWarnings({"SpellCheckingInspection"})
 public class gamemode implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
