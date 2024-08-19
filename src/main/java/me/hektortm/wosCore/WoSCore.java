@@ -1,16 +1,31 @@
-package me.hektortm.wosEssentials;
+package me.hektortm.wosCore;
 
-import me.hektortm.wosEssentials.essentials.gamemode;
-import me.hektortm.wosEssentials.essentials.teleport;
-import me.hektortm.wosEssentials.essentials.time;
-import me.hektortm.wosEssentials.essentials.weather;
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
+import me.hektortm.wosCore.essentials.gamemode;
+import me.hektortm.wosCore.essentials.teleport;
+import me.hektortm.wosCore.essentials.time;
+import me.hektortm.wosCore.essentials.weather;
+import me.hektortm.wosCore.pvpsystem.PvPCommands;
+import me.hektortm.wosCore.pvpsystem.PvPListeners;
+import me.hektortm.wosCore.pvpsystem.PvPManager;
 import org.bukkit.command.CommandExecutor;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class WoSEssentials extends JavaPlugin {
+public final class WoSCore extends JavaPlugin {
+    private PvPManager pvpManager;
 
     @Override
     public void onEnable() {
+        try {
+            // Attempt to get ProtocolLib's ProtocolManager
+            ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
+        } catch (NoClassDefFoundError | Exception e) {
+            getLogger().severe("ProtocolLib is not found. Please install ProtocolLib.");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
         saveDefaultConfig();
         utils.initPrefix(this);
 
@@ -18,6 +33,10 @@ public final class WoSEssentials extends JavaPlugin {
         gamemode gamemodeExe = new gamemode();
         time timeExe = new time();
         weather weatherExe = new weather();
+
+        pvpManager = new PvPManager(getDataFolder());
+        getCommand("pvp").setExecutor(new PvPCommands(pvpManager));
+        getServer().getPluginManager().registerEvents(new PvPListeners(pvpManager), this);
 
         commandReg("tp", teleportExecutor);
         commandReg("tphere", teleportExecutor);
@@ -34,7 +53,10 @@ public final class WoSEssentials extends JavaPlugin {
         commandReg("rain", weatherExe);
         commandReg("storm", weatherExe);
 
+
     }
+
+
 
     @Override
     public void onDisable() {

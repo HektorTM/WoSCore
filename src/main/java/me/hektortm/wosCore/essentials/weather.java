@@ -1,6 +1,6 @@
-package me.hektortm.wosEssentials.essentials;
+package me.hektortm.wosCore.essentials;
 
-import me.hektortm.wosEssentials.utils;
+import me.hektortm.wosCore.utils;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

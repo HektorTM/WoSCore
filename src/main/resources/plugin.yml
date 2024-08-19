@@ -1,8 +1,9 @@
 name: WoS_Essentials
 version: '1.0'
-main: me.hektortm.wosEssentials.WoSEssentials
+main: me.hektortm.wosCore.WoSCore
 api-version: '1.21'
 commands:
+# Essentials
   gmc:
     description: set your gamemode to creative
     usage: /gmc [player]
@@ -67,3 +68,7 @@ commands:
     description: change the weather to sunny
     usage: /storm
     permission: essentials.storm
+# pvp System
+  pvp:
+    description: combat system commands
+    usage: /pvp [toggle|status|help]

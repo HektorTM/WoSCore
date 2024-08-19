@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/wosessentials.iml" filepath="$PROJECT_DIR$/wosessentials.iml" />
+      <module fileurl="file://$PROJECT_DIR$/woscore.iml" filepath="$PROJECT_DIR$/woscore.iml" />
     </modules>
   </component>
 </project>

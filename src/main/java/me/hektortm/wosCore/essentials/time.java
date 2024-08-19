@@ -1,6 +1,6 @@
-package me.hektortm.wosEssentials.essentials;
+package me.hektortm.wosCore.essentials;
 
-import me.hektortm.wosEssentials.utils;
+import me.hektortm.wosCore.utils;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -8,7 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import static me.hektortm.wosEssentials.utils.errorArgs;
+import static me.hektortm.wosCore.utils.errorArgs;
 
 public class time implements CommandExecutor {
     @Override
