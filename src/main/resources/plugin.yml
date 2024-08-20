@@ -3,6 +3,10 @@ version: '1.0'
 main: me.hektortm.wosCore.WoSCore
 api-version: '1.21'
 commands:
+  core:
+    description: core commands
+    usage: /core <reload>
+    permission: core.use
 # Essentials
   gmc:
     description: set your gamemode to creative

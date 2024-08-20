@@ -20,6 +20,17 @@ error:
     title: "Please provide a title."
     message: "Please provide a message"
     unset: "You must set both a title and a message."
+  core.unknown: "Unknown Subcommand. Use: reload."
+  core.unknown.sub: "Unknown Subcommand. Use: config.yml, messages.yml or all"
+
+core:
+  messages:
+    reloading: "§7Reloading §emessages.yml§7..."
+    reloaded: "§emessages.yml §7reloaded!"
+  config:
+    reloading: "§7Reloading §econfig.yml§7..."
+    reloaded: "§econfig.yml §7reloaded!"
+
 
 essentials:
   gm:
@@ -59,6 +70,7 @@ essentials:
 
 broadcast:
   style:
+    preview: "§m ────────§7│ §bPREVIEW §7│ §m────────"
     title: "                     §6§l| §7%title% §6§l|                     "
     signature: "§8- §o%signature%"
   title: "§7Title set to: %title%"

@@ -4,9 +4,8 @@ package me.hektortm.wosCore;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
 
-public class utils {
+public class Utils {
    private static LangManager lang;
 
    public static String errorOnline;
@@ -22,6 +21,7 @@ public class utils {
    public static String errorBcMsg;
    public static String errorBcUnset;
    public static String errorBcUnknown;
+   public static String errorCoreUnknown;
 
 
    public static void init(LangManager langManager) {
@@ -41,6 +41,7 @@ public class utils {
        errorBcMsg = lang.getMessage("error.broadcast.message");
        errorBcUnset = lang.getMessage("error.broadcast.unset");
        errorBcUnknown = lang.getMessage("error.broadcast.unknown");
+       errorCoreUnknown = lang.getMessage("error.core.unknown");
    }
 
    //public static void initPrefix(JavaPlugin plugin) {

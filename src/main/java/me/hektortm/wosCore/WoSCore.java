@@ -1,5 +1,6 @@
 package me.hektortm.wosCore;
 
+import me.hektortm.wosCore.chatsystem.ChatListeners;
 import me.hektortm.wosCore.essentials.*;
 import me.hektortm.wosCore.pvpsystem.PvPCommands;
 import me.hektortm.wosCore.pvpsystem.PvPListeners;
@@ -14,12 +15,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 @SuppressWarnings({"unused", "SpellCheckingInspection"})
 public final class WoSCore extends JavaPlugin {
-    private me.hektortm.wosCore.essentials.playtimeManager playtimeManager;
+    private PlaytimeManager playtimeManager;
     private LangManager lang;
 
     @Override
     public void onEnable() {
-        playtimeManager = new playtimeManager(getDataFolder());
+        playtimeManager = new PlaytimeManager(getDataFolder());
         this.lang = new LangManager(this);
 
         getServer().getPluginManager().registerEvents(new Listener() {
@@ -37,20 +38,22 @@ public final class WoSCore extends JavaPlugin {
 
 
         saveDefaultConfig();
-        utils.init(lang);
+        Utils.init(lang);
 
-        playtime playtimeExe = new playtime(playtimeManager);
-        teleport teleportExecutor = new teleport();
-        gamemode gamemodeExe = new gamemode();
-        time timeExe = new time();
-        weather weatherExe = new weather();
-        broadcast broadcastExe = new broadcast(lang);
+        Playtime playtimeExe = new Playtime(playtimeManager);
+        Teleport teleportExecutor = new Teleport();
+        Gamemode gamemodeExe = new Gamemode();
+        Time timeExe = new Time();
+        Weather weatherExe = new Weather();
+        Broadcast broadcastExe = new Broadcast(lang);
+        CoreCommands coreExe = new CoreCommands(lang, this);
 
         PvPManager pvpManager = new PvPManager(getDataFolder());
         //noinspection DataFlowIssue
         getCommand("pvp").setExecutor(new PvPCommands(pvpManager, lang));
         tabcompReg("pvp");
         getServer().getPluginManager().registerEvents(new PvPListeners(pvpManager), this);
+        getServer().getPluginManager().registerEvents(new ChatListeners(), this);
 
         commandReg("tp", teleportExecutor);
         commandReg("tphere", teleportExecutor);
@@ -71,6 +74,8 @@ public final class WoSCore extends JavaPlugin {
         commandReg("broadcast", broadcastExe);
         tabcompReg("broadcast");
         commandReg("shout", broadcastExe);
+        commandReg("core", coreExe);
+        tabcompReg("core");
 
 
     }

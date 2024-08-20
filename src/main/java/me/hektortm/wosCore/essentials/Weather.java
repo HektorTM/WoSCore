@@ -1,6 +1,6 @@
 package me.hektortm.wosCore.essentials;
 
-import me.hektortm.wosCore.utils;
+import me.hektortm.wosCore.Utils;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -8,7 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-public class weather implements CommandExecutor {
+public class Weather implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         if (command.getName().equalsIgnoreCase("sun")) {
@@ -17,9 +17,9 @@ public class weather implements CommandExecutor {
                 if (args.length == 0) {
                     w.setStorm(false);
                     w.setThundering(false);
-                    utils.successMsg(p, "essentials.weather.sun");
+                    Utils.successMsg(p, "essentials.weather.sun");
                 } else {
-                    utils.error(p, utils.errorArgs);
+                    Utils.error(p, Utils.errorArgs);
                 }
             }
         }
@@ -30,9 +30,9 @@ public class weather implements CommandExecutor {
                 if (args.length == 0) {
                     w.setStorm(true);
                     w.setThundering(false);
-                    utils.successMsg(p, "essentials.weather.rain");
+                    Utils.successMsg(p, "essentials.weather.rain");
                 } else {
-                    utils.error(p, utils.errorArgs);
+                    Utils.error(p, Utils.errorArgs);
                 }
             }
         }
@@ -43,9 +43,9 @@ public class weather implements CommandExecutor {
                 if (args.length == 0) {
                     w.setStorm(true);
                     w.setThundering(true);
-                    utils.successMsg(p, "essentials.weather.storm");
+                    Utils.successMsg(p, "essentials.weather.storm");
                 } else {
-                    utils.error(p, utils.errorArgs);
+                    Utils.error(p, Utils.errorArgs);
                 }
             }
         }

@@ -2,20 +2,19 @@ package me.hektortm.wosCore.essentials;
 
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class broadcastSettings {
-    private static final Map<UUID, broadcastSettings> settingsMap = new HashMap<>();
+public class BroadcastSettings {
+    private static final Map<UUID, BroadcastSettings> settingsMap = new HashMap<>();
 
     private String title;
     private String message;
     private boolean signed;
 
-    public static broadcastSettings getSettings(Player p) {
-        return settingsMap.computeIfAbsent(p.getUniqueId(), k -> new broadcastSettings());
+    public static BroadcastSettings getSettings(Player p) {
+        return settingsMap.computeIfAbsent(p.getUniqueId(), k -> new BroadcastSettings());
     }
 
     public String getTitle() {

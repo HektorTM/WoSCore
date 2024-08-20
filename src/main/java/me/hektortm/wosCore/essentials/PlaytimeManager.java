@@ -14,13 +14,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class playtimeManager {
+public class PlaytimeManager {
     private final File dataFile;
     private final Gson gson;
     private final Map<UUID, Long> playtimeMap;
     private final Map<UUID, Long> loginTimes;
 
-    public playtimeManager(File dataFolder) {
+    public PlaytimeManager(File dataFolder) {
         this.dataFile = new File(dataFolder, "playtime_data.json");
         this.gson = new GsonBuilder().setPrettyPrinting().create();
         this.playtimeMap = new HashMap<>();

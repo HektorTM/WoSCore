@@ -27,7 +27,15 @@ public class CommandTabComplete implements TabCompleter {
                 return Arrays.asList("title", "message", "sign", "preview", "send", "clear");
             }
         }
-
+        if (command.getName().equalsIgnoreCase("core")) {
+            if (args.length == 1) {
+                // If no arguments or the first argument is being typed, suggest the first set of options
+                return Arrays.asList("reload");
+            } else if (args.length == 2 && args[0].equalsIgnoreCase("reload")) {
+                // If the first argument is "reload", suggest these options for the second argument
+                return Arrays.asList("messages.yml", "config.yml", "all");
+            }
+        }
         return null;
     }
 }

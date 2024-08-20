@@ -1,14 +1,14 @@
 package me.hektortm.wosCore.pvpsystem;
 
 import me.hektortm.wosCore.LangManager;
-import me.hektortm.wosCore.utils;
+import me.hektortm.wosCore.Utils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import static me.hektortm.wosCore.utils.errorUnknownPvP;
+import static me.hektortm.wosCore.Utils.errorUnknownPvP;
 
 @SuppressWarnings({"SpellCheckingInspection"})
 public class PvPCommands implements CommandExecutor {
@@ -26,7 +26,7 @@ public class PvPCommands implements CommandExecutor {
             if (sender instanceof Player p) {
                 if (args.length == 0) {
                     boolean newStatus = pvpManager.togglePvP(p);
-                    utils.successMsg1Value(p, "pvp.combat-toggle", "%status%", newStatus ? "§aenabled" : "§cdisabled");
+                    Utils.successMsg1Value(p, "pvp.combat-toggle", "%status%", newStatus ? "§aenabled" : "§cdisabled");
                     return true;
                 }
 
@@ -35,23 +35,23 @@ public class PvPCommands implements CommandExecutor {
                 switch (subCommand) {
                     case "toggle":
                         boolean newStatus = pvpManager.togglePvP(p);
-                        utils.successMsg1Value(p, "pvp.combat-toggle", "%status%", newStatus ? "§aenabled" : "§cdisabled");
+                        Utils.successMsg1Value(p, "pvp.combat-toggle", "%status%", newStatus ? "§aenabled" : "§cdisabled");
                         break;
 
                     case "status":
                         boolean isPvPEnabled = pvpManager.pvpEnabled(p);
-                        utils.successMsg1Value(p, "pvp.status", "%status%", isPvPEnabled ? "§aenabled" : "§cdisabled");
+                        Utils.successMsg1Value(p, "pvp.status", "%status%", isPvPEnabled ? "§aenabled" : "§cdisabled");
                         break;
 
                     case "help":
-                        utils.successMsg(p, "pvp.help-header");
+                        Utils.successMsg(p, "pvp.help-header");
                         p.sendMessage(lang.getMessage("pvp.help-toggle"));
                         p.sendMessage(lang.getMessage("pvp.help-status"));
                         p.sendMessage(lang.getMessage("pvp.help-list"));
                         break;
 
                     default:
-                        utils.error(p, errorUnknownPvP);
+                        Utils.error(p, errorUnknownPvP);
                         break;
                 }
             }

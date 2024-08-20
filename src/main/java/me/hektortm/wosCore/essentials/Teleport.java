@@ -1,6 +1,6 @@
 package me.hektortm.wosCore.essentials;
 
-import me.hektortm.wosCore.utils;
+import me.hektortm.wosCore.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -9,10 +9,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import static me.hektortm.wosCore.utils.*;
+import static me.hektortm.wosCore.Utils.*;
 
 @SuppressWarnings({"SpellCheckingInspection"})
-public class teleport implements CommandExecutor {
+public class Teleport implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
 
@@ -22,18 +22,18 @@ public class teleport implements CommandExecutor {
                     String pN = args[0];
                     Player t = Bukkit.getServer().getPlayerExact(pN);
                     if (t == null) {
-                        utils.error(p, errorOnline);
+                        Utils.error(p, errorOnline);
                     } else if (p.getName().equals(pN)) {
-                        utils.error(p, errorTpSelf);
+                        Utils.error(p, errorTpSelf);
                     } else {
                         p.teleport(t);
-                        utils.successMsg1Value(p, "essentials.tp", "%player%", pN);
+                        Utils.successMsg1Value(p, "essentials.tp", "%player%", pN);
                         p.playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);
                     }
                 } else if (args.length == 0) {
-                    utils.error(p, errorNoArgs);
+                    Utils.error(p, errorNoArgs);
                 } else if (args.length == 2) {
-                    utils.error(p, errorArgs);
+                    Utils.error(p, errorArgs);
                 }
             }
         }
@@ -43,17 +43,17 @@ public class teleport implements CommandExecutor {
                     String pN = args[0];
                     Player t = Bukkit.getServer().getPlayerExact(pN);
                     if (t == null) {
-                        utils.error(p, errorOnline);
+                        Utils.error(p, errorOnline);
                     } else if (p.getName().contentEquals(pN)) {
-                        utils.error(p, errorTphereSelf);
+                        Utils.error(p, errorTphereSelf);
                     } else {
                         t.teleport(p);
-                        utils.successMsg1Value(p, "essentials.tphere", "%player%", t.getName());
+                        Utils.successMsg1Value(p, "essentials.tphere", "%player%", t.getName());
                     }
                 } else if(args.length == 0) {
-                    utils.error(p, errorNoArgs);
+                    Utils.error(p, errorNoArgs);
                 } else if (args.length == 2) {
-                    utils.error(p, errorArgs);
+                    Utils.error(p, errorArgs);
                 }
             }
         }
