@@ -24,7 +24,7 @@ public class utils {
    public static String errorBcUnknown;
 
 
-   public static void init(LangManager langManager, JavaPlugin plugin) {
+   public static void init(LangManager langManager) {
        lang = langManager;
        //initPrefix(plugin);
 

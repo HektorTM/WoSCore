@@ -1,6 +1,5 @@
 package me.hektortm.wosCore.essentials;
 
-import me.hektortm.wosCore.LangManager;
 import me.hektortm.wosCore.utils;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -14,11 +13,6 @@ import static me.hektortm.wosCore.utils.*;
 
 @SuppressWarnings({"SpellCheckingInspection"})
 public class gamemode implements CommandExecutor {
-    private final LangManager lang;
-
-    public gamemode(LangManager lang) {
-        this.lang = lang;
-    }
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {

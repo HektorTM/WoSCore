@@ -37,11 +37,11 @@ public final class WoSCore extends JavaPlugin {
 
 
         saveDefaultConfig();
-        utils.init(lang, this);
+        utils.init(lang);
 
         playtime playtimeExe = new playtime(playtimeManager);
         teleport teleportExecutor = new teleport();
-        gamemode gamemodeExe = new gamemode(lang);
+        gamemode gamemodeExe = new gamemode();
         time timeExe = new time();
         weather weatherExe = new weather();
         broadcast broadcastExe = new broadcast(lang);
@@ -92,7 +92,13 @@ public final class WoSCore extends JavaPlugin {
         }
     }
     private void tabcompReg(String name) {
-        getCommand(name).setTabCompleter(new CommandTabComplete());
+        if (getCommand(name) != null) {
+            //noinspection DataFlowIssue
+            getCommand(name).setTabCompleter(new CommandTabComplete());
+        } else {
+            getLogger().severe("Tabcompletion '"+name+"' was not found.");
+        }
+
     }
 
     public LangManager getLang() {
