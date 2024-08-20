@@ -1,4 +1,4 @@
-name: WoS_Essentials
+name: WoS_Core
 version: '1.0'
 main: me.hektortm.wosCore.WoSCore
 api-version: '1.21'
@@ -68,6 +68,16 @@ commands:
     description: change the weather to sunny
     usage: /storm
     permission: essentials.storm
+  broadcast:
+    aliases:
+      - bc
+    description: send a broadcast
+    usage: /broadcast <message>
+    permission: essentials.broadcast
+  shout:
+    description: shout a message
+    usage: /shout <message>
+    permission: essentials.shout
 # pvp System
   pvp:
     description: combat system commands
