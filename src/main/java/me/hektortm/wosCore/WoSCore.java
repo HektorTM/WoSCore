@@ -15,11 +15,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 @SuppressWarnings({"unused", "SpellCheckingInspection"})
 public final class WoSCore extends JavaPlugin {
     private me.hektortm.wosCore.essentials.playtimeManager playtimeManager;
+    private LangManager lang;
 
     @Override
     public void onEnable() {
         playtimeManager = new playtimeManager(getDataFolder());
-
+        this.lang = new LangManager(this);
 
         getServer().getPluginManager().registerEvents(new Listener() {
             @EventHandler
@@ -36,16 +37,19 @@ public final class WoSCore extends JavaPlugin {
 
 
         saveDefaultConfig();
-        utils.initPrefix(this);
+        utils.init(lang, this);
+
         playtime playtimeExe = new playtime(playtimeManager);
         teleport teleportExecutor = new teleport();
-        gamemode gamemodeExe = new gamemode();
+        gamemode gamemodeExe = new gamemode(lang);
         time timeExe = new time();
         weather weatherExe = new weather();
+        broadcast broadcastExe = new broadcast(lang);
 
         PvPManager pvpManager = new PvPManager(getDataFolder());
         //noinspection DataFlowIssue
-        getCommand("pvp").setExecutor(new PvPCommands(pvpManager));
+        getCommand("pvp").setExecutor(new PvPCommands(pvpManager, lang));
+        tabcompReg("pvp");
         getServer().getPluginManager().registerEvents(new PvPListeners(pvpManager), this);
 
         commandReg("tp", teleportExecutor);
@@ -59,10 +63,14 @@ public final class WoSCore extends JavaPlugin {
         commandReg("day", timeExe);
         commandReg("night", timeExe);
         commandReg("ptime", timeExe);
+        tabcompReg("ptime");
         commandReg("sun", weatherExe);
         commandReg("rain", weatherExe);
         commandReg("storm", weatherExe);
         commandReg("playtime", playtimeExe);
+        commandReg("broadcast", broadcastExe);
+        tabcompReg("broadcast");
+        commandReg("shout", broadcastExe);
 
 
     }
@@ -72,7 +80,7 @@ public final class WoSCore extends JavaPlugin {
     @Override
     public void onDisable() {
         reloadConfig();
-        utils.initPrefix(this);
+        //utils.initPrefix(this);
     }
 
     private void commandReg(String name, CommandExecutor exe) {
@@ -82,5 +90,12 @@ public final class WoSCore extends JavaPlugin {
         } else {
             getLogger().severe("Command '"+ name + "' was not found in plugin.yml");
         }
+    }
+    private void tabcompReg(String name) {
+        getCommand(name).setTabCompleter(new CommandTabComplete());
+    }
+
+    public LangManager getLang() {
+        return lang;
     }
 }
