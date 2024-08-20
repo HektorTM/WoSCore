@@ -9,11 +9,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.awt.*;
 import java.util.Arrays;
 
 import static me.hektortm.wosCore.utils.*;
 
+@SuppressWarnings({"deprecation"})
 public class broadcast implements CommandExecutor {
     private final LangManager lang;
     public broadcast(LangManager lang) {
@@ -103,12 +103,9 @@ public class broadcast implements CommandExecutor {
         if (command.getName().equalsIgnoreCase("shout")) {
             if (sender instanceof Player p) {
                 if(args.length >= 1) {
-                    String msg = "";
-                    for(int i = 0; i< args.length;i++) {
-                        msg = msg+ args[i] + " ";
-                    }
+                    String msg = String.join(" ", Arrays.copyOfRange(args, 0, args.length)).replaceAll("&", "§");
                     Bukkit.broadcastMessage("");
-                    Bukkit.broadcastMessage(lang.getMessage("prefix.shout")+msg.replaceAll("&", "§"));
+                    Bukkit.broadcastMessage(lang.getMessage("prefix.shout").replace("%player%", p.getName())+ msg);
                     Bukkit.broadcastMessage("");
 
                 } else {
