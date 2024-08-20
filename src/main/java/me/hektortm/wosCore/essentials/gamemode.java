@@ -1,5 +1,6 @@
 package me.hektortm.wosCore.essentials;
 
+import me.hektortm.wosCore.LangManager;
 import me.hektortm.wosCore.utils;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -13,28 +14,36 @@ import static me.hektortm.wosCore.utils.*;
 
 @SuppressWarnings({"SpellCheckingInspection"})
 public class gamemode implements CommandExecutor {
+    private final LangManager lang;
+
+    public gamemode(LangManager lang) {
+        this.lang = lang;
+    }
+
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         if (command.getName().equalsIgnoreCase("gmc")) {
             if (sender instanceof Player p) {
                 if (args.length == 0) {
                     p.setGameMode(GameMode.CREATIVE);
-                    p.sendMessage(utils.getPrefix() + "§7Gamemode updated to §eCreative§7.");
-                } else {
+                    utils.successMsg(p, "essentials.gm.c");
+                } else if (args.length == 1) {
                     String playerName = args[0];
                     Player t = Bukkit.getServer().getPlayerExact(playerName);
                     if(p.getName().equals(playerName)) {
                         p.setGameMode(GameMode.CREATIVE);
-                        p.sendMessage(utils.getPrefix() + "§7Gamemode updated to §eCreative§7.");
+                        utils.successMsg(p, "essentials.gm.c");
                     } else {
                         if (t == null) {
                             utils.error(p, errorOnline);
                         } else {
-                            p.sendMessage(utils.getPrefix() + "$a" + playerName + "'s §7Gamemode updated to §eCreative§7.");
+                            utils.successMsg1Value(p, "essentials.gm.c-player", "%player%", playerName);
                             t.setGameMode(GameMode.CREATIVE);
-                            t.sendMessage(utils.getPrefix() + "§7Gamemode updated to §eCreative§7.");
+                            utils.successMsg(t, "essentials.gm.c");
                         }
                     }
+                } else {
+                    utils.error(p, errorArgs);
                 }
             }
         }
@@ -43,22 +52,24 @@ public class gamemode implements CommandExecutor {
             if (sender instanceof Player p) {
                 if (args.length == 0) {
                     p.setGameMode(GameMode.SURVIVAL);
-                    p.sendMessage(utils.getPrefix() + "§7Gamemode updated to §eSurvival§7.");
-                } else {
+                    utils.successMsg(p, "essentials.gm.s");
+                } else if (args.length == 1) {
                     String playerName = args[0];
                     Player t = Bukkit.getServer().getPlayerExact(playerName);
                     if(p.getName().equals(playerName)) {
                         p.setGameMode(GameMode.SURVIVAL);
-                        p.sendMessage(utils.getPrefix() + "§7Gamemode updated to §eSurvival§7.");
+                        utils.successMsg(p, "essentials.gm.s");
                     } else {
                         if (t == null) {
                             utils.error(p, errorOnline);
                         } else {
-                            p.sendMessage(utils.getPrefix() + "$a" + playerName + "'s §7Gamemode updated to §eSurvival§7.");
+                            utils.successMsg1Value(p, "essentials.gm.s-player", "%player%", playerName);
                             t.setGameMode(GameMode.SURVIVAL);
-                            t.sendMessage(utils.getPrefix() + "§7Gamemode updated to §eSurvival§7.");
+                            utils.successMsg(t, "essentials.gm.s");
                         }
                     }
+                } else {
+                    utils.error(p, errorArgs);
                 }
             }
         }
@@ -67,22 +78,24 @@ public class gamemode implements CommandExecutor {
             if (sender instanceof Player p) {
                 if (args.length == 0) {
                     p.setGameMode(GameMode.ADVENTURE);
-                    p.sendMessage(utils.getPrefix() + "§7Gamemode updated to §eAdventure§7.");
-                } else {
+                    utils.successMsg(p, "essentials.gm.a");
+                } else if (args.length == 1) {
                     String playerName = args[0];
                     Player t = Bukkit.getServer().getPlayerExact(playerName);
                     if(p.getName().equals(playerName)) {
                         p.setGameMode(GameMode.ADVENTURE);
-                        p.sendMessage(utils.getPrefix() + "§7Gamemode updated to §eAdventure§7.");
+                        utils.successMsg(p, "essentials.gm.a");
                     } else {
                         if (t == null) {
                             utils.error(p, errorOnline);
                         } else {
-                            p.sendMessage(utils.getPrefix() + "$a" + playerName + "'s §7Gamemode updated to §eAdventure§7.");
+                            utils.successMsg1Value(p, "essentials.gm.a-player", "%player%", playerName);
                             t.setGameMode(GameMode.ADVENTURE);
-                            t.sendMessage(utils.getPrefix() + "§7Gamemode updated to §eAdventure§7.");
+                            utils.successMsg(t, "essentials.gm.a");
                         }
                     }
+                } else {
+                    utils.error(p, errorArgs);
                 }
             }
         }
@@ -91,22 +104,24 @@ public class gamemode implements CommandExecutor {
             if (sender instanceof Player p) {
                 if (args.length == 0) {
                     p.setGameMode(GameMode.SPECTATOR);
-                    p.sendMessage(utils.getPrefix() + "§7Gamemode updated to §eSpectator§7.");
-                } else {
+                    utils.successMsg(p, "essentials.gm.sp");
+                } else if (args.length == 1) {
                     String playerName = args[0];
                     Player t = Bukkit.getServer().getPlayerExact(playerName);
                     if(p.getName().equals(playerName)) {
                         p.setGameMode(GameMode.SPECTATOR);
-                        p.sendMessage(utils.getPrefix() + "§7Gamemode updated to §eSpectator§7.");
+                        utils.successMsg(p, "essentials.gm.sp");
                     } else {
                         if (t == null) {
                             utils.error(p, errorOnline);
                         } else {
-                            p.sendMessage(utils.getPrefix() + "$a" + playerName + "'s §7Gamemode updated to §eSpectator§7.");
+                            utils.successMsg1Value(p, "essentials.gm.sp-player", "%player%", playerName);
                             t.setGameMode(GameMode.SPECTATOR);
-                            t.sendMessage(utils.getPrefix() + "§7Gamemode updated to §eSpectator§7.");
+                            utils.successMsg(t, "essentials.gm.sp");
                         }
                     }
+                } else {
+                    utils.error(p, errorArgs);
                 }
             }
         }
@@ -117,11 +132,11 @@ public class gamemode implements CommandExecutor {
                     if (p.getAllowFlight()) {
                         p.setAllowFlight(false);
                         p.setFlying(false);
-                        p.sendMessage(utils.getPrefix() + "§7You have §cdisabled§7 fly.");
+                        utils.successMsg(p, "essentials.fly.disabled");
                     } else {
                         p.setAllowFlight(true);
                         p.setFlying(true);
-                        p.sendMessage(utils.getPrefix() + "§7You have §aenabled§7 fly.");
+                        utils.successMsg(p, "essentials.fly.enabled");
                     }
                 } else {
                     String playerName = args[0];
@@ -130,26 +145,26 @@ public class gamemode implements CommandExecutor {
                         if (p.getAllowFlight()) {
                             p.setAllowFlight(false);
                             p.setFlying(false);
-                            p.sendMessage(utils.getPrefix() + "§7You have §cdisabled§7 fly.");
+                            utils.successMsg(p, "essentials.fly.disabled");
                         } else {
                             p.setAllowFlight(true);
                             p.setFlying(true);
-                            p.sendMessage(utils.getPrefix() + "§7You have §aenabled§7 fly.");
+                            utils.successMsg(p, "essentials.fly.enabled");
                         }
                     } else {
                         if (t == null) {
-                            utils.error(p, "This player is not online.");
+                            utils.error(p, errorOnline);
                         } else {
                             if (t.getAllowFlight()) {
                                 t.setAllowFlight(false);
                                 t.setFlying(false);
-                                p.sendMessage(utils.getPrefix() + "§7You have §cdisabled§7 fly for §e" + t.getName() + "§7.");
-                                t.sendMessage(utils.getPrefix() + "§7Your fly has been §cdisabled§7.");
+                                utils.successMsg1Value(p, "essentials.fly.disabled-player", "%player%", t.getName());
+                                utils.successMsg(t, "essentials.fly.disabled");
                             } else {
                                 t.setAllowFlight(true);
                                 t.setFlying(true);
-                                p.sendMessage(utils.getPrefix() + "§7You have §aenabled§7 fly for §e" + t.getName() + "§7.");
-                                t.sendMessage(utils.getPrefix() + "§7Your fly has been §aenabled§7.");
+                                utils.successMsg1Value(p, "essentials.fly.enabled-player", "%player%", t.getName());
+                                utils.successMsg(t, "essentials.fly.enabled");
                             }
                         }
                     }
@@ -161,24 +176,24 @@ public class gamemode implements CommandExecutor {
             if (sender instanceof Player p) {
                 if (args.length == 0) {
                     resetSpeed(p);
-                    p.sendMessage(utils.getPrefix()+"§7You have reset your speed");
+                    utils.successMsg(p, "essentials.speed.reset");
                 } else if (args.length == 1) {
                     try {
                         float speed = Float.parseFloat(args[0]);
                         if (speed < 0 || speed > 10) {
-                            utils.error(p, "Provide a value between 0 and 10");
+                            utils.error(p, errorSpeedValue);
                             return true;
                         }
                         setSpeed(p, speed);
 
                     } catch (Exception e) {
-                        utils.error(p, "Invalid value. Provide a number.");
+                        utils.error(p, errorSpeedInvalid);
                     }
                 } else if (args.length == 2) {
                     try {
                         float speed = Float.parseFloat(args[0]);
                         if(speed < 0 || speed > 10) {
-                            utils.error(p, "Provide a value between 0 and 10");
+                            utils.error(p, errorSpeedValue);
                             return true;
                         }
                         Player t = Bukkit.getPlayerExact(args[1]);
@@ -187,13 +202,14 @@ public class gamemode implements CommandExecutor {
                             return true;
                         }
                         setSpeed(t, speed);
+                        String speedVal = String.valueOf(speed);
                         if (t.isFlying()) {
-                            p.sendMessage(utils.getPrefix()+"§7You have set the flying speed for §e"+t.getName()+"§7 to §a"+speed+"§7.");
+                            utils.successMsg2Values(p, "essentials.speed.set-flying-player", "%player%", t.getName(), "%speedvalue%", speedVal);
                         } else {
-                            p.sendMessage(utils.getPrefix()+"§7You have set the walking speed for §e"+t.getName()+"§7 to §a"+speed+"§7.");
+                            utils.successMsg2Values(p, "essentials.speed.set-walking-player", "%player%", t.getName(), "%speedvalue%", speedVal);
                         }
                     } catch (NumberFormatException e) {
-                        utils.error(p, "Invalid value. Provide a number.");
+                        utils.error(p, errorSpeedInvalid);
 
                     }
                 } else {
@@ -208,12 +224,13 @@ public class gamemode implements CommandExecutor {
     }
     private void setSpeed(Player p, float speed) {
         float adjustSpeed = speed / 10.0f;
+        String speedVal = String.valueOf(speed);
         if(p.isFlying()) {
             p.setFlySpeed(adjustSpeed);
-            p.sendMessage(utils.getPrefix()+"§7Your flying speed was set to §a"+speed+"§7.");
+            utils.successMsg1Value(p, "essentials.speed.set-flying", "%speedvalue%", speedVal);
         } else {
             p.setWalkSpeed(adjustSpeed);
-            p.sendMessage(utils.getPrefix()+"§7Your walking speed was set to §a"+speed+"§7.");
+            utils.successMsg1Value(p, "essentials.speed.set-walking", "%speedvalue%", speedVal);
         }
     }
     private void resetSpeed(Player p) {

@@ -17,7 +17,7 @@ public class weather implements CommandExecutor {
                 if (args.length == 0) {
                     w.setStorm(false);
                     w.setThundering(false);
-                    p.sendMessage(utils.getPrefix()+"§7You have set the weather to §eSunny§7.");
+                    utils.successMsg(p, "essentials.weather.sun");
                 } else {
                     utils.error(p, utils.errorArgs);
                 }
@@ -30,7 +30,7 @@ public class weather implements CommandExecutor {
                 if (args.length == 0) {
                     w.setStorm(true);
                     w.setThundering(false);
-                    p.sendMessage(utils.getPrefix()+"§7You have set the weather to §bRainy§7.");
+                    utils.successMsg(p, "essentials.weather.rain");
                 } else {
                     utils.error(p, utils.errorArgs);
                 }
@@ -43,7 +43,7 @@ public class weather implements CommandExecutor {
                 if (args.length == 0) {
                     w.setStorm(true);
                     w.setThundering(true);
-                    p.sendMessage(utils.getPrefix()+"§7You have set the weather to §9Stormy§7.");
+                    utils.successMsg(p, "essentials.weather.storm");
                 } else {
                     utils.error(p, utils.errorArgs);
                 }

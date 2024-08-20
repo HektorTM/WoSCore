@@ -1,5 +1,6 @@
 package me.hektortm.wosCore.pvpsystem;
 
+import me.hektortm.wosCore.LangManager;
 import me.hektortm.wosCore.utils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -7,12 +8,16 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import static me.hektortm.wosCore.utils.errorUnknownPvP;
+
 @SuppressWarnings({"SpellCheckingInspection"})
 public class PvPCommands implements CommandExecutor {
     private final PvPManager pvpManager;
+    private final LangManager lang;
 
-    public PvPCommands(PvPManager pvpManager) {
+    public PvPCommands(PvPManager pvpManager, LangManager lang) {
         this.pvpManager = pvpManager;
+        this.lang = lang;
     }
 
     @Override
@@ -21,7 +26,7 @@ public class PvPCommands implements CommandExecutor {
             if (sender instanceof Player p) {
                 if (args.length == 0) {
                     boolean newStatus = pvpManager.togglePvP(p);
-                    p.sendMessage(utils.getPrefix()+"§7You have " + (newStatus ? "§aenabled" : "§cdisabled") + "§7 your combat mode.");
+                    utils.successMsg1Value(p, "pvp.combat-toggle", "%status%", newStatus ? "§aenabled" : "§cdisabled");
                     return true;
                 }
 
@@ -30,23 +35,23 @@ public class PvPCommands implements CommandExecutor {
                 switch (subCommand) {
                     case "toggle":
                         boolean newStatus = pvpManager.togglePvP(p);
-                        p.sendMessage(utils.getPrefix()+"§7You have " + (newStatus ? "§aenabled" : "§cdisabled") + "§7 your combat mode.");
+                        utils.successMsg1Value(p, "pvp.combat-toggle", "%status%", newStatus ? "§aenabled" : "§cdisabled");
                         break;
 
                     case "status":
                         boolean isPvPEnabled = pvpManager.pvpEnabled(p);
-                        p.sendMessage(utils.getPrefix()+"§7You currently have combat " + (isPvPEnabled ? "§aenabled" : "§cdisabled") + "§7.");
+                        utils.successMsg1Value(p, "pvp.status", "%status%", isPvPEnabled ? "§aenabled" : "§cdisabled");
                         break;
 
                     case "help":
-                        p.sendMessage(utils.getPrefix()+ "§7Combat Commands:");
-                        p.sendMessage("§e/pvp toggle - Toggle your combat status.");
-                        p.sendMessage("§e/pvp status - Check your current combat status.");
-                        p.sendMessage("§e/pvp help - Display this help message.");
+                        utils.successMsg(p, "pvp.help-header");
+                        p.sendMessage(lang.getMessage("pvp.help-toggle"));
+                        p.sendMessage(lang.getMessage("pvp.help-status"));
+                        p.sendMessage(lang.getMessage("pvp.help-list"));
                         break;
 
                     default:
-                        utils.error(p, "Unknown command. Use /pvp help for a list of commands.");
+                        utils.error(p, errorUnknownPvP);
                         break;
                 }
             }

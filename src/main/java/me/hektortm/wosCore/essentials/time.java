@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import static me.hektortm.wosCore.utils.errorArgs;
+import static me.hektortm.wosCore.utils.errorTimeInvalid;
 
 @SuppressWarnings({"SpellCheckingInspection"})
 public class time implements CommandExecutor {
@@ -19,7 +20,7 @@ public class time implements CommandExecutor {
                 World w = p.getWorld();
                 if (args.length == 0) {
                     w.setTime(1000);
-                    p.sendMessage(utils.getPrefix()+"§7You have set the time to §eDay§7.");
+                    utils.successMsg(p, "essentials.time.day");
                 } else {
                     utils.error(p, errorArgs);
                 }
@@ -31,7 +32,7 @@ public class time implements CommandExecutor {
                 World w = p.getWorld();
                 if (args.length == 0) {
                     w.setTime(13000);
-                    p.sendMessage(utils.getPrefix()+"§7You have set the time to §9Night§7.");
+                    utils.successMsg(p, "essentials.time.night");
                 } else {
                     utils.error(p, errorArgs);
                 }
@@ -45,23 +46,24 @@ public class time implements CommandExecutor {
                     switch (timeArg.toLowerCase()) {
                         case "day":
                             p.setPlayerTime(1000, false);
-                            p.sendMessage(utils.getPrefix()+"§7You have set your personal time to §eDay§7.");
+                            utils.successMsg(p, "essentials.ptime.day");
                             break;
                         case "night":
                             p.setPlayerTime(13000, false);
-                            p.sendMessage(utils.getPrefix()+"§7You have set your personal time to §9Night§7.");
+                            utils.successMsg(p, "essentials.ptime.night");
                             break;
                         case "reset":
                             p.resetPlayerTime();
-                            p.sendMessage(utils.getPrefix()+"§7You have §creset§7 your personal time.");
+                            utils.successMsg(p, "essentials.ptime.reset");
                             break;
                         default:
                             try {
                                 long time = Long.parseLong(timeArg);
+                                String timeVal = String.valueOf(time);
                                 p.setPlayerTime(time, false);
-                                p.sendMessage(utils.getPrefix()+"§7You have set your personal time to §a"+time+"§7.");
+                                utils.successMsg1Value(p, "essentials.ptime.custom", "%time%", timeVal);
                             } catch (NumberFormatException e) {
-                                utils.error(p, "Invalid time value. Provide 'day', 'night', 'reset' or a number");
+                                utils.error(p, errorTimeInvalid);
                             }
                             break;
                     }

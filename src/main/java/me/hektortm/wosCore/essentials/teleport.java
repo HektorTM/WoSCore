@@ -24,10 +24,10 @@ public class teleport implements CommandExecutor {
                     if (t == null) {
                         utils.error(p, errorOnline);
                     } else if (p.getName().equals(pN)) {
-                        utils.error(p, "You can't teleport to yourself.");
+                        utils.error(p, errorTpSelf);
                     } else {
                         p.teleport(t);
-                        p.sendMessage(utils.getPrefix() + "§7Teleporting to §a" + pN + " §7...");
+                        utils.successMsg1Value(p, "essentials.tp", "%player%", pN);
                         p.playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);
                     }
                 } else if (args.length == 0) {
@@ -45,10 +45,10 @@ public class teleport implements CommandExecutor {
                     if (t == null) {
                         utils.error(p, errorOnline);
                     } else if (p.getName().contentEquals(pN)) {
-                        utils.error(p, "You can't teleport yourself to you.");
+                        utils.error(p, errorTphereSelf);
                     } else {
                         t.teleport(p);
-                        p.sendMessage(utils.getPrefix() + "§7Teleporting §a" + t.getName() + " §7to you...");
+                        utils.successMsg1Value(p, "essentials.tphere", "%player%", t.getName());
                     }
                 } else if(args.length == 0) {
                     utils.error(p, errorNoArgs);
