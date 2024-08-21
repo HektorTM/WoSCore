@@ -28,7 +28,7 @@ public final class WoSCore extends JavaPlugin {
         this.lang = new LangManager(this);
         GuiManager guiManager = new GuiManager(this);
 
-        this.getCommand("gui").setExecutor(new GuiCommand(guiManager));
+        this.getCommand("gui").setExecutor(new GuiCommand(guiManager, lang));
         this.getServer().getPluginManager().registerEvents(new GuiListener(guiManager), this);
         this.getServer().getPluginManager().registerEvents(new ChatListener(guiManager), this);
 
@@ -56,7 +56,7 @@ public final class WoSCore extends JavaPlugin {
         Weather weatherExe = new Weather();
         Broadcast broadcastExe = new Broadcast(lang);
         CoreCommands coreExe = new CoreCommands(lang, this);
-        GuiCommand guiExe = new GuiCommand(new GuiManager(this));
+        GuiCommand guiExe = new GuiCommand(new GuiManager(this), lang);
 
         PvPManager pvpManager = new PvPManager(getDataFolder());
         //noinspection DataFlowIssue

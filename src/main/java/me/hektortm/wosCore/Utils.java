@@ -25,6 +25,7 @@ public class Utils {
    public static String errorGuiNotFound;
    public static String errorGuiExists;
    public static String errorGuiDelete;
+   public static String errorGuiUnknown;
 
 
    public static void init(LangManager langManager) {
@@ -48,6 +49,7 @@ public class Utils {
        errorGuiNotFound = lang.getMessage("error.gui.not-found");
        errorGuiExists = lang.getMessage("error.gui.exists");
        errorGuiDelete = lang.getMessage("error.gui.delete");
+       errorGuiUnknown = lang.getMessage("error.gui.unknown");
    }
 
    //public static void initPrefix(JavaPlugin plugin) {

@@ -123,7 +123,7 @@ public class GuiManager {
         }
 
         if (file.delete()) {
-            Utils.successMsg1Value(p, "gui.delted", "%GUIname%", guiName);
+            Utils.successMsg1Value(p, "gui.deleted", "%GUIname%", guiName);
         } else {
             Utils.error(p, errorGuiDelete);
         }

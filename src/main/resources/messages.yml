@@ -21,11 +21,12 @@ error:
     message: "Please provide a message"
     unset: "You must set both a title and a message."
   core.unknown: "Unknown Subcommand. Use: reload."
-  core.unknown.sub: "Unknown Subcommand. Use: config.yml, messages.yml or all"
+  core.unknown.sub: "Unknown Subcommand. Use: config.yml, messages.yml or all."
   gui:
     exists: "A GUI with this name already exists."
     not-found: "GUI was not found."
     delete: "Could not delete the GUI."
+    unknown: "Please provide a Subcommand. Use: <name>, create, edit or delete."
 
 
 core:
@@ -87,33 +88,21 @@ pvp:
   combat-toggle: "§7You have %status%§7 your combat mode."
   status: "§7You currently have combat %status%§7."
   help-header: "§7Combat Commands:"
-  help-toggle: "§e/pvp toggle - Toggle your combat status."
-  help-status: "§e/pvp status - Check your current combat status."
-  help-list: "§e/pvp help - Display this help message."
+  help-toggle: "§e/pvp toggle §7- Toggle your combat status."
+  help-status: "§e/pvp status §7- Check your current combat status."
+  help-list: "§e/pvp help §7- Display this help message."
 
 gui:
-  created: "§7GUI '§e%GUIname%' §7created successfully."
-  deleted: "§7GUI '§e%GUIname%' §7deleted successfully."
-  saved: "§7GUI '§e%GUIname%' §7saved successfully."
-  linked: "§e'%cmd%' §7linked to item in slot §e%slot%§7."
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  created: "§7GUI '§e%GUIname%§7' created successfully."
+  deleted: "§7GUI '§e%GUIname%§7' deleted successfully."
+  saved: "§7GUI '§e%GUIname%§7' saved successfully."
+  linked: "§e'%cmd%§7' linked to item in slot §e%slot%§7."
+  help-header: "§7Gui Commands:"
+  help-default: "§e/gui <GUI name> [player] §7- Open a GUI."
+  help-create: "§e/gui create <GUI name> <rows> §7- Create a GUI."
+  help-edit: "§e/gui edit <GUI name> §7- Edit an existing GUI."
+  help-delete: "§e/gui delete <GUI name> §7- Delete a GUI"
+  help-list: "§e/gui help §7- Display this help message."
 
 
 

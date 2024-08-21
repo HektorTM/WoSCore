@@ -1,28 +1,32 @@
 package me.hektortm.wosCore.guis;
 
+import me.hektortm.wosCore.LangManager;
+import me.hektortm.wosCore.Utils;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import static me.hektortm.wosCore.Utils.*;
+
 public class GuiCommand implements CommandExecutor {
     private final GuiManager guiManager;
+    private final LangManager lang;
 
-    public GuiCommand(GuiManager guiManager) {
+    public GuiCommand(GuiManager guiManager, LangManager lang) {
         this.guiManager = guiManager;
+        this.lang = lang;
     }
 
     // TODO: message.yml
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (!(sender instanceof Player player)) {
-            sender.sendMessage("This command can only be used by players.");
-            return true;
-        }
 
         if (args.length == 0) {
-            player.sendMessage("§cPlease specify a subcommand: <name>, create, edit, delete");
+            sender.sendMessage("§cPlease specify a subcommand: <name>, create, edit, delete");
+            Utils.error(sender, errorGuiUnknown);
             return true;
         }
 
@@ -30,36 +34,75 @@ public class GuiCommand implements CommandExecutor {
 
         switch (subCommand) {
             case "create":
-                if (args.length != 3) {
-                    player.sendMessage("§cUsage: /gui create <name> <rows>");
+                if (!(sender instanceof Player)) {
+                    sender.sendMessage("This command can only be used by players.");
                     return true;
                 }
+                if (args.length != 3) {
+                    Utils.error(sender, errorNoArgs);
+                    return true;
+                }
+                Player player = (Player) sender;
                 String createName = args[1];
                 int rows = Integer.parseInt(args[2]);
                 guiManager.createGui(player, createName, rows);
                 break;
 
             case "edit":
-                if (args.length != 2) {
-                    player.sendMessage("§cUsage: /gui edit <name>");
+                if (!(sender instanceof Player)) {
+                    sender.sendMessage("This command can only be used by players.");
                     return true;
                 }
+                if (args.length != 2) {
+                    Utils.error(sender, errorNoArgs);
+                    return true;
+                }
+                Player editingPlayer = (Player) sender;
                 String editName = args[1];
-                guiManager.openGuiEditor(player, editName);
+                guiManager.openGuiEditor(editingPlayer, editName);
                 break;
 
             case "delete":
-                if (args.length != 2) {
-                    player.sendMessage("§cUsage: /gui delete <name>");
+                if (!(sender instanceof Player)) {
+                    sender.sendMessage("This command can only be used by players.");
                     return true;
                 }
+                if (args.length != 2) {
+                    Utils.error(sender, errorNoArgs);
+                    return true;
+                }
+                Player deletingPlayer = (Player) sender;
                 String deleteName = args[1];
-                guiManager.deleteGui(player, deleteName);
+                guiManager.deleteGui(deletingPlayer, deleteName);
                 break;
-
+            case "help":
+                Utils.successMsg(sender, "gui.help-header");
+                sender.sendMessage(lang.getMessage("gui.help-default"));
+                sender.sendMessage(lang.getMessage("gui.help-create"));
+                sender.sendMessage(lang.getMessage("gui.help-edit"));
+                sender.sendMessage(lang.getMessage("gui.help-delete"));
+                sender.sendMessage(lang.getMessage("gui.help-list"));
+                break;
             default:
+                // Handle the /gui <name> [PLAYER] command
                 String guiName = args[0];
-                guiManager.openGui(player, guiName);
+                Player targetPlayer;
+
+                if (args.length == 2) {
+                    targetPlayer = Bukkit.getPlayer(args[1]);
+                    if (targetPlayer == null) {
+                        Utils.error(sender, errorOnline);
+                        return true;
+                    }
+                } else {
+                    if (!(sender instanceof Player)) {
+                        sender.sendMessage("§cConsole must specify a player to open the GUI for.");
+                        return true;
+                    }
+                    targetPlayer = (Player) sender;
+                }
+
+                guiManager.openGui(targetPlayer, guiName);
                 break;
         }
 

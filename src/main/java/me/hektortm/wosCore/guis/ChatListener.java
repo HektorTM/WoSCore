@@ -15,18 +15,18 @@ public class ChatListener implements Listener {
     }
 
     @EventHandler
-    public void onPlayerChat(AsyncPlayerChatEvent event) {
-        Player player = event.getPlayer();
+    public void onPlayerChat(AsyncPlayerChatEvent e) {
+        Player p = e.getPlayer();
 
-        if (player.hasMetadata("linkingSlot")) {
-            int slot = player.getMetadata("linkingSlot").get(0).asInt();
-            String command = event.getMessage();
-            event.setCancelled(true);
+        if (p.hasMetadata("linkingSlot")) {
+            int slot = p.getMetadata("linkingSlot").get(0).asInt();
+            String command = e.getMessage();
+            e.setCancelled(true);
 
-            Inventory inventory = player.getOpenInventory().getTopInventory();
-            guiManager.linkCommandToItem(player, inventory, slot, command);
+            Inventory inventory = p.getOpenInventory().getTopInventory();
+            guiManager.linkCommandToItem(p, inventory, slot, command);
 
-            player.removeMetadata("linkingSlot", guiManager.getPlugin());
+            p.removeMetadata("linkingSlot", guiManager.getPlugin());
         }
     }
 
