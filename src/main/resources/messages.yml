@@ -22,6 +22,8 @@ error:
     unset: "You must set both a title and a message."
   core.unknown: "Unknown Subcommand. Use: reload."
   core.unknown.sub: "Unknown Subcommand. Use: config.yml, messages.yml or all"
+  gui:
+    not-found: "GUI file was not found."
 
 core:
   messages:

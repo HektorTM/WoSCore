@@ -2,6 +2,8 @@ package me.hektortm.wosCore;
 
 import me.hektortm.wosCore.chatsystem.ChatListeners;
 import me.hektortm.wosCore.essentials.*;
+import me.hektortm.wosCore.guis.GuiCommand;
+import me.hektortm.wosCore.guis.GuiManager;
 import me.hektortm.wosCore.pvpsystem.PvPCommands;
 import me.hektortm.wosCore.pvpsystem.PvPListeners;
 import me.hektortm.wosCore.pvpsystem.PvPManager;
@@ -17,11 +19,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class WoSCore extends JavaPlugin {
     private PlaytimeManager playtimeManager;
     private LangManager lang;
+    private GuiManager guiManager;
 
     @Override
     public void onEnable() {
         playtimeManager = new PlaytimeManager(getDataFolder());
         this.lang = new LangManager(this);
+        guiManager = new GuiManager(this);
+
+        getServer().getPluginManager().registerEvents(this, this);
 
         getServer().getPluginManager().registerEvents(new Listener() {
             @EventHandler
@@ -47,6 +53,7 @@ public final class WoSCore extends JavaPlugin {
         Weather weatherExe = new Weather();
         Broadcast broadcastExe = new Broadcast(lang);
         CoreCommands coreExe = new CoreCommands(lang, this);
+        GuiCommand guiExe = new GuiCommand(guiManager);
 
         PvPManager pvpManager = new PvPManager(getDataFolder());
         //noinspection DataFlowIssue
