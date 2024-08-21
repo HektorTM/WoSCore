@@ -90,3 +90,7 @@ commands:
   playtime:
     description: Check your playtime
     usage: /playtime
+#
+  gui:
+    description: create or access a gui
+    usage: /gui

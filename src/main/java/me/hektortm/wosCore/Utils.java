@@ -23,6 +23,8 @@ public class Utils {
    public static String errorBcUnknown;
    public static String errorCoreUnknown;
    public static String errorGuiNotFound;
+   public static String errorGuiExists;
+   public static String errorGuiDelete;
 
 
    public static void init(LangManager langManager) {
@@ -44,6 +46,8 @@ public class Utils {
        errorBcUnknown = lang.getMessage("error.broadcast.unknown");
        errorCoreUnknown = lang.getMessage("error.core.unknown");
        errorGuiNotFound = lang.getMessage("error.gui.not-found");
+       errorGuiExists = lang.getMessage("error.gui.exists");
+       errorGuiDelete = lang.getMessage("error.gui.delete");
    }
 
    //public static void initPrefix(JavaPlugin plugin) {

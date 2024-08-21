@@ -1,17 +1,27 @@
 package me.hektortm.wosCore;
 
+import me.hektortm.wosCore.guis.GuiManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class CommandTabComplete implements TabCompleter {
+    private final GuiManager guiManager;
+
+    public CommandTabComplete(GuiManager guiManager) {
+        this.guiManager = guiManager;
+    }
+
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
+        List<String> completions = new ArrayList<>();
+
         if(command.getName().equalsIgnoreCase("pvp")) {
             if (args.length == 1) {
                 return Arrays.asList("toggle","status","help");
@@ -36,6 +46,30 @@ public class CommandTabComplete implements TabCompleter {
                 return Arrays.asList("messages.yml", "config.yml", "all");
             }
         }
-        return null;
+        if (command.getName().equalsIgnoreCase("gui")) {
+            if (args.length == 1) {
+                // Provide options for the first argument
+                if ("gui".equalsIgnoreCase(args[0])) {
+                    completions.addAll(Arrays.asList("create", "edit", "delete"));
+                } else {
+                    // Complete the GUI names if no subcommand or unrecognized command
+                    completions.addAll(guiManager.getAllGuiFilenames());
+                }
+            } else if (args.length == 2) {
+                // Handle the second argument based on the first argument
+                String subCommand = args[0].toLowerCase();
+                if ("edit".equalsIgnoreCase(subCommand) || "delete".equalsIgnoreCase(subCommand)) {
+                    completions.addAll(guiManager.getAllGuiFilenames());
+                } else if ("create".equalsIgnoreCase(subCommand)) {
+                    // You might add additional suggestions or constraints for "create"
+                }
+            } else if (args.length == 3 && "create".equalsIgnoreCase(args[0])) {
+                // Handle row numbers for the "create" subcommand
+                completions.addAll(Arrays.asList("1", "2", "3", "4", "5", "6"));
+            }
+        }
+
+        // Filter and return matching completions
+        return completions;
     }
 }
