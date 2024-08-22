@@ -21,9 +21,20 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class WoSCore extends JavaPlugin {
     private PlaytimeManager playtimeManager;
     private LangManager lang;
+    private GuiManager guiManager;
+
 
     @Override
     public void onEnable() {
+        lang = new LangManager(this);
+        guiManager = new GuiManager(this);
+
+        int langFileCount = lang.getActiveLangFileCount();
+        int guiFileCount = guiManager.getActiveGuiFileCount();
+
+        getLogger().info("Active Language Files: " + langFileCount);
+        getLogger().info("Active GUI Files: "+ guiFileCount);
+
         playtimeManager = new PlaytimeManager(getDataFolder());
         this.lang = new LangManager(this);
         GuiManager guiManager = new GuiManager(this);

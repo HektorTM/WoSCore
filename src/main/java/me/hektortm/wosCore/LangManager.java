@@ -64,6 +64,9 @@ public class LangManager {
             e.printStackTrace();
         }
     }
+    public int getActiveLangFileCount() {
+        return langFiles.size(); // Returns the number of loaded language files
+    }
 
     public FileConfiguration getConfig(String file) {
         return langFiles.get(file);

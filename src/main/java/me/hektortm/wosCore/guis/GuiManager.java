@@ -256,6 +256,15 @@ public class GuiManager {
         return guiFiles;
     }
 
+    public int getActiveGuiFileCount() {
+        File guiFolder = new File(plugin.getDataFolder(), "guis");
+        if (!guiFolder.exists()) {
+            guiFolder.mkdirs(); // Create the directory if it doesn't exist
+        }
+        File[] files = guiFolder.listFiles((dir, name) -> name.endsWith(".json"));
+        return (files != null) ? files.length : 0;
+    }
+
 
 
 }
