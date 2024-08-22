@@ -1,0 +1,7 @@
+pvp:
+  combat-toggle: "§7You have %status%§7 your combat mode."
+  status: "§7You currently have combat %status%§7."
+  help-header: "§7Combat Commands:"
+  help-toggle: "§e/pvp toggle §7- Toggle your combat status."
+  help-status: "§e/pvp status §7- Check your current combat status."
+  help-list: "§e/pvp help §7- Display this help message."

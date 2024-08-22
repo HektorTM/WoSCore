@@ -1,0 +1,9 @@
+broadcast:
+  style:
+    preview: "§m ────────§7│ §bPREVIEW §7│ §m────────"
+    title: "                     §6§l| §7%title% §6§l|                     "
+    signature: "§8- §o%signature%"
+  title: "§7Title set to: %title%"
+  message: "§7Message set to: %message%"
+  signed: "§7Signed status set to: %status%"
+  clear: "§7You have cleared your broadcast settings."

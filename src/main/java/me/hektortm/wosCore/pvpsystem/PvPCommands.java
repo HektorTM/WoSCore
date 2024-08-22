@@ -26,7 +26,7 @@ public class PvPCommands implements CommandExecutor {
             if (sender instanceof Player p) {
                 if (args.length == 0) {
                     boolean newStatus = pvpManager.togglePvP(p);
-                    Utils.successMsg1Value(p, "pvp.combat-toggle", "%status%", newStatus ? "§aenabled" : "§cdisabled");
+                    Utils.successMsg1Value(p,"pvp", "pvp.combat-toggle", "%status%", newStatus ? "§aenabled" : "§cdisabled");
                     return true;
                 }
 
@@ -35,19 +35,19 @@ public class PvPCommands implements CommandExecutor {
                 switch (subCommand) {
                     case "toggle":
                         boolean newStatus = pvpManager.togglePvP(p);
-                        Utils.successMsg1Value(p, "pvp.combat-toggle", "%status%", newStatus ? "§aenabled" : "§cdisabled");
+                        Utils.successMsg1Value(p,"pvp", "pvp.combat-toggle", "%status%", newStatus ? "§aenabled" : "§cdisabled");
                         break;
 
                     case "status":
                         boolean isPvPEnabled = pvpManager.pvpEnabled(p);
-                        Utils.successMsg1Value(p, "pvp.status", "%status%", isPvPEnabled ? "§aenabled" : "§cdisabled");
+                        Utils.successMsg1Value(p,"pvp", "pvp.status", "%status%", isPvPEnabled ? "§aenabled" : "§cdisabled");
                         break;
 
                     case "help":
-                        Utils.successMsg(p, "pvp.help-header");
-                        p.sendMessage(lang.getMessage("pvp.help-toggle"));
-                        p.sendMessage(lang.getMessage("pvp.help-status"));
-                        p.sendMessage(lang.getMessage("pvp.help-list"));
+                        Utils.successMsg(p,"pvp", "pvp.help-header");
+                        p.sendMessage(lang.getMessage("pvp","pvp.help-toggle"));
+                        p.sendMessage(lang.getMessage("pvp","pvp.help-status"));
+                        p.sendMessage(lang.getMessage("pvp","pvp.help-list"));
                         break;
 
                     default:

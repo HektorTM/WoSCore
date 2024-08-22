@@ -110,7 +110,7 @@ public final class WoSCore extends JavaPlugin {
     private void tabcompReg(String name) {
         if (getCommand(name) != null) {
             //noinspection DataFlowIssue
-            getCommand(name).setTabCompleter(new CommandTabComplete(new GuiManager(this)));
+            getCommand(name).setTabCompleter(new CommandTabComplete(new GuiManager(this), lang));
         } else {
             getLogger().severe("Tabcompletion '"+name+"' was not found.");
         }

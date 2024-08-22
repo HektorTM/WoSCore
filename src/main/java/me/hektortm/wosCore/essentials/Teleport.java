@@ -27,7 +27,7 @@ public class Teleport implements CommandExecutor {
                         Utils.error(p, errorTpSelf);
                     } else {
                         p.teleport(t);
-                        Utils.successMsg1Value(p, "essentials.tp", "%player%", pN);
+                        Utils.successMsg1Value(p,"essentials", "essentials.tp", "%player%", pN);
                         p.playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);
                     }
                 } else if (args.length == 0) {
@@ -48,7 +48,7 @@ public class Teleport implements CommandExecutor {
                         Utils.error(p, errorTphereSelf);
                     } else {
                         t.teleport(p);
-                        Utils.successMsg1Value(p, "essentials.tphere", "%player%", t.getName());
+                        Utils.successMsg1Value(p,"essentials", "essentials.tphere", "%player%", t.getName());
                     }
                 } else if(args.length == 0) {
                     Utils.error(p, errorNoArgs);

@@ -22,6 +22,7 @@ public class Utils {
    public static String errorBcUnset;
    public static String errorBcUnknown;
    public static String errorCoreUnknown;
+   public static String errorCoreUnknownFile;
    public static String errorGuiNotFound;
    public static String errorGuiExists;
    public static String errorGuiDelete;
@@ -32,49 +33,50 @@ public class Utils {
        lang = langManager;
        //initPrefix(plugin);
 
-       errorOnline = lang.getMessage("error.online");
-       errorNoArgs = lang.getMessage("error.noargs");
-       errorArgs = lang.getMessage("error.toomanyargs");
-       errorUnknownPvP = lang.getMessage("error.pvp.unknown");
-       errorSpeedValue = lang.getMessage("error.speed.value");
-       errorSpeedInvalid = lang.getMessage("error.speed.invalid");
-       errorTpSelf = lang.getMessage("error.tp.self");
-       errorTphereSelf = lang.getMessage("error.tphere.self");
-       errorTimeInvalid = lang.getMessage("error.time.invalid");
-       errorBcTitle = lang.getMessage("error.broadcast.title");
-       errorBcMsg = lang.getMessage("error.broadcast.message");
-       errorBcUnset = lang.getMessage("error.broadcast.unset");
-       errorBcUnknown = lang.getMessage("error.broadcast.unknown");
-       errorCoreUnknown = lang.getMessage("error.core.unknown");
-       errorGuiNotFound = lang.getMessage("error.gui.not-found");
-       errorGuiExists = lang.getMessage("error.gui.exists");
-       errorGuiDelete = lang.getMessage("error.gui.delete");
-       errorGuiUnknown = lang.getMessage("error.gui.unknown");
+       errorOnline = lang.getMessage("errors", "error.online");
+       errorNoArgs = lang.getMessage("errors","error.noargs");
+       errorArgs = lang.getMessage("errors","error.toomanyargs");
+       errorUnknownPvP = lang.getMessage("errors","error.pvp.unknown");
+       errorSpeedValue = lang.getMessage("errors","error.speed.value");
+       errorSpeedInvalid = lang.getMessage("errors","error.speed.invalid");
+       errorTpSelf = lang.getMessage("errors", "errors.tp.self");
+       errorTphereSelf = lang.getMessage("errors","error.tphere.self");
+       errorTimeInvalid = lang.getMessage("errors","error.time.invalid");
+       errorBcTitle = lang.getMessage("errors","error.broadcast.title");
+       errorBcMsg = lang.getMessage("errors","error.broadcast.message");
+       errorBcUnset = lang.getMessage("errors","error.broadcast.unset");
+       errorBcUnknown = lang.getMessage("errors","error.broadcast.unknown");
+       errorCoreUnknown = lang.getMessage("errors","error.core.unknown");
+       errorCoreUnknownFile = lang.getMessage("errors", "error.core.unknown-file");
+       errorGuiNotFound = lang.getMessage("errors","error.gui.not-found");
+       errorGuiExists = lang.getMessage("errors","error.gui.exists");
+       errorGuiDelete = lang.getMessage("errors","error.gui.delete");
+       errorGuiUnknown = lang.getMessage("errors","error.gui.unknown");
    }
 
    //public static void initPrefix(JavaPlugin plugin) {
    //    prefix = plugin.getConfig().getString("prefix", "§6World of Sorcery §8| §r");
    //}
     public static String getPrefix() {
-        return lang.getMessage("prefix.general");
+        return lang.getMessage("general","prefix.general");
     }
     public static void error(CommandSender sender, String msg) {
         if (sender instanceof Player p) {
             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1, 1);
-            p.sendMessage(lang.getMessage("prefix.error") + msg);
+            p.sendMessage(lang.getMessage("general","prefix.error") + msg);
         }
 
     }
-    public static void successMsg(CommandSender sender, String msg) {
-       sender.sendMessage(lang.getMessage("prefix.general")+lang.getMessage(msg));
+    public static void successMsg(CommandSender sender,String file, String msg) {
+       sender.sendMessage(lang.getMessage("general","prefix.general")+lang.getMessage(file, msg));
     }
-    public static void successMsg1Value(CommandSender sender, String msg, String oldChar, String value) {
-       String message = lang.getMessage(msg).replace(oldChar, value);
-       sender.sendMessage(lang.getMessage("prefix.general")+message);
+    public static void successMsg1Value(CommandSender sender,String file, String msg, String oldChar, String value) {
+       String message = lang.getMessage(file, msg).replace(oldChar, value);
+       sender.sendMessage(lang.getMessage("general","prefix.general")+message);
     }
-    public static void successMsg2Values(CommandSender sender, String msg, String oldChar1, String value1, String oldChar2, String value2) {
-        String message = lang.getMessage(msg).replace(oldChar1, value1).replace(oldChar2, value2);
-        sender.sendMessage(lang.getMessage("prefix.general")+message);
+    public static void successMsg2Values(CommandSender sender,String file, String msg, String oldChar1, String value1, String oldChar2, String value2) {
+        String message = lang.getMessage(file, msg).replace(oldChar1, value1).replace(oldChar2, value2);
+        sender.sendMessage(lang.getMessage("general","prefix.general")+message);
     }
 
 }

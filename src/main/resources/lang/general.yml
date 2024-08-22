@@ -1,0 +1,15 @@
+prefix:
+  general: "§6World of Sorcery §8|§r "
+  broadcast: "§6Broadcast §8| §7"
+  shout: "§dShout §8» §d%player%§8: §7"
+  error: "§cERROR: §7"
+
+core:
+  messages:
+    reloading: "§7Reloading §eLanguage Folder§7..."
+    reloaded: "§eLanguage Folder §7reloaded!"
+    reloading_specific: "§7Reloading §e%file%.yml§7..."
+    reloaded_specific: "§e%file%.yml §7reloaded!"
+  config:
+    reloading: "§7Reloading §econfig.yml§7..."
+    reloaded: "§econfig.yml §7reloaded!"

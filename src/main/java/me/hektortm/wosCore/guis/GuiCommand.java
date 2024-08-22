@@ -25,7 +25,6 @@ public class GuiCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 
         if (args.length == 0) {
-            sender.sendMessage("§cPlease specify a subcommand: <name>, create, edit, delete");
             Utils.error(sender, errorGuiUnknown);
             return true;
         }
@@ -76,12 +75,12 @@ public class GuiCommand implements CommandExecutor {
                 guiManager.deleteGui(deletingPlayer, deleteName);
                 break;
             case "help":
-                Utils.successMsg(sender, "gui.help-header");
-                sender.sendMessage(lang.getMessage("gui.help-default"));
-                sender.sendMessage(lang.getMessage("gui.help-create"));
-                sender.sendMessage(lang.getMessage("gui.help-edit"));
-                sender.sendMessage(lang.getMessage("gui.help-delete"));
-                sender.sendMessage(lang.getMessage("gui.help-list"));
+                Utils.successMsg(sender, "guis", "gui.help-header");
+                sender.sendMessage(lang.getMessage("guis","gui.help-default"));
+                sender.sendMessage(lang.getMessage("guis","gui.help-create"));
+                sender.sendMessage(lang.getMessage("guis","gui.help-edit"));
+                sender.sendMessage(lang.getMessage("guis","gui.help-delete"));
+                sender.sendMessage(lang.getMessage("guis","gui.help-list"));
                 break;
             default:
                 // Handle the /gui <name> [PLAYER] command

@@ -13,9 +13,11 @@ import java.util.List;
 
 public class CommandTabComplete implements TabCompleter {
     private final GuiManager guiManager;
+    private final LangManager lang;
 
-    public CommandTabComplete(GuiManager guiManager) {
+    public CommandTabComplete(GuiManager guiManager, LangManager lang) {
         this.guiManager = guiManager;
+        this.lang = lang;
     }
 
     @Override
@@ -40,10 +42,11 @@ public class CommandTabComplete implements TabCompleter {
         if (command.getName().equalsIgnoreCase("core")) {
             if (args.length == 1) {
                 // If no arguments or the first argument is being typed, suggest the first set of options
-                return Arrays.asList("reload");
+                completions.addAll(Arrays.asList("reload"));
             } else if (args.length == 2 && args[0].equalsIgnoreCase("reload")) {
                 // If the first argument is "reload", suggest these options for the second argument
-                return Arrays.asList("messages.yml", "config.yml", "all");
+                completions.addAll(lang.getAllLangFilenames());
+                completions.addAll(Arrays.asList("lang", "config.yml", "all"));
             }
         }
         if (command.getName().equalsIgnoreCase("gui")) {

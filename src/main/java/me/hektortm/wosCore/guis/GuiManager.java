@@ -38,7 +38,7 @@ public class GuiManager {
         guiData.put("items", new ArrayList<>());
 
         saveGuiData(file, guiData);
-        Utils.successMsg1Value(p, "gui.created", "%GUIname%", guiName);
+        Utils.successMsg1Value(p,"guis", "gui.created", "%GUIname%", guiName);
     }
 
     public void openGui(Player p, String guiName) {
@@ -123,7 +123,7 @@ public class GuiManager {
         }
 
         if (file.delete()) {
-            Utils.successMsg1Value(p, "gui.deleted", "%GUIname%", guiName);
+            Utils.successMsg1Value(p,"guis","gui.deleted", "%GUIname%", guiName);
         } else {
             Utils.error(p, errorGuiDelete);
         }
@@ -181,7 +181,7 @@ public class GuiManager {
 
         File file = new File(plugin.getDataFolder(), "guis/" + guiName + ".json");
         saveGuiData(file, guiData);
-        Utils.successMsg1Value(p, "gui.saved", "%GUIname%", guiName);
+        Utils.successMsg1Value(p,"guis", "gui.saved", "%GUIname%", guiName);
     }
 
     public void linkCommandToItem(Player p, Inventory inventory, int slot, String command) {
@@ -203,7 +203,7 @@ public class GuiManager {
 
             saveGuiData(file, guiData);
             String slotVal = String.valueOf(slot);
-            Utils.successMsg2Values(p, "gui.linked", "%cmd%", command, "%slot%", slotVal);
+            Utils.successMsg2Values(p,"guis", "gui.linked", "%cmd%", command, "%slot%", slotVal);
         } catch (IOException e) {
             e.printStackTrace();
         }
