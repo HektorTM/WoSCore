@@ -58,7 +58,7 @@ public class CommandTabComplete implements TabCompleter {
                     // Complete the GUI names if no subcommand or unrecognized command
                     completions.addAll(guiManager.getAllGuiFilenames());
                 }
-            } else if (args.length == 2) {
+            } else if (args.length == 3) {
                 // Handle the second argument based on the first argument
                 String subCommand = args[0].toLowerCase();
                 if ("edit".equalsIgnoreCase(subCommand) || "delete".equalsIgnoreCase(subCommand)) {
@@ -66,7 +66,7 @@ public class CommandTabComplete implements TabCompleter {
                 } else if ("create".equalsIgnoreCase(subCommand)) {
                     // You might add additional suggestions or constraints for "create"
                 }
-            } else if (args.length == 3 && "create".equalsIgnoreCase(args[0])) {
+            } else if (args.length == 4 && "create".equalsIgnoreCase(args[0])) {
                 // Handle row numbers for the "create" subcommand
                 completions.addAll(Arrays.asList("1", "2", "3", "4", "5", "6"));
             }

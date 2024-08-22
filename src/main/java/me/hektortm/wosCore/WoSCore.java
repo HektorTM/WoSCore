@@ -87,15 +87,16 @@ public final class WoSCore extends JavaPlugin {
         commandReg("day", timeExe);
         commandReg("night", timeExe);
         commandReg("ptime", timeExe);
-        tabcompReg("ptime");
         commandReg("sun", weatherExe);
         commandReg("rain", weatherExe);
         commandReg("storm", weatherExe);
         commandReg("playtime", playtimeExe);
         commandReg("broadcast", broadcastExe);
-        tabcompReg("broadcast");
         commandReg("shout", broadcastExe);
         commandReg("core", coreExe);
+
+        tabcompReg("broadcast");
+        tabcompReg("ptime");
         tabcompReg("core");
         tabcompReg("gui");
 
@@ -107,7 +108,6 @@ public final class WoSCore extends JavaPlugin {
     @Override
     public void onDisable() {
         reloadConfig();
-        //utils.initPrefix(this);
     }
 
     private void commandReg(String name, CommandExecutor exe) {
