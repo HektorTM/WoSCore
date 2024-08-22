@@ -5,6 +5,7 @@ import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -30,6 +31,7 @@ public class ChatListeners implements Listener {
         // Cancel the default message and send the custom message
         event.setCancelled(true);
         event.getRecipients().forEach(recipient -> recipient.sendMessage(finalMessage));
+
     }
 
 }

@@ -15,6 +15,7 @@ import org.bukkit.metadata.FixedMetadataValue;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static me.hektortm.wosCore.Utils.*;
 
@@ -25,24 +26,25 @@ public class GuiManager {
         this.plugin = plugin;
     }
 
-    public void createGui(Player p, String guiName, int rows) {
-        File file = new File(plugin.getDataFolder(), "guis/" + guiName + ".json");
+    public void createGui(Player p,String guiId, String guiTitle, int rows) {
+        File file = new File(plugin.getDataFolder(), "guis/" + guiId + ".json");
         if (file.exists()) {
             Utils.error(p, errorGuiExists);
             return;
         }
 
         Map<String, Object> guiData = new HashMap<>();
-        guiData.put("title", guiName);
+        guiData.put("id", guiId);
+        guiData.put("title", guiTitle);
         guiData.put("rows", rows);
         guiData.put("items", new ArrayList<>());
 
         saveGuiData(file, guiData);
-        Utils.successMsg1Value(p,"guis", "gui.created", "%GUIname%", guiName);
+        Utils.successMsg1Value(p,"guis", "gui.created", "%GUIname%", guiTitle);
     }
 
-    public void openGui(Player p, String guiName) {
-        File file = new File(plugin.getDataFolder(), "guis/" + guiName + ".json");
+    public void openGui(Player p, String guiId) {
+        File file = new File(plugin.getDataFolder(), "guis/" + guiId + ".json");
         if (!file.exists()) {
             Utils.error(p, errorGuiNotFound);
             return;
@@ -61,14 +63,15 @@ public class GuiManager {
                 Material material = Material.getMaterial((String) itemData.get("material"));
                 ItemStack item = new ItemStack(material);
                 ItemMeta meta = item.getItemMeta();
-                if (itemData.containsKey("name")) {
-                    meta.setDisplayName((String) itemData.get("name"));
+                if (meta != null) {
+                    if (itemData.containsKey("name")) {
+                        meta.setDisplayName((String) itemData.get("name"));
+                    }
+                    if (itemData.containsKey("lore")) {
+                        meta.setLore((List<String>) itemData.get("lore"));
+                    }
+                    item.setItemMeta(meta);
                 }
-                if (itemData.containsKey("lore")) {
-                    meta.setLore((List<String>) itemData.get("lore"));
-                }
-                item.setItemMeta(meta);
-
                 gui.setItem(slot, item);
             }
             p.openInventory(gui);
@@ -77,8 +80,9 @@ public class GuiManager {
         }
     }
 
-    public void openGuiEditor(Player p, String guiName) {
-        File file = new File(plugin.getDataFolder(), "guis/" + guiName + ".json");
+
+    public void openGuiEditor(Player p, String guiId) {
+        File file = new File(plugin.getDataFolder(), "guis/" + guiId + ".json");
         if (!file.exists()) {
             Utils.error(p, errorGuiNotFound);
             return;
@@ -87,8 +91,9 @@ public class GuiManager {
         try (FileReader reader = new FileReader(file)) {
             Map<String, Object> guiData = new Gson().fromJson(reader, Map.class);
             int rows = ((Double) guiData.get("rows")).intValue();
+            String title = (String) guiData.get("title");
 
-            Inventory editor = Bukkit.createInventory(p, rows * 9, "Editing: " + guiName);
+            Inventory editor = Bukkit.createInventory(p, rows * 9, "Editing: " + title);
 
             List<Map<String, Object>> items = (List<Map<String, Object>>) guiData.get("items");
             for (Map<String, Object> itemData : items) {
@@ -108,12 +113,12 @@ public class GuiManager {
             }
 
             p.openInventory(editor);
-            // Store title in metadata for later use
-            p.setMetadata("guiTitle", new FixedMetadataValue(plugin, "Editing: " + guiName));
+            p.setMetadata("guiId", new FixedMetadataValue(plugin, guiId));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     public void deleteGui(Player p, String guiName) {
         File file = new File(plugin.getDataFolder(), "guis/" + guiName + ".json");
@@ -154,10 +159,12 @@ public class GuiManager {
 
     public void saveGuiLayout(Player p, Inventory inventory) {
         String title = p.getMetadata("guiTitle").isEmpty() ? "" : p.getMetadata("guiTitle").get(0).asString();
-        String guiName = title.replace("Editing: ", "");
+        String guiId = p.getMetadata("guiId").isEmpty() ? "" : p.getMetadata("guiId").get(0).asString();
+
+        File file = new File(plugin.getDataFolder(), "guis/" + guiId + ".json");
 
         Map<String, Object> guiData = new HashMap<>();
-        guiData.put("title", guiName);
+        guiData.put("title", title.replace("Editing: ", "")); // Save the title without the "Editing: " prefix
         guiData.put("rows", inventory.getSize() / 9);
 
         List<Map<String, Object>> items = new ArrayList<>();
@@ -167,27 +174,31 @@ public class GuiManager {
                 Map<String, Object> itemData = new HashMap<>();
                 itemData.put("slot", i);
                 itemData.put("material", item.getType().toString());
+
                 ItemMeta meta = item.getItemMeta();
-                if (meta.hasDisplayName()) {
-                    itemData.put("name", meta.getDisplayName());
-                }
-                if (meta.hasLore()) {
-                    itemData.put("lore", meta.getLore());
+                if (meta != null) {
+                    if (meta.hasDisplayName()) {
+                        itemData.put("name", meta.getDisplayName());
+                    }
+                    if (meta.hasLore()) {
+                        itemData.put("lore", meta.getLore());
+                    }
                 }
                 items.add(itemData);
             }
         }
         guiData.put("items", items);
 
-        File file = new File(plugin.getDataFolder(), "guis/" + guiName + ".json");
         saveGuiData(file, guiData);
-        Utils.successMsg1Value(p,"guis", "gui.saved", "%GUIname%", guiName);
+
+        Utils.successMsg1Value(p, "guis", "gui.saved", "%GUIname%", guiId);
     }
 
+
+
     public void linkCommandToItem(Player p, Inventory inventory, int slot, String command) {
-        String title = p.getMetadata("guiTitle").isEmpty() ? "" : p.getMetadata("guiTitle").get(0).asString();
-        String guiName = title.replace("Editing: ", "");
-        File file = new File(plugin.getDataFolder(), "guis/" + guiName + ".json");
+        String guiId = p.getMetadata("guiId").get(0).asString();
+        File file = new File(plugin.getDataFolder(), "guis/" + guiId + ".json");
 
         try (FileReader reader = new FileReader(file)) {
             Map<String, Object> guiData = new Gson().fromJson(reader, Map.class);
@@ -202,8 +213,7 @@ public class GuiManager {
             }
 
             saveGuiData(file, guiData);
-            String slotVal = String.valueOf(slot);
-            Utils.successMsg2Values(p,"guis", "gui.linked", "%cmd%", command, "%slot%", slotVal);
+            Utils.successMsg2Values(p, "guis", "gui.linked", "%cmd%", command, "%slot%", String.valueOf(slot));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -263,6 +273,10 @@ public class GuiManager {
         }
         File[] files = guiFolder.listFiles((dir, name) -> name.endsWith(".json"));
         return (files != null) ? files.length : 0;
+    }
+    public boolean guiExists(String guiId) {
+        List<String> allGuiFilenames = getAllGuiFilenames();
+        return allGuiFilenames.contains(guiId);
     }
 
 

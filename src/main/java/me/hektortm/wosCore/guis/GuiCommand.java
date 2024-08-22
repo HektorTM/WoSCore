@@ -37,14 +37,15 @@ public class GuiCommand implements CommandExecutor {
                     sender.sendMessage("This command can only be used by players.");
                     return true;
                 }
-                if (args.length != 3) {
+                if (args.length != 4) {
                     Utils.error(sender, errorNoArgs);
                     return true;
                 }
                 Player player = (Player) sender;
-                String createName = args[1];
-                int rows = Integer.parseInt(args[2]);
-                guiManager.createGui(player, createName, rows);
+                String guiId = args[1];
+                String guiTitle = args[2];
+                int rows = Integer.parseInt(args[3]);
+                guiManager.createGui(player, guiId, guiTitle, rows);
                 break;
 
             case "edit":
@@ -57,9 +58,10 @@ public class GuiCommand implements CommandExecutor {
                     return true;
                 }
                 Player editingPlayer = (Player) sender;
-                String editName = args[1];
-                guiManager.openGuiEditor(editingPlayer, editName);
+                String editId = args[1];
+                guiManager.openGuiEditor(editingPlayer, editId);
                 break;
+
 
             case "delete":
                 if (!(sender instanceof Player)) {
@@ -71,9 +73,10 @@ public class GuiCommand implements CommandExecutor {
                     return true;
                 }
                 Player deletingPlayer = (Player) sender;
-                String deleteName = args[1];
-                guiManager.deleteGui(deletingPlayer, deleteName);
+                String deleteId = args[1];
+                guiManager.deleteGui(deletingPlayer, deleteId);
                 break;
+
             case "help":
                 Utils.successMsg(sender, "guis", "gui.help-header");
                 sender.sendMessage(lang.getMessage("guis","gui.help-default"));
@@ -83,8 +86,7 @@ public class GuiCommand implements CommandExecutor {
                 sender.sendMessage(lang.getMessage("guis","gui.help-list"));
                 break;
             default:
-                // Handle the /gui <name> [PLAYER] command
-                String guiName = args[0];
+                String id = args[0];
                 Player targetPlayer;
 
                 if (args.length == 2) {
@@ -101,8 +103,9 @@ public class GuiCommand implements CommandExecutor {
                     targetPlayer = (Player) sender;
                 }
 
-                guiManager.openGui(targetPlayer, guiName);
+                guiManager.openGui(targetPlayer, id);
                 break;
+
         }
 
         return true;

@@ -25,53 +25,49 @@ public class GuiListener implements Listener {
     public void onInventoryClick(InventoryClickEvent event) {
         guiManager.handleInventoryClick(event);
 
-        // Ensure the click is a valid interaction
         if (!(event.getWhoClicked() instanceof Player)) {
             return;
         }
 
+
+
         Player player = (Player) event.getWhoClicked();
         Inventory inventory = event.getInventory();
 
-        // Get the title from the InventoryView
         String title = event.getView().getTitle();
+        String guiId = player.getMetadata("guiId").isEmpty() ? "" : player.getMetadata("guiId").get(0).asString();
+        if (guiManager.guiExists(guiId+".yml")) {
+            if (title.startsWith("Editing: ")) {
+                if (event.getClick().isShiftClick()) {
+                    event.setCancelled(true);
+                    player.closeInventory();
+                    player.sendMessage("§aPlease type the command to link to the item in slot " + event.getSlot() + ".");
+                    player.sendMessage("§7(Without the leading /)");
 
-        // Check if the inventory is being edited
-        if (title.startsWith("Editing: ")) {
-            // If the click is a shift-click, allow it to trigger command linking
-            if (event.getClick().isShiftClick()) {
-                event.setCancelled(true);
-                player.closeInventory();
-                player.sendMessage("§aPlease type the command to link to the item in slot " + event.getSlot() + ".");
-                player.sendMessage("§7(Without the leading /)");
-
-                // Save the slot in the player's metadata for tracking
-                player.setMetadata("linkingSlot", new FixedMetadataValue(guiManager.getPlugin(), event.getSlot()));
-                return;
-            } else {
-                event.setCancelled(false);
-            }
-
-            // Prevent item taking (this handles other clicks that are not shift-clicks)
-
-
-            // Check if the item in the clicked slot has an action associated with it
-
-
-        } else {
-            ItemStack clickedItem = event.getCurrentItem();
-            if (clickedItem != null && clickedItem.getType() != Material.AIR) {
-                ItemMeta meta = clickedItem.getItemMeta();
-                int slot = event.getSlot();
-                String action = guiManager.getItemAction(player, inventory, slot);
-
-                if (action != null && !action.isEmpty()) {
-                    executeAction(player, action);
+                    player.setMetadata("linkingSlot", new FixedMetadataValue(guiManager.getPlugin(), event.getSlot()));
+                    return;
+                } else {
+                    event.setCancelled(false);
                 }
-                event.setCancelled(true);
+            } else {
+                ItemStack clickedItem = event.getCurrentItem();
+                if (clickedItem != null && clickedItem.getType() != Material.AIR) {
+                    ItemMeta meta = clickedItem.getItemMeta();
+                    int slot = event.getSlot();
+                    String action = guiManager.getItemAction(player, inventory, slot);
+
+                    if (action != null && !action.isEmpty()) {
+                        executeAction(player, action);
+                    }
+                    event.setCancelled(true);
+                }
             }
+        } else {
+            event.setCancelled(false);
         }
+
     }
+
 
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent event) {
