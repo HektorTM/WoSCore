@@ -6,7 +6,7 @@
 
     <groupId>me.hektortm</groupId>
     <artifactId>woscore</artifactId>
-    <version>1.2.7</version>
+    <version>1.2.8</version>
     <packaging>jar</packaging>
 
     <name>woscore</name>
@@ -19,7 +19,7 @@
         <repository>
             <id>github</id>
             <name>GitHub HektorTM Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/hektortm/woscore</url>
+            <url>https://github.com/hektortm/woscore</url>
         </repository>
     </distributionManagement>
 
