@@ -53,19 +53,25 @@ public class LangManager {
                 destinationFile.getParentFile().mkdirs();
             }
 
-            try {
-                // Copy the file from the resource stream to the destination file
-                Files.copy(resourceStream, destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                // Load the copied file into the langFiles map
-                langFiles.put(filename, YamlConfiguration.loadConfiguration(destinationFile));
-                corePlugin.getLogger().info("Successfully loaded and copied " + filename + ".yml from " + sourcePlugin.getName() + " to WoSCore's lang directory.");
-            } catch (IOException e) {
-                corePlugin.getLogger().severe("Failed to copy " + filename + ".yml to WoSCore data folder: " + e.getMessage());
+            // Check if the destination file already exists
+            if (destinationFile.exists()) {
+                corePlugin.getLogger().info("The file " + filename + ".yml already exists. Skipping copy.");
+            } else {
+                try {
+                    // Copy the file from the resource stream to the destination file
+                    Files.copy(resourceStream, destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    // Load the copied file into the langFiles map
+                    langFiles.put(filename, YamlConfiguration.loadConfiguration(destinationFile));
+                    corePlugin.getLogger().info("Successfully loaded and copied " + filename + ".yml from " + sourcePlugin.getName() + " to WoSCore's lang directory.");
+                } catch (IOException e) {
+                    corePlugin.getLogger().severe("Failed to copy " + filename + ".yml to WoSCore data folder: " + e.getMessage());
+                }
             }
         } else {
             corePlugin.getLogger().severe("The embedded resource 'lang/" + filename + ".yml' cannot be found in " + sourcePlugin.getName());
         }
     }
+
 
 
 
