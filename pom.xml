@@ -6,10 +6,10 @@
 
     <groupId>me.hektortm</groupId>
     <artifactId>woscore</artifactId>
-    <version>1.2.5</version>
+    <version>1.2.6</version>
     <packaging>jar</packaging>
 
-    <name>wosclasses</name>
+    <name>woscore</name>
 
     <properties>
         <java.version>21</java.version>

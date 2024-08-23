@@ -56,6 +56,7 @@ public class LangManager {
             // Check if the destination file already exists
             if (destinationFile.exists()) {
                 corePlugin.getLogger().info("The file " + filename + ".yml already exists. Skipping copy.");
+                langFiles.put(filename, YamlConfiguration.loadConfiguration(destinationFile));
             } else {
                 try {
                     // Copy the file from the resource stream to the destination file
