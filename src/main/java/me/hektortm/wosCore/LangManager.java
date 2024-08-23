@@ -43,17 +43,22 @@ public class LangManager {
     }
 
     public void loadLangFileExternal(Plugin sourcePlugin, String filename, WoSCore corePlugin) {
-        // Reference the resource from the source plugin (WoSFriends)
+        // Attempt to load the resource stream from the source plugin (WoSFriends)
         InputStream resourceStream = sourcePlugin.getResource("lang/" + filename + ".yml");
 
         if (resourceStream != null) {
             File destinationFile = new File(corePlugin.getDataFolder(), "lang/" + filename + ".yml");
-            if (!destinationFile.exists()) {
-                corePlugin.saveResource("lang/" + filename + ".yml", false);
+            // Create the directory if it doesn't exist
+            if (!destinationFile.getParentFile().exists()) {
+                destinationFile.getParentFile().mkdirs();
             }
+
             try {
+                // Copy the file from the resource stream to the destination file
                 Files.copy(resourceStream, destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                // Load the copied file into the langFiles map
                 langFiles.put(filename, YamlConfiguration.loadConfiguration(destinationFile));
+                corePlugin.getLogger().info("Successfully loaded and copied " + filename + ".yml from " + sourcePlugin.getName() + " to WoSCore's lang directory.");
             } catch (IOException e) {
                 corePlugin.getLogger().severe("Failed to copy " + filename + ".yml to WoSCore data folder: " + e.getMessage());
             }
@@ -61,6 +66,7 @@ public class LangManager {
             corePlugin.getLogger().severe("The embedded resource 'lang/" + filename + ".yml' cannot be found in " + sourcePlugin.getName());
         }
     }
+
 
 
 
