@@ -23,9 +23,9 @@ Maven Dependency:
 ```
 
 
-## Releases
+## __Latest Release__
 
-<img alt="GitHub Release" src="https://img.shields.io/github/v/release/hektortm/woscore?link=https%3A%2F%2Fgithub.com%2FHektorTM%2FWoSCore%2Freleases%2Ftag%2Fv1.2.6">
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/hektortm/woscore?logo=GitHub)](https://github.com/hektortm/woscore/releases)
 
 
 
