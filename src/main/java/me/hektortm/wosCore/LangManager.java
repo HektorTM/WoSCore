@@ -6,6 +6,10 @@ import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,13 +42,26 @@ public class LangManager {
         langFiles.put(filename, YamlConfiguration.loadConfiguration(file));
     }
 
-    public void loadLangFileExternal(Plugin plug, String filename, WoSCore plugin){
-        File file = new File(plug.getDataFolder(), "lang/" +filename+".yml");
-        if (!file.exists()) {
-            plugin.saveResource("lang/"+filename+".yml", false);
+    public void loadLangFileExternal(Plugin sourcePlugin, String filename, WoSCore corePlugin) {
+        // Reference the resource from the source plugin (WoSFriends)
+        InputStream resourceStream = sourcePlugin.getResource("lang/" + filename + ".yml");
+
+        if (resourceStream != null) {
+            File destinationFile = new File(corePlugin.getDataFolder(), "lang/" + filename + ".yml");
+            if (!destinationFile.exists()) {
+                corePlugin.saveResource("lang/" + filename + ".yml", false);
+            }
+            try {
+                Files.copy(resourceStream, destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                langFiles.put(filename, YamlConfiguration.loadConfiguration(destinationFile));
+            } catch (IOException e) {
+                corePlugin.getLogger().severe("Failed to copy " + filename + ".yml to WoSCore data folder: " + e.getMessage());
+            }
+        } else {
+            corePlugin.getLogger().severe("The embedded resource 'lang/" + filename + ".yml' cannot be found in " + sourcePlugin.getName());
         }
-        langFiles.put(filename, YamlConfiguration.loadConfiguration(file));
     }
+
 
 
     public String getMessage(String fileName, String key) {
