@@ -29,13 +29,9 @@ public final class WoSCore extends JavaPlugin {
     private PlaytimeManager playtimeManager;
     private LangManager lang;
     private GuiManager guiManager;
-    private final File langDirectory;
+    private File langDirectory;
 
-    public WoSCore(File dataFolder) {
-        this.langDirectory = new File(dataFolder, "lang");
-        if(!langDirectory.exists()) {
-            langDirectory.mkdirs();
-        }
+    public WoSCore() {
     }
 
 
@@ -43,6 +39,11 @@ public final class WoSCore extends JavaPlugin {
     public void onEnable() {
         lang = new LangManager(this);
         guiManager = new GuiManager(this);
+
+        this.langDirectory = new File(getDataFolder(), "lang");
+        if(!langDirectory.exists()) {
+            langDirectory.mkdirs();
+        }
 
         int langFileCount = lang.getActiveLangFileCount();
         int guiFileCount = guiManager.getActiveGuiFileCount();
@@ -148,21 +149,19 @@ public final class WoSCore extends JavaPlugin {
     }
 
     public void addLangFile(Plugin plugin, String fileName) {
-        try(InputStream inputStream = plugin.getResource("lang/"+fileName)) {
+        try (InputStream inputStream = plugin.getResource("lang/" + fileName)) {
             if (inputStream == null) {
-                throw new IllegalArgumentException("Language file not found: " + fileName);
+                plugin.getLogger().warning("Language file not found: " + fileName);
+                return; // Exit the method if the file is not found
             }
             File targetFile = new File(langDirectory, fileName);
             Files.copy(inputStream, targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-
-
-        } catch(IOException e) {
-            plugin.getLogger().severe("Failed to copy language file: "+ fileName);
+        } catch (IOException e) {
+            plugin.getLogger().severe("Failed to copy language file: " + fileName);
             e.printStackTrace();
         }
-
-
     }
+
 }
 
 
