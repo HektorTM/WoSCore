@@ -19,7 +19,7 @@
         <repository>
             <id>github</id>
             <name>GitHub HektorTM Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/HektorTM/wosCore</url>
+            <url>https://maven.pkg.github.com/HektorTM/WoSCore</url>
         </repository>
     </distributionManagement>
 
@@ -58,6 +58,10 @@
     </build>
 
     <repositories>
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/HektorTM/WoSCore</url>
+        </repository>
         <repository>
             <id>papermc-repo</id>
             <url>https://repo.papermc.io/repository/maven-public/</url>
