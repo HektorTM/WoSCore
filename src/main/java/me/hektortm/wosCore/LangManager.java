@@ -38,7 +38,7 @@ public class LangManager {
         langFiles.put(filename, YamlConfiguration.loadConfiguration(file));
     }
 
-    private void loadLangFileExternal(Plugin plug, String filename, WoSCore plugin){
+    public void loadLangFileExternal(Plugin plug, String filename, WoSCore plugin){
         File file = new File(plug.getDataFolder(), "lang/" +filename+".yml");
         if (!file.exists()) {
             plugin.saveResource("lang/"+filename+".yml", false);
