@@ -2,6 +2,7 @@ package me.hektortm.wosCore;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -27,7 +28,6 @@ public class LangManager {
         loadLangFile("general");
         loadLangFile("guis");
         loadLangFile("pvp");
-        loadLangFile("friends");
     }
 
     private void loadLangFile(String filename){
@@ -37,6 +37,15 @@ public class LangManager {
         }
         langFiles.put(filename, YamlConfiguration.loadConfiguration(file));
     }
+
+    private void loadLangFileExternal(Plugin plug, String filename, WoSCore plugin){
+        File file = new File(plug.getDataFolder(), "lang/" +filename+".yml");
+        if (!file.exists()) {
+            plugin.saveResource("lang/"+filename+".yml", false);
+        }
+        langFiles.put(filename, YamlConfiguration.loadConfiguration(file));
+    }
+
 
     public String getMessage(String fileName, String key) {
         FileConfiguration config = langFiles.get(fileName);
