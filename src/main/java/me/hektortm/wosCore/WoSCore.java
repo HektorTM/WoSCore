@@ -14,7 +14,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 
 @SuppressWarnings({"unused", "SpellCheckingInspection"})
@@ -22,6 +29,14 @@ public final class WoSCore extends JavaPlugin {
     private PlaytimeManager playtimeManager;
     private LangManager lang;
     private GuiManager guiManager;
+    private final File langDirectory;
+
+    public WoSCore(File dataFolder) {
+        this.langDirectory = new File(dataFolder, "lang");
+        if(!langDirectory.exists()) {
+            langDirectory.mkdirs();
+        }
+    }
 
 
     @Override
@@ -131,4 +146,23 @@ public final class WoSCore extends JavaPlugin {
     public LangManager getLang() {
         return lang;
     }
+
+    public void addLangFile(Plugin plugin, String fileName) {
+        try(InputStream inputStream = plugin.getResource("lang/"+fileName)) {
+            if (inputStream == null) {
+                throw new IllegalArgumentException("Language file not found: " + fileName);
+            }
+            File targetFile = new File(langDirectory, fileName);
+            Files.copy(inputStream, targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+
+        } catch(IOException e) {
+            plugin.getLogger().severe("Failed to copy language file: "+ fileName);
+            e.printStackTrace();
+        }
+
+
+    }
 }
+
+

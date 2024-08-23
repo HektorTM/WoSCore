@@ -27,6 +27,7 @@ public class LangManager {
         loadLangFile("general");
         loadLangFile("guis");
         loadLangFile("pvp");
+        loadLangFile("friends");
     }
 
     private void loadLangFile(String filename){
