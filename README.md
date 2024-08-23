@@ -25,6 +25,7 @@ Maven Dependency:
 
 ## Releases
 
-![GitHub Release](https://img.shields.io/github/v/release/hektortm/woscore)
+<img alt="GitHub Release" src="https://img.shields.io/github/v/release/hektortm/woscore?link=https%3A%2F%2Fgithub.com%2FHektorTM%2FWoSCore%2Freleases%2Ftag%2Fv1.2.6">
+
 
 
