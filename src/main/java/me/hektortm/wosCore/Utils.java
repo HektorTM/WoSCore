@@ -26,11 +26,16 @@ public class Utils {
 
     public static void error(CommandSender sender, String file, String msg) {
         if (sender instanceof Player p) {
+            String errorMessage = lang.getMessage(file, msg);
+            if (errorMessage.startsWith("Message not found:") || errorMessage.startsWith("File not found:")) {
+                // Log more detailed error if necessary
+                WoSCore.getPlugin(WoSCore.class).getLogger().warning("Error message retrieval issue: " + errorMessage);
+            }
             p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1, 1);
-            p.sendMessage(lang.getMessage("general","prefix.error") + lang.getMessage(file, msg));
+            p.sendMessage(lang.getMessage("general", "prefix.error") + errorMessage);
         }
-
     }
+
 
 
 

@@ -26,20 +26,23 @@ public class LangManager {
     }
 
     public void loadLangFiles() {
-        loadLangFile("broadcast");
-        loadLangFile("essentials");
-        loadLangFile("general");
-        loadLangFile("guis");
-        loadLangFile("pvp");
+        File langFolder = new File(plugin.getDataFolder(), "lang");
+        if (!langFolder.exists()) {
+            langFolder.mkdirs();
+        }
+
+        File[] files = langFolder.listFiles((dir, name) -> name.endsWith(".yml"));
+        if (files != null) {
+            for (File file : files) {
+                String filename = file.getName().replace(".yml", "");
+                langFiles.put(filename, YamlConfiguration.loadConfiguration(file));
+                plugin.getLogger().info("Loaded language file: " + filename + ".yml");
+            }
+        } else {
+            plugin.getLogger().warning("No language files found in 'lang' directory.");
+        }
     }
 
-    private void loadLangFile(String filename){
-        File file = new File(plugin.getDataFolder(), "lang/" +filename+".yml");
-        if (!file.exists()) {
-            plugin.saveResource("lang/"+filename+".yml", false);
-        }
-        langFiles.put(filename, YamlConfiguration.loadConfiguration(file));
-    }
 
     public void loadLangFileExternal(Plugin sourcePlugin, String filename, WoSCore corePlugin) {
         // Attempt to load the resource stream from the source plugin (WoSFriends)
@@ -78,7 +81,18 @@ public class LangManager {
 
     public String getMessage(String fileName, String key) {
         FileConfiguration config = langFiles.get(fileName);
-        return config != null ? config.getString(key, "Message not found: "+ key) : "File not found: " + fileName;
+        if (config != null) {
+            String message = config.getString(key);
+            if (message != null) {
+                return message;
+            } else {
+                plugin.getLogger().warning("Message key '" + key + "' not found in file '" + fileName + "'");
+                return "Message not found: " + key;
+            }
+        } else {
+            plugin.getLogger().warning("Language file '" + fileName + "' not found");
+            return "File not found: " + fileName;
+        }
     }
 
     // TODO: use for reload command
