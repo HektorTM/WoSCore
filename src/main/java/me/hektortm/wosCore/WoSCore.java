@@ -10,6 +10,9 @@ import me.hektortm.wosCore.pvpsystem.PvPCommands;
 import me.hektortm.wosCore.pvpsystem.PvPListeners;
 import me.hektortm.wosCore.pvpsystem.PvPManager;
 import org.bukkit.command.CommandExecutor;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -22,6 +25,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.Date;
+import java.util.UUID;
 
 
 @SuppressWarnings({"unused", "SpellCheckingInspection"})
@@ -30,6 +35,7 @@ public final class WoSCore extends JavaPlugin {
     private LangManager lang;
     private GuiManager guiManager;
     private File langDirectory;
+    private File playerDataFolder;
 
     public WoSCore() {
     }
@@ -43,6 +49,10 @@ public final class WoSCore extends JavaPlugin {
         this.langDirectory = new File(getDataFolder(), "lang");
         if(!langDirectory.exists()) {
             langDirectory.mkdirs();
+        }
+        this.playerDataFolder = new File(getDataFolder(), "playerdata");
+        if (!playerDataFolder.exists()) {
+            playerDataFolder.mkdirs();
         }
 
         int langFileCount = lang.getActiveLangFileCount();
@@ -125,6 +135,33 @@ public final class WoSCore extends JavaPlugin {
     public void onDisable() {
         reloadConfig();
     }
+
+    public FileConfiguration getPlayerData(Player player) {
+        return getPlayerData(player.getUniqueId(), player.getName());
+    }
+
+    public FileConfiguration getPlayerData(UUID uuid, String username) {
+        File playerFile = new File(playerDataFolder, uuid.toString()+ ".yml");
+        FileConfiguration playerData = YamlConfiguration.loadConfiguration(playerFile);
+
+        if(!playerFile.exists()) {
+            playerData.set("UUID", uuid.toString());
+            playerData.set("Username", username);
+            playerData.set("Joindate", new Date().toString());
+            playerData.set("Lastonline", new Date().toString());
+            savePlayerData(playerData, playerFile);
+        }
+        return playerData;
+    }
+
+    public void savePlayerData(FileConfiguration playerData, File playerFile) {
+        try {
+            playerData.save(playerFile);
+        } catch (IOException e) {
+            getLogger().severe("Could not save player data file for "+playerFile.getName());
+        }
+    }
+
 
     private void commandReg(String name, CommandExecutor exe) {
         if (getCommand(name) != null) {
