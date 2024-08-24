@@ -27,7 +27,6 @@ public class LangManager {
 
     public void loadLangFiles() {
         loadLangFile("broadcast");
-        loadLangFile("errors");
         loadLangFile("essentials");
         loadLangFile("general");
         loadLangFile("guis");

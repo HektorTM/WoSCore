@@ -1,5 +1,6 @@
 package me.hektortm.wosCore.pvpsystem;
 
+import me.hektortm.wosCore.LangManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -9,9 +10,11 @@ import org.bukkit.event.player.PlayerJoinEvent;
 @SuppressWarnings("SpellCheckingInspection")
 public class PvPListeners implements Listener {
     private final PvPManager pvpManager;
+    private final LangManager lang;
 
-    public PvPListeners(PvPManager pvpManager) {
+    public PvPListeners(PvPManager pvpManager, LangManager lang) {
         this.pvpManager = pvpManager;
+        this.lang = lang;
     }
 
     @EventHandler
@@ -22,10 +25,10 @@ public class PvPListeners implements Listener {
 
             if (!victimPvPEnabled && !attackerPvPEnabled) {
                 event.setCancelled(true);
-               // WIP utils.sendActionBar(attacker, "§c"+victim +"does not have combat enabled.");
+                attacker.sendActionBar(lang.getMessage("pvp", "actionbar.victim-notenabled").replace("%victim%", victim.toString()));
             } else if (!attackerPvPEnabled) {
                 event.setCancelled(true);
-                // WIP utils.sendActionBar(attacker, "§cYou do not have combat enabled.");
+                attacker.sendActionBar(lang.getMessage("pvp", "actionbar.notenabled"));
             } else if (!victimPvPEnabled) {
                 event.setCancelled(true);
             }

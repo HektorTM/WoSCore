@@ -2,16 +2,11 @@ package me.hektortm.wosCore.pvpsystem;
 
 import me.hektortm.wosCore.LangManager;
 import me.hektortm.wosCore.Utils;
-import net.luckperms.api.node.Node;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.UUID;
-
-import static me.hektortm.wosCore.Utils.errorUnknownPvP;
 
 @SuppressWarnings({"SpellCheckingInspection"})
 public class PvPCommands implements CommandExecutor {
@@ -29,7 +24,7 @@ public class PvPCommands implements CommandExecutor {
             if (sender instanceof Player p) {
                 if (args.length == 0) {
                     boolean newStatus = pvpManager.togglePvP(p);
-                    Utils.successMsg1Value(p,"pvp", "pvp.combat-toggle", "%status%", newStatus ? "§aenabled" : "§cdisabled");
+                    Utils.successMsg1Value(p,"pvp", "combat-toggle", "%status%", newStatus ? "§aenabled" : "§cdisabled");
                     return true;
                 }
 
@@ -38,28 +33,31 @@ public class PvPCommands implements CommandExecutor {
                 switch (subCommand) {
                     case "toggle":
                         boolean newStatus = pvpManager.togglePvP(p);
-                        Utils.successMsg1Value(p,"pvp", "pvp.combat-toggle", "%status%", newStatus ? "§aenabled" : "§cdisabled");
+                        Utils.successMsg1Value(p,"pvp", "combat-toggle", "%status%", newStatus ? "§aenabled" : "§cdisabled");
                         break;
 
                     case "status":
                         boolean isPvPEnabled = pvpManager.pvpEnabled(p);
-                        Utils.successMsg1Value(p,"pvp", "pvp.status", "%status%", isPvPEnabled ? "§aenabled" : "§cdisabled");
+                        Utils.successMsg1Value(p,"pvp", "status", "%status%", isPvPEnabled ? "§aenabled" : "§cdisabled");
                         break;
 
                     case "help":
-                        Utils.successMsg(p,"pvp", "pvp.help-header");
-                        p.sendMessage(lang.getMessage("pvp","pvp.help-toggle"));
-                        p.sendMessage(lang.getMessage("pvp","pvp.help-status"));
-                        p.sendMessage(lang.getMessage("pvp","pvp.help-list"));
+                        showHelp(p);
                         break;
 
                     default:
-                        Utils.error(p, errorUnknownPvP);
+                        showHelp(p);
                         break;
                 }
             }
         }
         return true;
+    }
+    private void showHelp(Player p) {
+        Utils.successMsg(p,"pvp", "help.header");
+        p.sendMessage(lang.getMessage("pvp","help.toggle"));
+        p.sendMessage(lang.getMessage("pvp","help.status"));
+        p.sendMessage(lang.getMessage("pvp","help.list"));
     }
 
 }

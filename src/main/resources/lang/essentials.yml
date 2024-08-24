@@ -1,35 +1,43 @@
-essentials:
-  gm:
-    c: "§7Gamemode updated to §eCreative§7."
-    c-player: "§a%player%'s §7Gamemode updated to §eCreative§7."
-    s: "§7Gamemode updated to §eSurvival§7."
-    s-player: "§a%player%'s §7Gamemode updated to §eSurvival§7."
-    a: "§7Gamemode updated to §eAdventure§7."
-    a-player: "§a%player%'s §7Gamemode updated to §eAdventure§7."
-    sp: "§7Gamemode updated to §eAdventure§7."
-    sp-player: "§a%player%'s §7Gamemode updated to §eSpectator§7."
-  fly:
-    enabled: "§7Your fly has been §aenabled§7."
-    enabled-player: "§7You have §aenabled§7 fly for §e%player%§7."
-    disabled: "§7Your fly has been §cdisabled§7."
-    disabled-player: "§7You have §cdisabled§7 fly for §e%player%§7."
+error:
   speed:
-    reset: "§7You have reset your speed."
-    set-flying: "§7Your flying speed was set to §a%speedvalue%§7."
-    set-flying-player: "§7You have set the flying speed for §e%player%§7 to §a%speedvalue%§7."
-    set-walking: "§7Your walking speed was set to §a%speedvalue%§7."
-    set-walking-player: "§7You have set the walking speed for §e%player%§7 to §a%speedvalue%§7."
-  tp: "§7Teleporting to §a%player%§7..."
-  tphere: "§7Teleporting §a%player%§7 to you..."
-  time:
-    day: "§7You have set the time to §eDay§7."
-    night: "§7You have set the time to §9Night§7."
-  ptime:
-    day: "§7You have set your personal time to §eDay§7."
-    night: "§7You have set your personal time to §9Night§7."
-    reset: "§7You have §creset§7 your personal time."
-    custom: "§7You have set your personal time to §a%time%§7."
-  weather:
-    sun: "§7You have set the weather to §eSunny§7."
-    rain: "§7You have set the weather to §bRainy§7."
-    storm: "§7You have set the weather to §9Stormy§7."
+    value: "Provide a value between 0 and 10"
+    invalid: "Invalid value. Provide a number."
+  tp.self: "You can't teleport to yourself."
+  tphere.self: "You can't teleport you to yourself."
+  time.invalid: "Invalid time value. Provide 'day', 'night', 'reset' or a number"
+
+
+gm:
+  c: "§7Gamemode updated to §eCreative§7."
+  c-player: "§a%player%'s §7Gamemode updated to §eCreative§7."
+  s: "§7Gamemode updated to §eSurvival§7."
+  s-player: "§a%player%'s §7Gamemode updated to §eSurvival§7."
+  a: "§7Gamemode updated to §eAdventure§7."
+  a-player: "§a%player%'s §7Gamemode updated to §eAdventure§7."
+  sp: "§7Gamemode updated to §eAdventure§7."
+  sp-player: "§a%player%'s §7Gamemode updated to §eSpectator§7."
+fly:
+  enabled: "§7Your fly has been §aenabled§7."
+  enabled-player: "§7You have §aenabled§7 fly for §e%player%§7."
+  disabled: "§7Your fly has been §cdisabled§7."
+  disabled-player: "§7You have §cdisabled§7 fly for §e%player%§7."
+speed:
+  reset: "§7You have reset your speed."
+  set-flying: "§7Your flying speed was set to §a%speedvalue%§7."
+  set-flying-player: "§7You have set the flying speed for §e%player%§7 to §a%speedvalue%§7."
+  set-walking: "§7Your walking speed was set to §a%speedvalue%§7."
+  set-walking-player: "§7You have set the walking speed for §e%player%§7 to §a%speedvalue%§7."
+tp: "§7Teleporting to §a%player%§7..."
+tphere: "§7Teleporting §a%player%§7 to you..."
+time:
+  day: "§7You have set the time to §eDay§7."
+  night: "§7You have set the time to §9Night§7."
+ptime:
+  day: "§7You have set your personal time to §eDay§7."
+  night: "§7You have set your personal time to §9Night§7."
+  reset: "§7You have §creset§7 your personal time."
+  custom: "§7You have set your personal time to §a%time%§7."
+weather:
+  sun: "§7You have set the weather to §eSunny§7."
+  rain: "§7You have set the weather to §bRainy§7."
+  storm: "§7You have set the weather to §9Stormy§7."

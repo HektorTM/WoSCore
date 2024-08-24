@@ -99,7 +99,7 @@ public final class WoSCore extends JavaPlugin {
         //noinspection DataFlowIssue
         getCommand("pvp").setExecutor(new PvPCommands(pvpManager, lang));
         tabcompReg("pvp");
-        getServer().getPluginManager().registerEvents(new PvPListeners(pvpManager), this);
+        getServer().getPluginManager().registerEvents(new PvPListeners(pvpManager, lang), this);
         getServer().getPluginManager().registerEvents(new ChatListeners(), this);
 
         commandReg("tp", teleportExecutor);

@@ -17,9 +17,9 @@ public class Weather implements CommandExecutor {
                 if (args.length == 0) {
                     w.setStorm(false);
                     w.setThundering(false);
-                    Utils.successMsg(p,"essentials", "essentials.weather.sun");
+                    Utils.successMsg(p,"essentials", "weather.sun");
                 } else {
-                    Utils.error(p, Utils.errorArgs);
+                    Utils.error(p, "general", "error.toomanyargs");
                 }
             }
         }
@@ -30,9 +30,9 @@ public class Weather implements CommandExecutor {
                 if (args.length == 0) {
                     w.setStorm(true);
                     w.setThundering(false);
-                    Utils.successMsg(p,"essentials", "essentials.weather.rain");
+                    Utils.successMsg(p,"essentials", "weather.rain");
                 } else {
-                    Utils.error(p, Utils.errorArgs);
+                    Utils.error(p, "general", "error.toomanyargs");
                 }
             }
         }
@@ -43,9 +43,9 @@ public class Weather implements CommandExecutor {
                 if (args.length == 0) {
                     w.setStorm(true);
                     w.setThundering(true);
-                    Utils.successMsg(p,"essentials", "essentials.weather.storm");
+                    Utils.successMsg(p,"essentials", "weather.storm");
                 } else {
-                    Utils.error(p, Utils.errorArgs);
+                    Utils.error(p, "general", "error.toomanyargs");
                 }
             }
         }

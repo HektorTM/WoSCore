@@ -9,7 +9,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import static me.hektortm.wosCore.Utils.*;
 
 @SuppressWarnings({"SpellCheckingInspection"})
 public class Teleport implements CommandExecutor {
@@ -22,18 +21,18 @@ public class Teleport implements CommandExecutor {
                     String pN = args[0];
                     Player t = Bukkit.getServer().getPlayerExact(pN);
                     if (t == null) {
-                        Utils.error(p, errorOnline);
+                        Utils.error(p, "general", "error.online");
                     } else if (p.getName().equals(pN)) {
-                        Utils.error(p, errorTpSelf);
+                        Utils.error(p, "essentials", "error.tp.self");
                     } else {
                         p.teleport(t);
-                        Utils.successMsg1Value(p,"essentials", "essentials.tp", "%player%", pN);
+                        Utils.successMsg1Value(p,"essentials", "tp", "%player%", pN);
                         p.playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);
                     }
                 } else if (args.length == 0) {
-                    Utils.error(p, errorNoArgs);
+                    Utils.error(p, "general", "error.noargs");
                 } else if (args.length == 2) {
-                    Utils.error(p, errorArgs);
+                    Utils.error(p, "general", "error.toomanyargs");
                 }
             }
         }
@@ -43,17 +42,17 @@ public class Teleport implements CommandExecutor {
                     String pN = args[0];
                     Player t = Bukkit.getServer().getPlayerExact(pN);
                     if (t == null) {
-                        Utils.error(p, errorOnline);
+                        Utils.error(p, "general", "error.online");
                     } else if (p.getName().contentEquals(pN)) {
-                        Utils.error(p, errorTphereSelf);
+                        Utils.error(p, "essentials", "error.tphere.self");
                     } else {
                         t.teleport(p);
-                        Utils.successMsg1Value(p,"essentials", "essentials.tphere", "%player%", t.getName());
+                        Utils.successMsg1Value(p,"essentials", "tphere", "%player%", t.getName());
                     }
                 } else if(args.length == 0) {
-                    Utils.error(p, errorNoArgs);
+                    Utils.error(p, "general", "error.noargs");
                 } else if (args.length == 2) {
-                    Utils.error(p, errorArgs);
+                    Utils.error(p, "general", "error.toomanyargs");
                 }
             }
         }

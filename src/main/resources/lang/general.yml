@@ -6,6 +6,18 @@ prefix:
   error: "§cERROR: §7"
   economy: "§6Economy §8|§r "
 
+error:
+  online: "This Player is not online."
+  notfound: "Player was not found."
+  perms: "You do not have permission to do that."
+  noargs: "Please provide an argument."
+  toomanyargs: "Too many arguments."
+  notplayer: "This command can only be used by players."
+  core:
+    unknown: "Unknown Subcommand. Use: reload."
+    unknown.sub: "Unknown Subcommand. Use: config.yml, messages.yml or all."
+    unknown-file: "Unknown File."
+
 core:
   messages:
     reloading: "§7Reloading §eLanguage Folder§7..."

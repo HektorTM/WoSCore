@@ -25,7 +25,7 @@ public class Broadcast implements CommandExecutor {
             if (sender instanceof Player p) {
                 BroadcastSettings settings = BroadcastSettings.getSettings(p);
                 if(args.length == 0) {
-                    Utils.error(p, errorNoArgs);
+                    Utils.error(p, "general", "error.noargs");
                     return true;
                 }
 
@@ -37,66 +37,69 @@ public class Broadcast implements CommandExecutor {
                         if (args.length > 1) {
                             String title = String.join(" ", Arrays.copyOfRange(args, 1, args.length)).replaceAll("&", "§");
                             settings.setTitle(title);
-                            Utils.successMsg1Value(p, "broadcast","broadcast.title", "%title%", title);
+                            Utils.successMsg1Value(p, "broadcast","title", "%title%", title);
                         } else {
-                            Utils.error(p, errorBcTitle);
+                            Utils.error(p, "broadcast", "error.title");
                         }
                         break;
                     case "message":
                         if (args.length > 1) {
                             String msg = String.join(" ",Arrays.copyOfRange(args, 1, args.length)).replaceAll("&", "§");
                             settings.setMessage(msg);
-                            Utils.successMsg1Value(p,"broadcast","broadcast.message", "%message%", msg);
+                            Utils.successMsg1Value(p,"broadcast","message", "%message%", msg);
                         } else {
-                            Utils.error(p, errorBcMsg);
+                            Utils.error(p, "broadcast", "error.message");
                         }
                         break;
 
                     case "sign":
                         settings.setSigned(!settings.isSigned());
-                        Utils.successMsg1Value(p, "broadcast","broadcast.signed", "%status%", settings.isSigned() ? "§aSigned" : "§cUnsigned");
+                        Utils.successMsg1Value(p, "broadcast","signed", "%status%", settings.isSigned() ? "§aSigned" : "§cUnsigned");
                         break;
 
                     case "preview":
                         if(settings.getTitle() != null && settings.getMessage() != null) {
-                            String title = lang.getMessage("broadcast","broadcast.style.title").replace("%title%", settings.getTitle());
-                            p.sendMessage(lang.getMessage("broadcast","broadcast.style.preview"));
+                            String title = lang.getMessage("broadcast","style.title").replace("%title%", settings.getTitle());
+                            p.sendMessage(lang.getMessage("broadcast","style.preview"));
                             p.sendMessage(title);
                             p.sendMessage(settings.getMessage());
                             if (settings.isSigned()) {
-                                String signature = lang.getMessage("broadcast","broadcast.style.signature").replace("%signature%", p.getName());
+                                String signature = lang.getMessage("broadcast","style.signature").replace("%signature%", p.getName());
                                 p.sendMessage(signature);
                                 p.sendMessage("");
                             } else {
                                 p.sendMessage("");
-                                p.sendMessage(lang.getMessage("broadcast","broadcast.style.preview"));
+                                p.sendMessage(lang.getMessage("broadcast","style.preview"));
                             }
                         } else {
-                            Utils.error(p, errorBcUnset);
+                            Utils.error(p, "broadcast", "error.unset");
                         }
                         break;
                     case "send":
                         if(settings.getTitle() != null && settings.getMessage() != null) {
-                            String title = lang.getMessage("broadcast","broadcast.style.title").replace("%title%", settings.getTitle());
+                            String title = lang.getMessage("broadcast","style.title").replace("%title%", settings.getTitle());
                             Bukkit.broadcastMessage(title);
                             Bukkit.broadcastMessage(settings.getMessage());
                             if (settings.isSigned()) {
-                                String signature = lang.getMessage("broadcast","broadcast.style.signature").replace("%signature%", p.getName());
+                                String signature = lang.getMessage("broadcast","style.signature").replace("%signature%", p.getName());
                                 Bukkit.broadcastMessage(signature);
                                 Bukkit.broadcastMessage("");
                             } else {
                                 Bukkit.broadcastMessage("");
                             }
                         } else {
-                            Utils.error(p, errorBcUnset);
+                            Utils.error(p, "broadcast", "error.unset");
                         }
                         break;
                     case "clear":
                         settings.clear();
-                        Utils.successMsg(p,"broadcast", "broadcast.clear");
+                        Utils.successMsg(p,"broadcast", "clear");
+                        break;
+                    case "help":
+                        showHelp(p);
                         break;
                     default:
-                        Utils.error(p, errorBcUnknown);
+                        showHelp(p);
                         break;
 
                 }
@@ -111,7 +114,7 @@ public class Broadcast implements CommandExecutor {
                     Bukkit.broadcastMessage("");
 
                 } else {
-                    Utils.error(p, errorNoArgs);
+                    Utils.error(p, "general", "error.noargs");
                 }
             }
 
@@ -119,4 +122,15 @@ public class Broadcast implements CommandExecutor {
 
         return true;
     }
+
+    private void showHelp(Player p) {
+        successMsg(p, "broadcast", "help.header");
+        p.sendMessage(lang.getMessage("broadcast", "help.title"));
+        p.sendMessage(lang.getMessage("broadcast", "help.message"));
+        p.sendMessage(lang.getMessage("broadcast", "help.sign"));
+        p.sendMessage(lang.getMessage("broadcast", "help.preview"));
+        p.sendMessage(lang.getMessage("broadcast", "help.send"));
+        p.sendMessage(lang.getMessage("broadcast", "help.list"));
+    }
+
 }

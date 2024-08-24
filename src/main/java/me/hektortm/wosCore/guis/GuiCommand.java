@@ -9,8 +9,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import static me.hektortm.wosCore.Utils.*;
-
 public class GuiCommand implements CommandExecutor {
     private final GuiManager guiManager;
     private final LangManager lang;
@@ -25,7 +23,7 @@ public class GuiCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 
         if (args.length == 0) {
-            Utils.error(sender, errorGuiUnknown);
+            Utils.error(sender, "guis", "error.unknown");
             return true;
         }
 
@@ -34,11 +32,11 @@ public class GuiCommand implements CommandExecutor {
         switch (subCommand) {
             case "create":
                 if (!(sender instanceof Player)) {
-                    sender.sendMessage("This command can only be used by players.");
+                    Utils.error(sender, "general", "error.notplayer");
                     return true;
                 }
                 if (args.length != 4) {
-                    Utils.error(sender, errorNoArgs);
+                    Utils.error(sender, "general", "error.noargs");
                     return true;
                 }
                 Player player = (Player) sender;
@@ -50,11 +48,11 @@ public class GuiCommand implements CommandExecutor {
 
             case "edit":
                 if (!(sender instanceof Player)) {
-                    sender.sendMessage("This command can only be used by players.");
+                    Utils.error(sender, "general", "error.notplayer");
                     return true;
                 }
                 if (args.length != 2) {
-                    Utils.error(sender, errorNoArgs);
+                    Utils.error(sender, "general", "error.noargs");
                     return true;
                 }
                 Player editingPlayer = (Player) sender;
@@ -65,11 +63,11 @@ public class GuiCommand implements CommandExecutor {
 
             case "delete":
                 if (!(sender instanceof Player)) {
-                    sender.sendMessage("This command can only be used by players.");
+                    Utils.error(sender, "general", "error.notplayer");
                     return true;
                 }
                 if (args.length != 2) {
-                    Utils.error(sender, errorNoArgs);
+                    Utils.error(sender, "general", "error.noargs");
                     return true;
                 }
                 Player deletingPlayer = (Player) sender;
@@ -78,12 +76,12 @@ public class GuiCommand implements CommandExecutor {
                 break;
 
             case "help":
-                Utils.successMsg(sender, "guis", "gui.help-header");
-                sender.sendMessage(lang.getMessage("guis","gui.help-default"));
-                sender.sendMessage(lang.getMessage("guis","gui.help-create"));
-                sender.sendMessage(lang.getMessage("guis","gui.help-edit"));
-                sender.sendMessage(lang.getMessage("guis","gui.help-delete"));
-                sender.sendMessage(lang.getMessage("guis","gui.help-list"));
+                Utils.successMsg(sender, "guis", "help.header");
+                sender.sendMessage(lang.getMessage("guis","help.default"));
+                sender.sendMessage(lang.getMessage("guis","help.create"));
+                sender.sendMessage(lang.getMessage("guis","help.edit"));
+                sender.sendMessage(lang.getMessage("guis","help.delete"));
+                sender.sendMessage(lang.getMessage("guis","help.list"));
                 break;
             default:
                 String id = args[0];
@@ -92,12 +90,12 @@ public class GuiCommand implements CommandExecutor {
                 if (args.length == 2) {
                     targetPlayer = Bukkit.getPlayer(args[1]);
                     if (targetPlayer == null) {
-                        Utils.error(sender, errorOnline);
+                        Utils.error(sender, "general", "error.online");
                         return true;
                     }
                 } else {
                     if (!(sender instanceof Player)) {
-                        sender.sendMessage("§cConsole must specify a player to open the GUI for.");
+                        Utils.error(sender, "guis", "error.specify");
                         return true;
                     }
                     targetPlayer = (Player) sender;

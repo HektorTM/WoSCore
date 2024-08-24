@@ -41,7 +41,7 @@ public class GuiListener implements Listener {
                 if (event.getClick().isShiftClick()) {
                     event.setCancelled(true);
                     player.closeInventory();
-                    player.sendMessage("§aPlease type the command to link to the item in slot " + event.getSlot() + ".");
+                    player.sendMessage("§aPlease type the command to link to the item in slot " + event.getSlot() + "."); //TODO
                     player.sendMessage("§7(Without the leading /)");
 
                     player.setMetadata("linkingSlot", new FixedMetadataValue(guiManager.getPlugin(), event.getSlot()));

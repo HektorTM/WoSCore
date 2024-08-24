@@ -6,12 +6,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
-import java.io.FilenameFilter;
-import java.util.ArrayList;
 import java.util.List;
 
-import static me.hektortm.wosCore.Utils.*;
 
 public class CoreCommands implements CommandExecutor {
     private final LangManager lang;
@@ -28,7 +24,7 @@ public class CoreCommands implements CommandExecutor {
         if (command.getName().equalsIgnoreCase("core")) {
             if (sender instanceof Player player) {
                 if (args.length < 2) {
-                    Utils.error(player, errorNoArgs);
+                    Utils.error(sender, "general", "error.noargs");
                     return false;
                 }
 
@@ -61,10 +57,10 @@ public class CoreCommands implements CommandExecutor {
                         lang.reloadFile(subCmd2);
                         Utils.successMsg1Value(player, "general", "core.messages.reloaded_specific", "%file%", subCmd2);
                     } else {
-                        Utils.error(player, errorCoreUnknownFile);
+                        Utils.error(sender, "general", "error.core.unknown-file");
                     }
                 } else {
-                    Utils.error(player, errorCoreUnknown);
+                    Utils.error(sender, "general", "error.core.unknown");
                 }
             }
         }

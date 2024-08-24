@@ -29,7 +29,7 @@ public class GuiManager {
     public void createGui(Player p,String guiId, String guiTitle, int rows) {
         File file = new File(plugin.getDataFolder(), "guis/" + guiId + ".json");
         if (file.exists()) {
-            Utils.error(p, errorGuiExists);
+            Utils.error(p, "guis", "error.exists");
             return;
         }
 
@@ -40,13 +40,13 @@ public class GuiManager {
         guiData.put("items", new ArrayList<>());
 
         saveGuiData(file, guiData);
-        Utils.successMsg1Value(p,"guis", "gui.created", "%GUIname%", guiTitle);
+        Utils.successMsg1Value(p,"guis", "created", "%GUIname%", guiTitle);
     }
 
     public void openGui(Player p, String guiId) {
         File file = new File(plugin.getDataFolder(), "guis/" + guiId + ".json");
         if (!file.exists()) {
-            Utils.error(p, errorGuiNotFound);
+            Utils.error(p, "guis", "error.not-found");
             return;
         }
 
@@ -84,7 +84,7 @@ public class GuiManager {
     public void openGuiEditor(Player p, String guiId) {
         File file = new File(plugin.getDataFolder(), "guis/" + guiId + ".json");
         if (!file.exists()) {
-            Utils.error(p, errorGuiNotFound);
+            Utils.error(p, "guis", "error.not-found");
             return;
         }
 
@@ -123,14 +123,14 @@ public class GuiManager {
     public void deleteGui(Player p, String guiName) {
         File file = new File(plugin.getDataFolder(), "guis/" + guiName + ".json");
         if (!file.exists()) {
-            Utils.error(p, errorGuiNotFound);
+            Utils.error(p, "guis", "error.not-found");
             return;
         }
 
         if (file.delete()) {
-            Utils.successMsg1Value(p,"guis","gui.deleted", "%GUIname%", guiName);
+            Utils.successMsg1Value(p,"guis","deleted", "%GUIname%", guiName);
         } else {
-            Utils.error(p, errorGuiDelete);
+            Utils.error(p, "guis", "error.delete");
         }
     }
     @EventHandler

@@ -7,7 +7,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import static me.hektortm.wosCore.Utils.*;
 
 public class ChatCommands implements CommandExecutor {
     @Override
@@ -17,13 +16,13 @@ public class ChatCommands implements CommandExecutor {
                 String subCmd = args[0];
                 String subCmd2 = args[1];
                 if (args.length != 1) {
-                    Utils.error(p, errorNoArgs);
+                    Utils.error(sender, "general", "error.noargs");
                 }
                 switch (subCmd) {
                     case "focus":
                     case "join":
                         if (args.length != 2) {
-                            Utils.error(p, errorArgs);
+                            Utils.error(sender, "general", "error.toomanyargs");
                         }
 
 
