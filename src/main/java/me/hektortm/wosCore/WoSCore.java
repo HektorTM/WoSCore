@@ -8,6 +8,7 @@ import me.hektortm.wosCore.guis.GuiManager;
 import me.hektortm.wosCore.pvpsystem.PvPCommands;
 import me.hektortm.wosCore.pvpsystem.PvPListeners;
 import me.hektortm.wosCore.pvpsystem.PvPManager;
+import org.bukkit.Sound;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -181,6 +182,10 @@ public final class WoSCore extends JavaPlugin {
 
     public LangManager getLang() {
         return lang;
+    }
+
+    public void buttonClick(Player p) {
+        p.playSound(p, Sound.UI_BUTTON_CLICK, 1, 1);
     }
 
     public void addLangFile(Plugin plugin, String fileName) {

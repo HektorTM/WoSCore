@@ -31,6 +31,7 @@ public class LangManager {
             langFolder.mkdirs();
         }
         loadInternalLangFiles("broadcast");
+        loadInternalLangFiles("general");
         loadInternalLangFiles("chat");
         loadInternalLangFiles("essentials");
         loadInternalLangFiles("guis");
