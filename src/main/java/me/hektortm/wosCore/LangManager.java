@@ -30,6 +30,11 @@ public class LangManager {
         if (!langFolder.exists()) {
             langFolder.mkdirs();
         }
+        loadInternalLangFiles("broadcast");
+        loadInternalLangFiles("chat");
+        loadInternalLangFiles("essentials");
+        loadInternalLangFiles("guis");
+        loadInternalLangFiles("pvp");
 
         File[] files = langFolder.listFiles((dir, name) -> name.endsWith(".yml"));
         if (files != null) {
@@ -125,6 +130,14 @@ public class LangManager {
         return langFiles.get(file);
     }
 
+
+    private void loadInternalLangFiles(String filename) {
+        File file = new File(plugin.getDataFolder(), "lang/" + filename + ".yml");
+        if (!file.exists()) {
+            plugin.saveResource("lang/" + filename + ".yml", false);
+        }
+        langFiles.put(filename, YamlConfiguration.loadConfiguration(file));
+    }
 
     public List<String> getAllLangFilenames() {
         File langFolder = new File(plugin.getDataFolder(), "lang");
