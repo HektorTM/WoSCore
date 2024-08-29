@@ -1,6 +1,5 @@
 package me.hektortm.wosCore;
 
-import me.hektortm.wosCore.chatsystem.ChatListeners;
 import me.hektortm.wosCore.essentials.*;
 import me.hektortm.wosCore.guis.ChatListener;
 import me.hektortm.wosCore.guis.GuiCommand;
@@ -100,7 +99,6 @@ public final class WoSCore extends JavaPlugin {
         getCommand("pvp").setExecutor(new PvPCommands(pvpManager, lang));
         tabcompReg("pvp");
         getServer().getPluginManager().registerEvents(new PvPListeners(pvpManager, lang), this);
-        getServer().getPluginManager().registerEvents(new ChatListeners(), this);
 
         commandReg("tp", teleportExecutor);
         commandReg("tphere", teleportExecutor);

@@ -2,6 +2,7 @@ package me.hektortm.wosCore.guis;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.inventory.Inventory;
@@ -13,7 +14,7 @@ public class ChatListener implements Listener {
         this.guiManager = guiManager;
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.NORMAL)
     public void onPlayerChat(AsyncPlayerChatEvent e) {
         Player p = e.getPlayer();
 
