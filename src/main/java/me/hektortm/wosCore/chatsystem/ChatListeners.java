@@ -15,6 +15,10 @@ public class ChatListeners implements Listener {
     // TODO: WIP
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent event) {
+        if (event.isCancelled()) {
+            return;
+        }
+
         Player player = event.getPlayer();
         String message = event.getMessage();
 
