@@ -25,11 +25,12 @@ public class PvPListeners implements Listener {
 
             if (!victimPvPEnabled && !attackerPvPEnabled) {
                 event.setCancelled(true);
-                attacker.sendActionBar(lang.getMessage("pvp", "actionbar.victim-notenabled").replace("%victim%", victim.toString()));
+                attacker.sendActionBar(lang.getMessage("pvp", "actionbar.victim-notenabled").replace("%victim%", victim.getName()));
             } else if (!attackerPvPEnabled) {
                 event.setCancelled(true);
                 attacker.sendActionBar(lang.getMessage("pvp", "actionbar.notenabled"));
             } else if (!victimPvPEnabled) {
+                attacker.sendActionBar(lang.getMessage("pvp", "actionbar.victim-notenabled").replace("%victim%", victim.getName()));
                 event.setCancelled(true);
             }
         }

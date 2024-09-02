@@ -3,7 +3,9 @@ package me.hektortm.wosCore.pvpsystem;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import me.hektortm.wosCore.Utils;
 import org.bukkit.ChatColor;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 import java.io.File;
@@ -36,6 +38,7 @@ public class PvPManager {
             pvpEnabledPlayers.remove(playerId);
         } else {
             pvpEnabledPlayers.add(playerId);
+            Utils.playSound(player, Sound.ENTITY_WITHER_SPAWN);
         }
 
         updatePlayerTabName(player, !pvpEnabled);
