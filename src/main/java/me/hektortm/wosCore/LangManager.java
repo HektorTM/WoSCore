@@ -87,7 +87,7 @@ public class LangManager {
         if (config != null) {
             String message = config.getString(key);
             if (message != null) {
-                return message;
+                return Utils.replaceColorPlaceholders(message);
             } else {
                 plugin.getLogger().warning("Message key '" + key + "' not found in file '" + fileName + "'");
                 return "Message not found: " + key;

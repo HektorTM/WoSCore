@@ -1,5 +1,5 @@
 name: WoSCore
-version: '1.0'
+version: '1.3'
 main: me.hektortm.wosCore.WoSCore
 api-version: '1.21'
 commands:

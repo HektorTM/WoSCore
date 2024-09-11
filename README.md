@@ -16,7 +16,7 @@ Maven Dependency:
         <dependency>
             <groupId>me.hektortm</groupId>
             <artifactId>woscore</artifactId>
-            <version>1.2.6</version>
+            <version>1.5.0</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
