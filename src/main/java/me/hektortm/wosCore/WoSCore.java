@@ -1,6 +1,5 @@
 package me.hektortm.wosCore;
 
-import me.hektortm.wosCore.essentials.*;
 import me.hektortm.wosCore.guis.ChatListener;
 import me.hektortm.wosCore.guis.GuiCommand;
 import me.hektortm.wosCore.guis.GuiListener;
@@ -13,10 +12,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -31,7 +26,6 @@ import java.util.UUID;
 
 @SuppressWarnings({"unused", "SpellCheckingInspection"})
 public final class WoSCore extends JavaPlugin {
-    private PlaytimeManager playtimeManager;
     private LangManager lang;
     private GuiManager guiManager;
     private File langDirectory;
@@ -61,7 +55,6 @@ public final class WoSCore extends JavaPlugin {
         getLogger().info("Active Language Files: " + langFileCount);
         getLogger().info("Active GUI Files: "+ guiFileCount);
 
-        playtimeManager = new PlaytimeManager(getDataFolder());
         this.lang = new LangManager(this);
         GuiManager guiManager = new GuiManager(this);
 
@@ -69,29 +62,12 @@ public final class WoSCore extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new GuiListener(guiManager), this);
         this.getServer().getPluginManager().registerEvents(new ChatListener(guiManager), this);
 
-        getServer().getPluginManager().registerEvents(new Listener() {
-            @EventHandler
-            public void onPlayerJoin(PlayerJoinEvent e) {
-                playtimeManager.playerLogin(e.getPlayer());
-            }
-
-            @EventHandler
-            public void onPlayerQuit(PlayerQuitEvent e) {
-                playtimeManager.playerLogout(e.getPlayer());
-            }
-
-        }, this);
 
 
         saveDefaultConfig();
         Utils.init(lang);
 
-        Playtime playtimeExe = new Playtime(playtimeManager);
-        Teleport teleportExecutor = new Teleport();
-        Gamemode gamemodeExe = new Gamemode();
-        Time timeExe = new Time();
-        Weather weatherExe = new Weather();
-        Broadcast broadcastExe = new Broadcast(lang);
+
         CoreCommands coreExe = new CoreCommands(lang, this);
         GuiCommand guiExe = new GuiCommand(new GuiManager(this), lang);
 
@@ -100,28 +76,11 @@ public final class WoSCore extends JavaPlugin {
         getCommand("pvp").setExecutor(new PvPCommands(pvpManager, lang));
         tabcompReg("pvp");
         getServer().getPluginManager().registerEvents(new PvPListeners(pvpManager, lang), this);
+        
 
-        commandReg("tp", teleportExecutor);
-        commandReg("tphere", teleportExecutor);
-        commandReg("gmc", gamemodeExe);
-        commandReg("gms", gamemodeExe);
-        commandReg("gma", gamemodeExe);
-        commandReg("gmsp", gamemodeExe);
-        commandReg("fly", gamemodeExe);
-        commandReg("speed", gamemodeExe);
-        commandReg("day", timeExe);
-        commandReg("night", timeExe);
-        commandReg("ptime", timeExe);
-        commandReg("sun", weatherExe);
-        commandReg("rain", weatherExe);
-        commandReg("storm", weatherExe);
-        commandReg("playtime", playtimeExe);
-        commandReg("broadcast", broadcastExe);
-        commandReg("shout", broadcastExe);
         commandReg("core", coreExe);
 
-        tabcompReg("broadcast");
-        tabcompReg("ptime");
+
         tabcompReg("core");
         tabcompReg("gui");
 

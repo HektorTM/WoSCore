@@ -30,10 +30,8 @@ public class LangManager {
         if (!langFolder.exists()) {
             langFolder.mkdirs();
         }
-        loadInternalLangFiles("broadcast");
         loadInternalLangFiles("general");
         loadInternalLangFiles("chat");
-        loadInternalLangFiles("essentials");
         loadInternalLangFiles("guis");
         loadInternalLangFiles("pvp");
 
@@ -103,9 +101,6 @@ public class LangManager {
 
     // TODO: use for reload command
     public void reload() {
-        reloadFile("broadcast");
-        reloadFile("errors");
-        reloadFile("essentials");
         reloadFile("general");
         reloadFile("guis");
         reloadFile("pvp");

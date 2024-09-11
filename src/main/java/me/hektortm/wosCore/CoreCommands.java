@@ -46,7 +46,19 @@ public class CoreCommands implements CommandExecutor {
     }
 
     public void checkPlugins(Player p) {
-        String[] pluginNames = {"WoSFriends", "WoSEconomy", "WoSTime", "WoSChestRun"};
+        String[] pluginNames =
+                {"WoSFriends",
+                "WoSEconomy",
+                "WoSTime",
+                "WoSChestRun",
+                "WoSBroomRace",
+                "WoSCitems",
+                "WoSEssentials",
+                "WoSFamilies",
+                "WoSHousePoints",
+                "WoSMailBox",
+                "WoSProfile",
+                "WoSPvP"};
         PluginManager pluginManager = Bukkit.getPluginManager();
 
         for (String pluginName : pluginNames) {

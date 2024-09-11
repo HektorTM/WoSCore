@@ -38,7 +38,7 @@ public class PvPManager {
             pvpEnabledPlayers.remove(playerId);
         } else {
             pvpEnabledPlayers.add(playerId);
-            Utils.playSound(player, Sound.ENTITY_WITHER_SPAWN);
+            player.playSound(player.getLocation(), Sound.ENTITY_WITHER_SPAWN, 1, 1);
         }
 
         updatePlayerTabName(player, !pvpEnabled);
