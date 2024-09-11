@@ -7,15 +7,6 @@ commands:
     description: core commands
     usage: /core <reload>
     permission: core.use
-# pvp System
-  pvp:
-    description: combat system commands
-    usage: /pvp [toggle|status|help]
-#
-  playtime:
-    description: Check your playtime
-    usage: /playtime
-#
   gui:
     description: create or access a gui
     usage: /gui

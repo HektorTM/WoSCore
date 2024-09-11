@@ -4,9 +4,6 @@ import me.hektortm.wosCore.guis.ChatListener;
 import me.hektortm.wosCore.guis.GuiCommand;
 import me.hektortm.wosCore.guis.GuiListener;
 import me.hektortm.wosCore.guis.GuiManager;
-import me.hektortm.wosCore.pvpsystem.PvPCommands;
-import me.hektortm.wosCore.pvpsystem.PvPListeners;
-import me.hektortm.wosCore.pvpsystem.PvPManager;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -71,16 +68,7 @@ public final class WoSCore extends JavaPlugin {
         CoreCommands coreExe = new CoreCommands(lang, this);
         GuiCommand guiExe = new GuiCommand(new GuiManager(this), lang);
 
-        PvPManager pvpManager = new PvPManager(getDataFolder());
-        //noinspection DataFlowIssue
-        getCommand("pvp").setExecutor(new PvPCommands(pvpManager, lang));
-        tabcompReg("pvp");
-        getServer().getPluginManager().registerEvents(new PvPListeners(pvpManager, lang), this);
-        
-
         commandReg("core", coreExe);
-
-
         tabcompReg("core");
         tabcompReg("gui");
 
