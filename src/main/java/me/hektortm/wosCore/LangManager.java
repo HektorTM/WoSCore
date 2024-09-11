@@ -40,7 +40,7 @@ public class LangManager {
             for (File file : files) {
                 String filename = file.getName().replace(".yml", "");
                 langFiles.put(filename, YamlConfiguration.loadConfiguration(file));
-                plugin.getLogger().info("Loaded language file: " + filename + ".yml");
+                //plugin.getLogger().info("Loaded language file: " + filename + ".yml");
             }
         } else {
             plugin.getLogger().warning("No language files found in 'lang' directory.");
@@ -61,7 +61,6 @@ public class LangManager {
 
             // Check if the destination file already exists
             if (destinationFile.exists()) {
-                corePlugin.getLogger().info("The file " + filename + ".yml already exists. Skipping copy.");
                 langFiles.put(filename, YamlConfiguration.loadConfiguration(destinationFile));
             } else {
                 try {

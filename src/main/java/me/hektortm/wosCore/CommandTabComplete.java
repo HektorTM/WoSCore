@@ -24,21 +24,6 @@ public class CommandTabComplete implements TabCompleter {
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         List<String> completions = new ArrayList<>();
 
-        if(command.getName().equalsIgnoreCase("pvp")) {
-            if (args.length == 1) {
-                return Arrays.asList("toggle","status","help");
-            }
-        }
-        if(command.getName().equalsIgnoreCase("ptime")) {
-            if (args.length == 1) {
-                return Arrays.asList("day", "night");
-            }
-        }
-        if(command.getName().equalsIgnoreCase("broadcast")) {
-            if (args.length == 1) {
-                return Arrays.asList("title", "message", "sign", "preview", "send", "clear");
-            }
-        }
         if (command.getName().equalsIgnoreCase("core")) {
             if (args.length == 1) {
                 // If no arguments or the first argument is being typed, suggest the first set of options
