@@ -1,10 +1,10 @@
 prefix:
-  general: "§x§6§e§e§7§b§7World of Sorcery §8|§r "
+  general: "%yellow_500%World of Sorcery §8|§r "
   friends: "§eFriends §8| "
   broadcast: "§6Broadcast §8| §7"
-  shout: "§dShout §8» §d%player%§8: §7"
-  error: "§cERROR: §7"
-  economy: "§6Economy §8|§r "
+  shout: "%pink_500%Shout §8» §d%player%§8: §7"
+  error: "%red_700%ERROR: %red_500%"
+  economy: "%orange_500%Economy §8|§r "
 
 error:
   online: "This Player is not online."

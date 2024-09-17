@@ -31,7 +31,6 @@ public class LangManager {
             langFolder.mkdirs();
         }
         loadInternalLangFiles("general");
-        loadInternalLangFiles("chat");
         loadInternalLangFiles("guis");
         loadInternalLangFiles("pvp");
 
