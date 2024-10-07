@@ -170,6 +170,18 @@ public class Utils {
         sender.sendMessage(replaceColorPlaceholders(newMessage));
     }
 
+    public static void successMsg4Values(CommandSender sender,String file, String msg, String oldChar1, String value1, String oldChar2, String value2, String oldChar3, String value3, String oldChar4, String value4) {
+        String message = lang.getMessage(file, msg).replace(oldChar1, value1).replace(oldChar2, value2).replace(oldChar3, value3).replace(oldChar4, value4);
+        String newMessage = lang.getMessage("general","prefix.general")+message;
+        sender.sendMessage(replaceColorPlaceholders(newMessage));
+    }
+
+    public static void successMsg5Values(CommandSender sender,String file, String msg, String oldChar1, String value1, String oldChar2, String value2, String oldChar3, String value3, String oldChar4, String value4,  String oldChar5, String value5) {
+        String message = lang.getMessage(file, msg).replace(oldChar1, value1).replace(oldChar2, value2).replace(oldChar3, value3).replace(oldChar4, value4).replace(oldChar5, value5);
+        String newMessage = lang.getMessage("general","prefix.general")+message;
+        sender.sendMessage(replaceColorPlaceholders(newMessage));
+    }
+
 
 
 
