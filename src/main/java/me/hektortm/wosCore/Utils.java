@@ -164,6 +164,11 @@ public class Utils {
         String newMessage = lang.getMessage("general","prefix.general")+message;
         sender.sendMessage(replaceColorPlaceholders(newMessage));
     }
+    public static void successMsg3Values(CommandSender sender,String file, String msg, String oldChar1, String value1, String oldChar2, String value2, String oldChar3, String value3) {
+        String message = lang.getMessage(file, msg).replace(oldChar1, value1).replace(oldChar2, value2).replace(oldChar3, value3);
+        String newMessage = lang.getMessage("general","prefix.general")+message;
+        sender.sendMessage(replaceColorPlaceholders(newMessage));
+    }
 
 
 
