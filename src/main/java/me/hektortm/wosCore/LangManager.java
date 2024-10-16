@@ -31,8 +31,6 @@ public class LangManager {
             langFolder.mkdirs();
         }
         loadInternalLangFiles("general");
-        loadInternalLangFiles("guis");
-        loadInternalLangFiles("pvp");
 
         File[] files = langFolder.listFiles((dir, name) -> name.endsWith(".yml"));
         if (files != null) {
