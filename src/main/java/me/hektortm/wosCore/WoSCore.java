@@ -1,9 +1,5 @@
 package me.hektortm.wosCore;
 
-import me.hektortm.wosCore.guis.ChatListener;
-import me.hektortm.wosCore.guis.GuiCommand;
-import me.hektortm.wosCore.guis.GuiListener;
-import me.hektortm.wosCore.guis.GuiManager;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -24,7 +20,6 @@ import java.util.UUID;
 @SuppressWarnings({"unused", "SpellCheckingInspection"})
 public final class WoSCore extends JavaPlugin {
     private LangManager lang;
-    private GuiManager guiManager;
     private File langDirectory;
     private File playerDataFolder;
 
@@ -35,7 +30,6 @@ public final class WoSCore extends JavaPlugin {
     @Override
     public void onEnable() {
         lang = new LangManager(this);
-        guiManager = new GuiManager(this);
 
         this.langDirectory = new File(getDataFolder(), "lang");
         if(!langDirectory.exists()) {
@@ -47,32 +41,19 @@ public final class WoSCore extends JavaPlugin {
         }
 
         int langFileCount = lang.getActiveLangFileCount();
-        int guiFileCount = guiManager.getActiveGuiFileCount();
 
         getLogger().info("Active Language Files: " + langFileCount);
-        getLogger().info("Active GUI Files: "+ guiFileCount);
 
         this.lang = new LangManager(this);
-        GuiManager guiManager = new GuiManager(this);
-
-        this.getCommand("gui").setExecutor(new GuiCommand(guiManager, lang));
-        this.getServer().getPluginManager().registerEvents(new GuiListener(guiManager), this);
-        this.getServer().getPluginManager().registerEvents(new ChatListener(guiManager), this);
-
-
 
         saveDefaultConfig();
         Utils.init(lang);
 
 
         CoreCommands coreExe = new CoreCommands(lang, this);
-        GuiCommand guiExe = new GuiCommand(new GuiManager(this), lang);
 
         commandReg("core", coreExe);
         tabcompReg("core");
-        tabcompReg("gui");
-
-
     }
 
 
@@ -120,7 +101,7 @@ public final class WoSCore extends JavaPlugin {
     private void tabcompReg(String name) {
         if (getCommand(name) != null) {
             //noinspection DataFlowIssue
-            getCommand(name).setTabCompleter(new CommandTabComplete(new GuiManager(this), lang));
+            getCommand(name).setTabCompleter(new CommandTabComplete(lang));
         } else {
             getLogger().severe("Tabcompletion '"+name+"' was not found.");
         }

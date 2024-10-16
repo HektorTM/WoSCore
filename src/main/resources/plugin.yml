@@ -7,6 +7,3 @@ commands:
     description: core commands
     usage: /core <reload>
     permission: core.use
-  gui:
-    description: create or access a gui
-    usage: /gui
