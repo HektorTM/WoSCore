@@ -5,6 +5,7 @@ prefix:
   shout: "%pink_500%Shout §8» §d%player%§8: §7"
   error: "%red_700%ERROR: %red_500%"
   economy: "%orange_500%Economy §8|§r "
+  warning: "%red_500%WARN §8$r| %red_300%"
 
 error:
   online: "This Player is not online."

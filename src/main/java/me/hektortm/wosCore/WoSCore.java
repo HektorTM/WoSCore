@@ -1,7 +1,7 @@
 package me.hektortm.wosCore;
 
 import me.hektortm.wosCore.logging.LogManager;
-import me.hektortm.wosCore.logging.command.LogCommand;
+import me.hektortm.wosCore.logging.command.DebugCommand;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -16,7 +16,6 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.Date;
-import java.util.HexFormat;
 import java.util.UUID;
 
 
@@ -30,7 +29,7 @@ public final class WoSCore extends JavaPlugin {
     @Override
     public void onEnable() {
         lang = new LangManager(this);
-        logManager = new LogManager(this);
+        logManager = new LogManager(lang, this);
 
         this.langDirectory = new File(getDataFolder(), "lang");
         if(!langDirectory.exists()) {
@@ -55,7 +54,7 @@ public final class WoSCore extends JavaPlugin {
 
         commandReg("core", coreExe);
         tabcompReg("core");
-        commandReg("logs", new LogCommand(logManager, lang));
+        commandReg("logs", new DebugCommand(logManager, lang));
     }
 
 

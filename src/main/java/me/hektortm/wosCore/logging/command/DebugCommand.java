@@ -12,18 +12,16 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class LogCommand implements CommandExecutor {
+public class DebugCommand implements CommandExecutor {
 
     private final LogManager logManager;
     private final LangManager lang;
     private final Map<String, SubCommand> subCommands = new HashMap<>();
 
-    public LogCommand(LogManager logManager, LangManager lang) {
+    public DebugCommand(LogManager logManager, LangManager lang) {
         this.logManager = logManager;
         this.lang = lang;
 

@@ -1,6 +1,10 @@
 package me.hektortm.wosCore.logging;
 
+import me.hektortm.wosCore.LangManager;
 import me.hektortm.wosCore.WoSCore;
+import me.hektortm.wosCore.util.PermUtil;
+import me.hektortm.wosCore.util.Permissions;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.io.BufferedWriter;
@@ -17,12 +21,14 @@ import java.util.stream.Stream;
 
 public class LogManager {
 
+    private final LangManager lang;
     private final WoSCore plugin;
     private final File logFolder;
     private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yy");
     private final DateTimeFormatter logEntryFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    public LogManager(WoSCore plugin) {
+    public LogManager(LangManager lang, WoSCore plugin) {
+        this.lang = lang;
         this.plugin = plugin;
         this.logFolder = new File(plugin.getDataFolder(), "logs");
 
@@ -74,4 +80,14 @@ public class LogManager {
         }
         return playerLogs;
     }
+
+    public void sendWarning(String message) {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if (PermUtil.hasPermissionNoMsg(player, Permissions.WARNING_USER)) {
+                String msg = lang.getMessage("general", "prefix.warning") + message;
+                player.sendMessage(msg);
+            }
+        }
+    }
+
 }

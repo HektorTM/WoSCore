@@ -29,3 +29,7 @@ permissions:
   core.log.write:
     description: write a log
     default: op
+
+  core.warning-user:
+    description: grants access to internal Warning messages
+    default: op
