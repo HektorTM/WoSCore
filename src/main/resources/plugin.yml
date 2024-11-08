@@ -2,8 +2,30 @@ name: WoSCore
 version: '1.3'
 main: me.hektortm.wosCore.WoSCore
 api-version: '1.21'
+author: HektorTM
 commands:
   core:
     description: core commands
     usage: /core <reload>
     permission: core.use
+  logs:
+    aliases: [log]
+    description: Log System
+    usage: /logs <write|view>
+    permission: core.log.view
+
+
+permissions:
+  core.log:
+    description: access to all log commands
+    default: op
+    children:
+      core.log.view: true
+      core.log.write: true
+
+  core.log.view:
+    description: View players logs
+    default: op
+  core.log.write:
+    description: write a log
+    default: op

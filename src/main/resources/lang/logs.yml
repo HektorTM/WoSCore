@@ -1,0 +1,8 @@
+error:
+  no-logs: "No logs found for Player: %player%"
+  invalid-page: "Invalid page number."
+  usage:
+    view: "Usage: /logs view <player> [Page]"
+    write: "Usage: /logs write <log>"
+
+log-sent: "§aLog sent."
