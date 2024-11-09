@@ -49,7 +49,7 @@ public class LogManager {
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(logFile, true))) {
             String time = logEntryFormatter.format(LocalDateTime.now());
-            String logEntry = String.format("[%s] Player: %s, Message: %s",
+            String logEntry = String.format("[%s] %s: %s",
                     time, executor.getName(), message);
 
             writer.write(logEntry);
@@ -70,7 +70,7 @@ public class LogManager {
             if (file.isFile() && file.getName().endsWith("-log.txt")) {
                 try (Stream<String> lines = Files.lines(file.toPath())) {
                     List<String> filteredLines = lines
-                            .filter(line -> line.contains("Player: " + playerName))
+                            .filter(line -> line.contains(playerName))
                             .collect(Collectors.toList());
                     playerLogs.addAll(filteredLines);
                 } catch (IOException e) {

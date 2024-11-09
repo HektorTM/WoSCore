@@ -24,7 +24,7 @@ public class WriteCommand extends SubCommand {
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        if (PermUtil.hasPermission(sender, Permissions.LOG_WRITE)) return;
+        if (!PermUtil.hasPermission(sender, Permissions.LOG_WRITE)) return;
 
         if (args.length == 0) {
             Utils.error(sender, "logs", "error.usage.write");
@@ -32,7 +32,7 @@ public class WriteCommand extends SubCommand {
         }
         StringBuilder b = new StringBuilder();
         for(int l = 0; l < args.length; l++) {
-            b.append(args[l]);
+            b.append(args[l]+" ");
         }
         String log = b.toString();
         Player p = (Player) sender;

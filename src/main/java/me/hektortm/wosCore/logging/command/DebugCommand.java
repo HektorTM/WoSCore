@@ -17,9 +17,10 @@ import java.util.Map;
 
 public class DebugCommand implements CommandExecutor {
 
+    private final Map<String, SubCommand> subCommands = new HashMap<>();
     private final LogManager logManager;
     private final LangManager lang;
-    private final Map<String, SubCommand> subCommands = new HashMap<>();
+
 
     public DebugCommand(LogManager logManager, LangManager lang) {
         this.logManager = logManager;
@@ -32,6 +33,19 @@ public class DebugCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
 
+        if (args.length == 0) {
+            sender.sendMessage("nope");
+            return true;
+        }
+
+        String subCommandName = args[0].toLowerCase();
+        SubCommand subCommand = subCommands.get(subCommandName);
+
+        if (subCommand != null) {
+            subCommand.execute(sender, java.util.Arrays.copyOfRange(args, 1, args.length));
+        } else {
+            logHelp(sender);
+        }
         return true;
     }
 
