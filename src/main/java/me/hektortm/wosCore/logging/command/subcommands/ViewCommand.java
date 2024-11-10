@@ -69,17 +69,13 @@ public class ViewCommand extends SubCommand {
 
         sender.sendMessage(lang.getMessage("debug", "log.header")
                 .replace("%log%", String.valueOf(endIndex - startIndex))
-                .replace("%log_total%", String.valueOf(logs.size())
-                        .replace("%player%", playerName)));
+                .replace("%log_total%", String.valueOf(logs.size())).replace("%player%", playerName));
         for (int i = startIndex; i < endIndex; i++) {
             // TODO: Maybe make this soft coded?
             sender.sendMessage(ChatColor.GRAY + logs.get(i));
         }
 
         int totalPages = (logs.size() + logsPerPage - 1) / logsPerPage;
-        Utils.successMsg2Values(sender, "debug", "log.footer",
-                "%page%", String.valueOf(page),
-                "%page_total%", String.valueOf(totalPages));
 
         if (page < totalPages) {
             sendPageNavigation(sender, playerName, page, totalPages);
@@ -88,22 +84,28 @@ public class ViewCommand extends SubCommand {
 
     public void sendPageNavigation(CommandSender sender, String playerName, int page, int totalPages) {
         // Erzeuge die Hauptnachricht für die aktuelle Seite
-        TextComponent mainText = new TextComponent(lang.getMessage("debug", "log.footer"));
+        TextComponent mainText = new TextComponent();
 
         // Erzeuge "<<" Button, falls auf Seite 2 oder höher
         if (page > 1) {
-            TextComponent previousPage = new TextComponent(lang.getMessage("debug", "log.page_down"));
-            previousPage.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/logs view " + playerName + " " + (page - 1)));
+            TextComponent previousPage = new TextComponent(lang.getMessage("debug", "log.page_down") + " ");
+            previousPage.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/debug log view " + playerName + " " + (page - 1)));
+
+
             mainText.addExtra(previousPage);
+
         }
 
+        TextComponent main = new TextComponent(lang.getMessage("debug", "log.footer").replace("%page%", String.valueOf(page)).replace("%page_total%", String.valueOf(totalPages)));
+        mainText.addExtra(main);
+
         // Füge die Hauptnachricht (z.B. "Page X/Y") hinzu
-        mainText.addExtra(ChatColor.YELLOW + " Page " + page + "/" + totalPages);
+//        mainText.addExtra(ChatColor.YELLOW + " Page " + page + "/" + totalPages);
 
         // Erzeuge ">>" Button, falls weitere Seiten verfügbar sind
         if (page < totalPages) {
-            TextComponent nextPage = new TextComponent(lang.getMessage("debug", "log.page_up"));
-            nextPage.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/logs view " + playerName + " " + (page + 1)));
+            TextComponent nextPage = new TextComponent(" "+lang.getMessage("debug", "log.page_up"));
+            nextPage.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/debug log view " + playerName + " " + (page + 1)));
             mainText.addExtra(nextPage);
         }
 
