@@ -41,6 +41,7 @@ public class WarningsCommand extends SubCommand {
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(),"unlockable take "+p.getName()+" core_warnings");
                 Utils.successMsg1Value(p, "debug", "warnings.status-change", "%status%", lang.getMessage("debug", "var.disabled"));
             }
+            return;
         }
 
         String subCmd = args[0].toLowerCase();
