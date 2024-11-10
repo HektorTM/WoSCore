@@ -8,9 +8,7 @@ commands:
     description: core commands
     usage: /core <reload>
     permission: core.use
-  logs:
-    aliases:
-      - log
+  debug:
     description: Log System
     usage: /logs <write|view>
     permission: core.log.view

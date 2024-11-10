@@ -1,0 +1,32 @@
+error:
+  no-logs: "No logs found for Player: %player%"
+  invalid-page: "Invalid page number."
+  no-more-logs: "No more logs to display."
+  usage:
+    log: "Usage: /debug log <view|write>"
+    warnings: "Usage: /debug warnings [status|on|off]"
+    view: "Usage: /debug log view <player> [page]"
+    write: "Usage: /debug log write <message>"
+
+var:
+  disabled: "§cDisabled"
+  enabled: "§aEnabled"
+
+warnings:
+  status: "§7Your Warnings are currenty %status%§7."
+  status-change: "§7You have %status%§7 warnings."
+
+
+log:
+  sent: "§aLog sent."
+  page_up: "§e>>"
+  page_down: "§e<<"
+  header: "§6Showing %log%/%log_total% logs for: %player%"
+  footer: "§6Page %page%/%page_total%"
+
+help:
+  header: "Debug Commands:"
+  view: "§e/debug log view <player> [page] §7- View a Players Logs."
+  write: "§e/debug log write <message> §7- Write a log."
+  warnings: "§e/debug warnings [status|on|off] §7- Toggle warnings."
+  help:  "§e/debug help §7- Display this help message."

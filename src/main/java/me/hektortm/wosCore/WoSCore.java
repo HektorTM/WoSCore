@@ -1,5 +1,6 @@
 package me.hektortm.wosCore;
 
+import me.hektortm.woSSystems.systems.unlockables.UnlockableManager;
 import me.hektortm.wosCore.logging.LogManager;
 import me.hektortm.wosCore.logging.command.DebugCommand;
 import org.bukkit.Sound;
@@ -16,6 +17,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -25,6 +27,7 @@ public final class WoSCore extends JavaPlugin {
     private LangManager lang;
     private File langDirectory;
     private File playerDataFolder;
+    private UnlockableManager unlockableManager;
 
     @Override
     public void onEnable() {
@@ -54,7 +57,7 @@ public final class WoSCore extends JavaPlugin {
 
         commandReg("core", coreExe);
         tabcompReg("core");
-        commandReg("logs", new DebugCommand(logManager, lang));
+        commandReg("debug", new DebugCommand(logManager, lang, this));
     }
 
 
@@ -129,6 +132,18 @@ public final class WoSCore extends JavaPlugin {
             plugin.getLogger().severe("Failed to copy language file: " + fileName);
             e.printStackTrace();
         }
+    }
+
+    public boolean checkUnlockable(UUID uuid, String id) {
+        File playerFile = new File(playerDataFolder, uuid.toString()+ ".yml");
+        FileConfiguration playerData = YamlConfiguration.loadConfiguration(playerFile);
+
+        String path = "unlockables";
+        List<String> unlockableList = playerData.getStringList(path);
+        if (unlockableList.contains(id)) {
+            return true;
+        }
+        return false;
     }
 
 }

@@ -5,7 +5,6 @@ import me.hektortm.wosCore.logging.LogManager;
 import me.hektortm.wosCore.logging.command.SubCommand;
 import me.hektortm.wosCore.util.PermUtil;
 import me.hektortm.wosCore.util.Permissions;
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -27,7 +26,7 @@ public class WriteCommand extends SubCommand {
         if (!PermUtil.hasPermission(sender, Permissions.LOG_WRITE)) return;
 
         if (args.length == 0) {
-            Utils.error(sender, "logs", "error.usage.write");
+            Utils.error(sender, "debug", "error.usage.write");
             return;
         }
         StringBuilder b = new StringBuilder();
@@ -38,6 +37,6 @@ public class WriteCommand extends SubCommand {
         Player p = (Player) sender;
 
         logManager.writeLog(p, log);
-        Utils.successMsg(sender, "logs", "log-sent");
+        Utils.successMsg(sender, "debug", "log.sent");
     }
 }

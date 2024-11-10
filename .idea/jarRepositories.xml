@@ -12,6 +12,11 @@
       <option name="url" value="https://oss.sonatype.org/content/groups/public/" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="github" />
+      <option name="name" value="github" />
+      <option name="url" value="https://maven.pkg.github.com/hektortm/WoSSystems/" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="dmulloy2-repo" />
       <option name="name" value="dmulloy2-repo" />
       <option name="url" value="https://repo.dmulloy2.net/repository/public/" />

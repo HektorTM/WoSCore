@@ -63,6 +63,10 @@
             <url>https://maven.pkg.github.com/HektorTM/WoSCore/</url>
         </repository>
         <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/hektortm/WoSSystems/</url>
+        </repository>
+        <repository>
             <id>papermc-repo</id>
             <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
@@ -102,6 +106,12 @@
             <groupId>net.luckperms</groupId>
             <artifactId>api</artifactId>
             <version>5.4</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>me.hektortm</groupId>
+            <artifactId>wossystems</artifactId>
+            <version>1.0</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
