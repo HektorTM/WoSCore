@@ -5,7 +5,8 @@ public enum Permissions {
     LOG_VIEW("core.log.view"),
     LOG_WRITE("core.log.write"),
 
-    WARNING_USER("core.warning-user");
+    WARNING_TOGGLE("core.warning.toggle"),
+    WARNING_STATUS("core.warning.on");
 
     private final String permission;
 

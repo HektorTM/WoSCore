@@ -6,8 +6,13 @@ import me.hektortm.wosCore.logging.LogManager;
 import me.hektortm.wosCore.logging.command.SubCommand;
 import me.hektortm.wosCore.util.PermUtil;
 import me.hektortm.wosCore.util.Permissions;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.chat.ClickEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.List;
 
@@ -29,12 +34,8 @@ public class ViewCommand extends SubCommand {
     @Override
     public void execute(CommandSender sender, String[] args) {
         if (!PermUtil.hasPermission(sender, Permissions.LOG_VIEW)) return;
-
-        sender.sendMessage("try to execute");
-
         if (args.length == 0) {
-            Utils.error(sender, "logs", "error.usage.view");
-            sender.sendMessage("args 0");
+            Utils.error(sender, "debug", "error.usage.view");
             return;
         }
 
@@ -44,16 +45,15 @@ public class ViewCommand extends SubCommand {
             try {
                 page = Integer.parseInt(args[1]);
             } catch (NumberFormatException e) {
-                Utils.error(sender, "logs", "error.invalid-page");
+                Utils.error(sender, "debug", "error.invalid-page");
                 return;
             }
         }
 
         List<String> logs = logManager.getLogsForPlayer(playerName);
         if (logs.isEmpty()) {
-            String msg =lang.getMessage("general", "prefix.error") + lang.getMessage("logs", "error.no-logs").replace("%player%", playerName);
+            String msg = lang.getMessage("general", "prefix.error") + lang.getMessage("debug", "error.no-logs").replace("%player%", playerName);
             sender.sendMessage(msg);
-            sender.sendMessage("empty");
             return;
         }
 
@@ -61,22 +61,55 @@ public class ViewCommand extends SubCommand {
         int startIndex = (page - 1) * logsPerPage;
         int endIndex = Math.min(startIndex + logsPerPage, logs.size());
 
+
         if (startIndex >= logs.size()) {
-            sender.sendMessage(ChatColor.RED + "No more logs to display.");
+            Utils.error(sender, "debug", "error.no-more-logs");
             return;
         }
 
-        sender.sendMessage(ChatColor.GOLD + "Showing logs for player: " + playerName + " (Page " + page + ")");
+        sender.sendMessage(lang.getMessage("debug", "log.header")
+                .replace("%log%", String.valueOf(endIndex - startIndex))
+                .replace("%log_total%", String.valueOf(logs.size())
+                        .replace("%player%", playerName)));
         for (int i = startIndex; i < endIndex; i++) {
+            // TODO: Maybe make this soft coded?
             sender.sendMessage(ChatColor.GRAY + logs.get(i));
         }
 
         int totalPages = (logs.size() + logsPerPage - 1) / logsPerPage;
-        sender.sendMessage(ChatColor.GOLD + String.format("Showing %d/%d logs. Page %d/%d.",
-                endIndex - startIndex, logs.size(), page, totalPages));
+        Utils.successMsg2Values(sender, "debug", "log.footer",
+                "%page%", String.valueOf(page),
+                "%page_total%", String.valueOf(totalPages));
 
         if (page < totalPages) {
-            sender.sendMessage(ChatColor.YELLOW + "Type /logs view " + playerName + " " + (page + 1) + " for next page.");
+            sendPageNavigation(sender, playerName, page, totalPages);
         }
     }
+
+    public void sendPageNavigation(CommandSender sender, String playerName, int page, int totalPages) {
+        // Erzeuge die Hauptnachricht für die aktuelle Seite
+        TextComponent mainText = new TextComponent(lang.getMessage("debug", "log.footer"));
+
+        // Erzeuge "<<" Button, falls auf Seite 2 oder höher
+        if (page > 1) {
+            TextComponent previousPage = new TextComponent(lang.getMessage("debug", "log.page_down"));
+            previousPage.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/logs view " + playerName + " " + (page - 1)));
+            mainText.addExtra(previousPage);
+        }
+
+        // Füge die Hauptnachricht (z.B. "Page X/Y") hinzu
+        mainText.addExtra(ChatColor.YELLOW + " Page " + page + "/" + totalPages);
+
+        // Erzeuge ">>" Button, falls weitere Seiten verfügbar sind
+        if (page < totalPages) {
+            TextComponent nextPage = new TextComponent(lang.getMessage("debug", "log.page_up"));
+            nextPage.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/logs view " + playerName + " " + (page + 1)));
+            mainText.addExtra(nextPage);
+        }
+
+        // Sende die gesamte zusammengesetzte Nachricht an den Spieler
+        sender.spigot().sendMessage(mainText);
+    }
+
+
 }

@@ -2,8 +2,6 @@ package me.hektortm.wosCore.logging;
 
 import me.hektortm.wosCore.LangManager;
 import me.hektortm.wosCore.WoSCore;
-import me.hektortm.wosCore.util.PermUtil;
-import me.hektortm.wosCore.util.Permissions;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -83,7 +81,7 @@ public class LogManager {
 
     public void sendWarning(String message) {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            if (PermUtil.hasPermissionNoMsg(player, Permissions.WARNING_USER)) {
+            if (plugin.checkUnlockable(player.getUniqueId(), "core_warnings")) {
                 String msg = lang.getMessage("general", "prefix.warning") + message;
                 player.sendMessage(msg);
             }

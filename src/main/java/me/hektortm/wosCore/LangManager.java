@@ -31,7 +31,7 @@ public class LangManager {
             langFolder.mkdirs();
         }
         loadInternalLangFiles("general");
-        loadInternalLangFiles("logs");
+        loadInternalLangFiles("debug");
 
         File[] files = langFolder.listFiles((dir, name) -> name.endsWith(".yml"));
         if (files != null) {
