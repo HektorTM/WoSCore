@@ -12,6 +12,11 @@ commands:
     description: Log System
     usage: /logs <write|view>
     permission: core.log.view
+  discord:
+    aliases:
+      - dc
+    description: Discord commands
+    usage: /discord [send|link]
 
 
 permissions:
@@ -31,4 +36,8 @@ permissions:
 
   core.warning-user:
     description: grants access to internal Warning messages
+    default: op
+
+  discord.send:
+    description: Send a message to the discord
     default: op

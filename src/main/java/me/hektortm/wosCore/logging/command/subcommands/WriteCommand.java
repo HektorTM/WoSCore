@@ -2,7 +2,7 @@ package me.hektortm.wosCore.logging.command.subcommands;
 
 import me.hektortm.wosCore.Utils;
 import me.hektortm.wosCore.logging.LogManager;
-import me.hektortm.wosCore.logging.command.SubCommand;
+import me.hektortm.wosCore.util.SubCommand;
 import me.hektortm.wosCore.util.PermUtil;
 import me.hektortm.wosCore.util.Permissions;
 import org.bukkit.command.CommandSender;

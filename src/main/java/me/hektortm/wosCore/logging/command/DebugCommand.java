@@ -1,6 +1,5 @@
 package me.hektortm.wosCore.logging.command;
 
-import me.hektortm.woSSystems.systems.unlockables.UnlockableManager;
 import me.hektortm.wosCore.LangManager;
 import me.hektortm.wosCore.Utils;
 import me.hektortm.wosCore.WoSCore;
@@ -11,6 +10,7 @@ import me.hektortm.wosCore.logging.command.subcommands.WarningsCommand;
 import me.hektortm.wosCore.logging.command.subcommands.WriteCommand;
 import me.hektortm.wosCore.util.PermUtil;
 import me.hektortm.wosCore.util.Permissions;
+import me.hektortm.wosCore.util.SubCommand;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

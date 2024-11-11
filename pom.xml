@@ -63,10 +63,6 @@
             <url>https://maven.pkg.github.com/HektorTM/WoSCore/</url>
         </repository>
         <repository>
-            <id>github</id>
-            <url>https://maven.pkg.github.com/hektortm/WoSSystems/</url>
-        </repository>
-        <repository>
             <id>papermc-repo</id>
             <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
@@ -109,10 +105,14 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>me.hektortm</groupId>
-            <artifactId>wossystems</artifactId>
-            <version>1.0</version>
-            <scope>provided</scope>
+            <groupId>net.dv8tion</groupId>
+            <artifactId>JDA</artifactId>
+            <version>5.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>4.12.0</version>
         </dependency>
     </dependencies>
 

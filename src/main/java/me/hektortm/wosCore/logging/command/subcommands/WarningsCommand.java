@@ -1,11 +1,9 @@
 package me.hektortm.wosCore.logging.command.subcommands;
 
-import me.hektortm.woSSystems.systems.unlockables.UnlockableManager;
-import me.hektortm.woSSystems.systems.unlockables.utils.Action;
 import me.hektortm.wosCore.LangManager;
 import me.hektortm.wosCore.Utils;
 import me.hektortm.wosCore.WoSCore;
-import me.hektortm.wosCore.logging.command.SubCommand;
+import me.hektortm.wosCore.util.SubCommand;
 import me.hektortm.wosCore.util.PermUtil;
 import me.hektortm.wosCore.util.Permissions;
 import org.bukkit.Bukkit;

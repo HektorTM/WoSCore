@@ -3,16 +3,13 @@ package me.hektortm.wosCore.logging.command.subcommands;
 import me.hektortm.wosCore.LangManager;
 import me.hektortm.wosCore.Utils;
 import me.hektortm.wosCore.logging.LogManager;
-import me.hektortm.wosCore.logging.command.SubCommand;
+import me.hektortm.wosCore.util.SubCommand;
 import me.hektortm.wosCore.util.PermUtil;
 import me.hektortm.wosCore.util.Permissions;
-import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package me.hektortm.wosCore.logging.command.subcommands;
 
 import me.hektortm.wosCore.logging.command.DebugCommand;
-import me.hektortm.wosCore.logging.command.SubCommand;
+import me.hektortm.wosCore.util.SubCommand;
 import org.bukkit.command.CommandSender;
 
 public class HelpCommand extends SubCommand {

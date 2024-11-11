@@ -1,4 +1,4 @@
-package me.hektortm.wosCore.logging.command;
+package me.hektortm.wosCore.util;
 
 import org.bukkit.command.CommandSender;
 

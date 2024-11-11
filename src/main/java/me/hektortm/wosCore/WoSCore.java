@@ -1,8 +1,14 @@
 package me.hektortm.wosCore;
 
-import me.hektortm.woSSystems.systems.unlockables.UnlockableManager;
+import me.hektortm.wosCore.discord.DiscordListener;
+import me.hektortm.wosCore.discord.command.DiscordCommand;
 import me.hektortm.wosCore.logging.LogManager;
 import me.hektortm.wosCore.logging.command.DebugCommand;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.OnlineStatus;
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.requests.GatewayIntent;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -16,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.time.Duration;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -27,7 +34,8 @@ public final class WoSCore extends JavaPlugin {
     private LangManager lang;
     private File langDirectory;
     private File playerDataFolder;
-    private UnlockableManager unlockableManager;
+    public static JDA jda;
+    public static final String REQUIRED_ROLE_ID = "1277276951056482346";
 
     @Override
     public void onEnable() {
@@ -52,12 +60,24 @@ public final class WoSCore extends JavaPlugin {
         saveDefaultConfig();
         Utils.init(lang);
 
+        loadConfig();
+        try {
+            jda = JDABuilder.createDefault(getConfig().getString("BOT-TOKEN"))
+                    .setStatus(OnlineStatus.ONLINE)
+                    .setActivity(Activity.playing("Minecraft"))
+                    .enableIntents(GatewayIntent.MESSAGE_CONTENT) // Enable the MESSAGE_CONTENT intent
+                    .addEventListeners(new DiscordListener()) // Register the command listener
+                    .build().awaitReady();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         CoreCommands coreExe = new CoreCommands(lang, this);
 
         commandReg("core", coreExe);
         tabcompReg("core");
         commandReg("debug", new DebugCommand(logManager, lang, this));
+        commandReg("discord", new DiscordCommand(this));
     }
 
 
@@ -65,6 +85,26 @@ public final class WoSCore extends JavaPlugin {
     @Override
     public void onDisable() {
         reloadConfig();
+        if (jda != null) {
+            jda.shutdown();
+            try {
+                // Allow at most 10 seconds for remaining requests to finish
+                if (!jda.awaitShutdown(Duration.ofSeconds(10))) {
+                    // Cancel all remaining requests if shutdown is not complete
+                    jda.shutdownNow();
+                    jda.awaitShutdown(); // Wait until shutdown is complete (indefinitely)
+                }
+            } catch (InterruptedException e) {
+                // Handle the exception if the thread is interrupted during shutdown
+                e.printStackTrace();
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+
+    private void loadConfig() {
+        getConfig().options().copyDefaults(true);
+        saveConfig();
     }
 
     public FileConfiguration getPlayerData(Player player) {
