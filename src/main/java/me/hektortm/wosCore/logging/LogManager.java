@@ -1,6 +1,7 @@
 package me.hektortm.wosCore.logging;
 
 import me.hektortm.wosCore.LangManager;
+import me.hektortm.wosCore.Utils;
 import me.hektortm.wosCore.WoSCore;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -82,7 +83,7 @@ public class LogManager {
     public void sendWarning(String message) {
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (plugin.checkUnlockable(player.getUniqueId(), "core_warnings")) {
-                String msg = lang.getMessage("general", "prefix.warning") + message;
+                String msg = lang.getMessage("general", "prefix.warning") + Utils.replaceColorPlaceholders(message);
                 player.sendMessage(msg);
             }
         }
