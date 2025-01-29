@@ -195,7 +195,6 @@ public class Utils {
         colorMap.put("%rose_950%", ColorCodes.ROSE_950);
     }
 
-
    public static void init(LangManager langManager) {
        lang = langManager;
    }
@@ -238,6 +237,15 @@ public class Utils {
         // Add the general prefix and send the final message
         String newMessage = lang.getMessage("general", "prefix.general") + message;
         sender.sendMessage(replaceColorPlaceholders(newMessage));
+    }
+    public static void noPrefix(CommandSender sender, String file, String msg, String... replacements) {
+        String message = lang.getMessage(file, msg);
+        for (int i = 0; i < replacements.length; i += 2) {
+            if (i + 1 < replacements.length) {
+                message = message.replace(replacements[i], replacements[i + 1]);
+            }
+        }
+        sender.sendMessage(replaceColorPlaceholders(message));
     }
 
     public static String replaceColorPlaceholders(String message) {
