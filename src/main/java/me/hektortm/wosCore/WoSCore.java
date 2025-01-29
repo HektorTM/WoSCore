@@ -48,7 +48,7 @@ public final class WoSCore extends JavaPlugin {
     public void onEnable() {
         instance = this;
         try {
-            dbManager = new DatabaseManager(this.getDataFolder().getAbsolutePath() + "WoS.db");
+            dbManager = new DatabaseManager(this.getDataFolder().getAbsolutePath() + "/WoS.db");
         } catch (SQLException e) {
             writeLog("WoSCore", Level.SEVERE, "Failed to initialize database: " + e.getMessage());
         }
@@ -94,6 +94,11 @@ public final class WoSCore extends JavaPlugin {
     @Override
     public void onDisable() {
         reloadConfig();
+        try {
+            dbManager.closeConnection();
+        } catch (SQLException e) {
+            writeLog("WoSCore", Level.SEVERE, "Failed to close database: " + e.getMessage());
+        }
         if (jda != null) {
             jda.shutdown();
             try {
