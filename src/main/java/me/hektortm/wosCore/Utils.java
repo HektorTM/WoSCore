@@ -123,6 +123,34 @@ public class Utils {
         }
     }
 
+    public static void info(CommandSender sender, String file, String msg) {
+        if (sender instanceof Player p) {
+            String infoMessage = lang.getMessage(file, msg);
+            if (infoMessage.startsWith("Message not found:") || infoMessage.startsWith("File not found:")) {
+                WoSCore.getPlugin(WoSCore.class).getLogger().warning("Error message retrieval issue: " + infoMessage);
+            }
+            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1, 1);
+            p.sendMessage(lang.getMessage("general", "prefix.info") + infoMessage);
+        }
+    }
+
+    public static void success(CommandSender sender, String file, String msg, String... replacements) {
+        // Fetch the base message from the language file
+        String message = lang.getMessage(file, msg);
+
+        // Apply replacements dynamically
+        for (int i = 0; i < replacements.length; i += 2) {
+            // Ensure there's an even number of replacement arguments (oldChar, value pairs)
+            if (i + 1 < replacements.length) {
+                message = message.replace(replacements[i], replacements[i + 1]);
+            }
+        }
+
+        // Add the general prefix and send the final message
+        String newMessage = lang.getMessage("general", "prefix.general") + message;
+        sender.sendMessage(replaceColorPlaceholders(newMessage));
+    }
+
     public static String replaceColorPlaceholders(String message) {
         // Replace placeholders like %lightblue% with the actual color code from colorMap
         for (Map.Entry<String, String> entry : colorMap.entrySet()) {
@@ -147,6 +175,9 @@ public class Utils {
 
         return buffer.toString();
     }
+
+
+
 
     public static void successMsg(CommandSender sender, String file, String msg) {
         // Fetch the message from the lang file and prefix

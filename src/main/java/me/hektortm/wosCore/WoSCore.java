@@ -1,5 +1,6 @@
 package me.hektortm.wosCore;
 
+import me.hektortm.wosCore.database.DatabaseManager;
 import me.hektortm.wosCore.discord.DiscordListener;
 import me.hektortm.wosCore.discord.command.DiscordCommand;
 import me.hektortm.wosCore.logging.LogManager;
@@ -9,6 +10,7 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -22,14 +24,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.sql.SQLException;
 import java.time.Duration;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 @SuppressWarnings({"unused", "SpellCheckingInspection"})
 public final class WoSCore extends JavaPlugin {
+    private static WoSCore instance;
+    private DatabaseManager dbManager;
     private LogManager logManager;
     private LangManager lang;
     private File langDirectory;
@@ -39,6 +46,12 @@ public final class WoSCore extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        instance = this;
+        try {
+            dbManager = new DatabaseManager(this.getDataFolder().getAbsolutePath() + "WoS.db");
+        } catch (SQLException e) {
+            writeLog("WoSCore", Level.SEVERE, "Failed to initialize database: " + e.getMessage());
+        }
         lang = new LangManager(this);
         logManager = new LogManager(lang, this);
 
@@ -72,10 +85,6 @@ public final class WoSCore extends JavaPlugin {
             e.printStackTrace();
         }
 
-        CoreCommands coreExe = new CoreCommands(lang, this);
-
-        commandReg("core", coreExe);
-        tabcompReg("core");
         commandReg("debug", new DebugCommand(logManager, lang, this));
         commandReg("discord", new DiscordCommand(this));
     }
@@ -100,6 +109,11 @@ public final class WoSCore extends JavaPlugin {
                 Thread.currentThread().interrupt();
             }
         }
+    }
+
+    public void writeLog(String name, Level level, String message) {
+        Logger LOGGER = Logger.getLogger(name);
+        LOGGER.log(level, message);
     }
 
     private void loadConfig() {
@@ -142,23 +156,8 @@ public final class WoSCore extends JavaPlugin {
             getLogger().severe("Command '"+ name + "' was not found in plugin.yml");
         }
     }
-    private void tabcompReg(String name) {
-        if (getCommand(name) != null) {
-            //noinspection DataFlowIssue
-            getCommand(name).setTabCompleter(new CommandTabComplete(lang));
-        } else {
-            getLogger().severe("Tabcompletion '"+name+"' was not found.");
-        }
 
-    }
 
-    public LangManager getLang() {
-        return lang;
-    }
-
-    public void buttonClick(Player p) {
-        p.playSound(p, Sound.UI_BUTTON_CLICK, 1, 1);
-    }
 
     public void addLangFile(Plugin plugin, String fileName) {
         try (InputStream inputStream = plugin.getResource("lang/" + fileName)) {
@@ -184,6 +183,13 @@ public final class WoSCore extends JavaPlugin {
             return true;
         }
         return false;
+    }
+
+    public LangManager getLang() {
+        return lang;
+    }
+    public DatabaseManager getDatabaseManager() {
+        return dbManager;
     }
 
 }
