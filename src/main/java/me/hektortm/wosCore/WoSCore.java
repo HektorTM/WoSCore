@@ -1,8 +1,11 @@
 package me.hektortm.wosCore;
 
 import me.hektortm.wosCore.database.DatabaseManager;
+import me.hektortm.wosCore.database.PlayerdataDAO;
 import me.hektortm.wosCore.discord.DiscordListener;
 import me.hektortm.wosCore.discord.command.DiscordCommand;
+import me.hektortm.wosCore.listeners.JoinListener;
+import me.hektortm.wosCore.listeners.WhitelistLogin;
 import me.hektortm.wosCore.logging.LogManager;
 import me.hektortm.wosCore.logging.command.DebugCommand;
 import net.dv8tion.jda.api.JDA;
@@ -47,8 +50,11 @@ public final class WoSCore extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+
         try {
             dbManager = new DatabaseManager(this.getDataFolder().getAbsolutePath() + "/WoS.db");
+            dbManager.registerDAO(new PlayerdataDAO(dbManager));
+            dbManager.initializeAllDAOs();
         } catch (SQLException e) {
             writeLog("WoSCore", Level.SEVERE, "Failed to initialize database: " + e.getMessage());
         }
@@ -85,6 +91,8 @@ public final class WoSCore extends JavaPlugin {
             e.printStackTrace();
         }
 
+        Bukkit.getPluginManager().registerEvents(new WhitelistLogin(), this);
+        Bukkit.getPluginManager().registerEvents(new JoinListener(new PlayerdataDAO(dbManager)), this);
         commandReg("debug", new DebugCommand(logManager, lang, this));
         commandReg("discord", new DiscordCommand(this));
     }
