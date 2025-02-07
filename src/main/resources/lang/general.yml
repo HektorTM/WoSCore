@@ -6,7 +6,7 @@ prefix:
   error: "%red_700%ERROR: %red_500%"
   economy: "%orange_500%Economy §8|§r "
   warning: "%red_500%WARN §8| %red_300%"
-  info: "%yellow_300INFO: %yellow_200%"
+  info: "%cyan_500%INFO: %cyan_300%"
 
 error:
   online: "This Player is not online."
