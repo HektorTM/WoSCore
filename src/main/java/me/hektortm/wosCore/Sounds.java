@@ -13,8 +13,12 @@ public class Sounds {
         p.playSound(p, Sound.BLOCK_NOTE_BLOCK_BANJO, 1F, 1F);
     }
 
-    public static void receiveSucess(Player p){
+    public static void sucess(Player p){
         p.playSound(p, Sound.BLOCK_NOTE_BLOCK_CHIME, 1F, 0.8F);
+        p.playSound(p, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, 1F);
+    }
+
+    public static void feedback(Player p){
         p.playSound(p, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1F, 1F);
     }
 

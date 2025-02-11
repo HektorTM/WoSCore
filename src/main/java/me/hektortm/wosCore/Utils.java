@@ -206,7 +206,7 @@ public class Utils {
 
                 WoSCore.getPlugin(WoSCore.class).getLogger().warning("Error message retrieval issue: " + errorMessage);
             }
-            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1, 1);
+            Sounds.error(p);
             p.sendMessage(lang.getMessage("general", "prefix.error") + errorMessage);
         }
     }
@@ -217,7 +217,7 @@ public class Utils {
             if (infoMessage.startsWith("Message not found:") || infoMessage.startsWith("File not found:")) {
                 WoSCore.getPlugin(WoSCore.class).getLogger().warning("Error message retrieval issue: " + infoMessage);
             }
-            p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1, 1);
+            Sounds.info(p);
             p.sendMessage(lang.getMessage("general", "prefix.info") + infoMessage);
         }
     }
