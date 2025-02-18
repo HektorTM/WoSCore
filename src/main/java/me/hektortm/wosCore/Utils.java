@@ -199,27 +199,43 @@ public class Utils {
        lang = langManager;
    }
 
-    public static void error(CommandSender sender, String file, String msg) {
-        if (sender instanceof Player p) {
-            String errorMessage = lang.getMessage(file, msg);
-            if (errorMessage.startsWith("Message not found:") || errorMessage.startsWith("File not found:")) {
+    public static void error(CommandSender sender, String file, String msg, String... replacements) {
+        String message = lang.getMessage(file, msg);
 
-                WoSCore.getPlugin(WoSCore.class).getLogger().warning("Error message retrieval issue: " + errorMessage);
+        // Apply replacements dynamically
+        for (int i = 0; i < replacements.length; i += 2) {
+            // Ensure there's an even number of replacement arguments (oldChar, value pairs)
+            if (i + 1 < replacements.length) {
+                message = message.replace(replacements[i], replacements[i + 1]);
             }
-            Sounds.error(p);
-            p.sendMessage(lang.getMessage("general", "prefix.error") + errorMessage);
+        }
+
+        // Add the general prefix and send the final message
+        String newMessage = lang.getMessage("general", "prefix.error") + message;
+        sender.sendMessage(replaceColorPlaceholders(newMessage));
+        if (sender instanceof Player) {
+            Sounds.error((Player) sender);
         }
     }
 
-    public static void info(CommandSender sender, String file, String msg) {
-        if (sender instanceof Player p) {
-            String infoMessage = lang.getMessage(file, msg);
-            if (infoMessage.startsWith("Message not found:") || infoMessage.startsWith("File not found:")) {
-                WoSCore.getPlugin(WoSCore.class).getLogger().warning("Error message retrieval issue: " + infoMessage);
+    public static void info(CommandSender sender, String file, String msg, String... replacements) {
+        String message = lang.getMessage(file, msg);
+
+        // Apply replacements dynamically
+        for (int i = 0; i < replacements.length; i += 2) {
+            // Ensure there's an even number of replacement arguments (oldChar, value pairs)
+            if (i + 1 < replacements.length) {
+                message = message.replace(replacements[i], replacements[i + 1]);
             }
-            Sounds.info(p);
-            p.sendMessage(lang.getMessage("general", "prefix.info") + infoMessage);
         }
+
+        // Add the general prefix and send the final message
+        String newMessage = lang.getMessage("general", "prefix.info") + message;
+        sender.sendMessage(replaceColorPlaceholders(newMessage));
+        if (sender instanceof Player) {
+            Sounds.info((Player) sender);
+        }
+
     }
 
     public static void success(CommandSender sender, String file, String msg, String... replacements) {
