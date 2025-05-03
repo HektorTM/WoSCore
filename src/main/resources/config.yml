@@ -1,4 +1,6 @@
 BOT-TOKEN: ''
 
+db-password: 'HektorTM'
+
 housepoint-channel: 'ID'
 warning-channel: 'ID'

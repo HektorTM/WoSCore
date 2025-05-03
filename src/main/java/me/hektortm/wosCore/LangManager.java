@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 
 public class LangManager {
-    private FileConfiguration config;
     private final Map<String, FileConfiguration> langFiles = new HashMap<>();
     private final WoSCore plugin;
 

@@ -14,11 +14,13 @@ public class DatabaseManager {
     private final WoSCore plugin;
     private final List<IDAO> daoList = new ArrayList<>();
 
-    public DatabaseManager(String path) throws SQLException{
-        connection = DriverManager.getConnection("jdbc:sqlite:" + path);
+    public DatabaseManager(String host, int port, String database, String username, String password) throws SQLException {
+        String url = "jdbc:mysql://" + host + ":" + port + "/" + database + "?useSSL=false&serverTimezone=UTC";
+        connection = DriverManager.getConnection(url, username, password);
         plugin = WoSCore.getPlugin(WoSCore.class);
-        plugin.writeLog("DatabaseManager", Level.INFO, "Database initialized");
+        plugin.writeLog("DatabaseManager", Level.INFO, "Connected to MySQL database.");
     }
+
 
     public void registerDAO(IDAO dao){
         daoList.add(dao);

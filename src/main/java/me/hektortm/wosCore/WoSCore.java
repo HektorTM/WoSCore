@@ -45,14 +45,16 @@ public final class WoSCore extends JavaPlugin {
     private File langDirectory;
     private File playerDataFolder;
     public static JDA jda;
-    public static final String REQUIRED_ROLE_ID = "1277276951056482346";
+    public static final String REQUIRED_ROLE_ID = "1277277013945614346";
 
     @Override
     public void onEnable() {
         instance = this;
 
+
+
         try {
-            dbManager = new DatabaseManager(this.getDataFolder().getAbsolutePath() + "/WoS.db");
+            dbManager = new DatabaseManager("localhost", 3306, "WoS", "root", getConfig().getString("db-password"));
             dbManager.registerDAO(new PlayerdataDAO(dbManager));
             dbManager.initializeAllDAOs();
         } catch (SQLException e) {

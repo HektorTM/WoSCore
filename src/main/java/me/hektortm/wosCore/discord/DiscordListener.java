@@ -20,6 +20,50 @@ public class DiscordListener extends ListenerAdapter {
             return;
         }
 
+        if(event.getMessage().getContentRaw().startsWith("!serverupdate")) {
+            if (!userHasRequiredRole(event)) {
+                event.getChannel().sendMessage("You do not have permission to use this command.").queue();
+                return;
+            }
+
+            String message = event.getMessage().getContentRaw().substring("!serverupdate".length()).trim();
+            String webhookUrl = org.bukkit.plugin.java.JavaPlugin.getPlugin(WoSCore.class).getConfig().getString("webhook-url");
+            if (webhookUrl == null || webhookUrl.isEmpty()) {
+                event.getChannel().sendMessage("Webhook URL is not configured.").queue();
+                return;
+            }
+
+            String jsonPayload = "{"
+                    + "\"content\": null,"
+                    + "\"username\": \"" + event.getAuthor().getGlobalName() + "\","
+                    + "\"avatar_url\": \"" + event.getAuthor().getEffectiveAvatarUrl() + "\","
+                    + "\"embeds\": [{"
+                    + "\"title\": \"Server Update\","
+                    + "\"description\": \"" + message + "\","
+                    + "\"color\": 2895665,"  // Equivalent to 0x2b2d31
+                    + "\"timestamp\": \"" + event.getMessage().getTimeCreated() + "\""
+                    + "}]}";
+            try {
+                // Create and configure the webhook request
+                OkHttpClient client = new OkHttpClient();
+                RequestBody body = RequestBody.create(
+                        jsonPayload,
+                        okhttp3.MediaType.parse("application/json; charset=utf-8")
+                );
+
+                Request request = new Request.Builder()
+                        .url(webhookUrl)
+                        .post(body)
+                        .build();
+
+                client.newCall(request).execute();
+                event.getMessage().delete().queue();
+            } catch (Exception e) {
+                event.getChannel().sendMessage("Failed to send message to Discord.").queue();
+                e.printStackTrace();
+            }
+        }
+
         // Check if the message starts with the command
         if (event.getMessage().getContentRaw().startsWith("!dcannounce")) {
             // Check if the user has the required role
