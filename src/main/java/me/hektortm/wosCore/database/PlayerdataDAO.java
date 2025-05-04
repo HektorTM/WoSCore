@@ -11,8 +11,8 @@ public class PlayerdataDAO implements IDAO {
     }
 
     @Override
-    public void initializeTable(Connection conn) throws SQLException {
-        try (Statement statement = conn.createStatement()) {
+    public void initializeTable() throws SQLException {
+        try (Statement statement = db.getConnection().createStatement()) {
             statement.execute("""
                 CREATE TABLE IF NOT EXISTS playerdata (
                     uuid VARCHAR(36) PRIMARY KEY,

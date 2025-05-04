@@ -5,6 +5,4 @@ import java.sql.SQLException;
 
 public interface IDAO {
     void initializeTable() throws SQLException;
-
-    void initializeTable(Connection conn) throws SQLException;
 }
