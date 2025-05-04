@@ -1,6 +1,11 @@
 BOT-TOKEN: ''
 
-db-password: 'HektorTM'
+database:
+  host: 'localhost'
+  port: 3306
+  name: 'WoS'
+  username: 'root'
+  password: 'HektorTM'
 
 housepoint-channel: 'ID'
 warning-channel: 'ID'

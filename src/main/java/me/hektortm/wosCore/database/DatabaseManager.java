@@ -26,12 +26,12 @@ public class DatabaseManager {
 
         // Pool settings
         config.setPoolName("WoSCore-Pool");
-        config.setMaximumPoolSize(10);
-        config.setMinimumIdle(3);
+        config.setMaximumPoolSize(15); // Increased for initialization
+        config.setMinimumIdle(5);
         config.setConnectionTimeout(30000);
         config.setIdleTimeout(600000);
         config.setMaxLifetime(1800000);
-        config.setLeakDetectionThreshold(30000);
+        config.setLeakDetectionThreshold(10000); // Reduced to detect leaks faster
 
         // MySQL optimizations
         config.addDataSourceProperty("cachePrepStmts", "true");

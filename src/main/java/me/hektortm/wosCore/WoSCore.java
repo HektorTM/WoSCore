@@ -51,14 +51,26 @@ public final class WoSCore extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
-
-
         try {
-            dbManager = new DatabaseManager("localhost", 3306, "WoS", "root", getConfig().getString("db-password"));
-            dbManager.registerDAO(new PlayerdataDAO(dbManager));
+            // Initialize database with credentials from config
+            dbManager = new DatabaseManager(
+                    getConfig().getString("database.host"),
+                    getConfig().getInt("database.port"),
+                    getConfig().getString("database.name"),
+                    getConfig().getString("database.username"),
+                    getConfig().getString("database.password")
+            );
+
+            // Initialize DAOs
+            PlayerdataDAO playerdataDAO = new PlayerdataDAO(dbManager);
+            dbManager.registerDAO(playerdataDAO);
             dbManager.initializeAllDAOs();
+
+            // Register other DAOs and components...
+
         } catch (SQLException e) {
-            writeLog("WoSCore", Level.SEVERE, "Failed to initialize database: " + e.getMessage());
+            getLogger().severe("Failed to initialize database: " + e.getMessage());
+            getServer().getPluginManager().disablePlugin(this);
         }
         lang = new LangManager(this);
         logManager = new LogManager(lang, this);
