@@ -1,10 +1,14 @@
 package me.hektortm.wosCore.database;
 
+import me.hektortm.wosCore.WoSCore;
 import org.bukkit.entity.Player;
 import java.sql.*;
+import java.util.logging.Level;
 
 public class PlayerdataDAO implements IDAO {
     private final DatabaseManager db;
+    private final WoSCore plugin = WoSCore.getPlugin(WoSCore.class);
+    private final String logName = "PlayerdataDAO";
 
     public PlayerdataDAO(DatabaseManager db) {
         this.db = db;
@@ -12,7 +16,7 @@ public class PlayerdataDAO implements IDAO {
 
     @Override
     public void initializeTable() throws SQLException {
-        try (Statement statement = db.getConnection().createStatement()) {
+        try (Connection conn = db.getConnection(); Statement statement = conn.createStatement()) {
             statement.execute("""
                 CREATE TABLE IF NOT EXISTS playerdata (
                     uuid VARCHAR(36) PRIMARY KEY,
@@ -34,7 +38,7 @@ public class PlayerdataDAO implements IDAO {
             pstmt.setTimestamp(4, new Timestamp(System.currentTimeMillis()));
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            plugin.writeLog(logName, Level.SEVERE, "Failed to add Player: " + e);
         }
     }
 
@@ -47,7 +51,7 @@ public class PlayerdataDAO implements IDAO {
                 return rs.next();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            plugin.writeLog(logName, Level.SEVERE, "Failed to verify Player Data: " + e);
             return false;
         }
     }
@@ -61,7 +65,7 @@ public class PlayerdataDAO implements IDAO {
             pstmt.setString(3, player.getUniqueId().toString());
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            plugin.writeLog(logName, Level.SEVERE, "Failed to update Username: " + e);
         }
     }
 
@@ -76,7 +80,7 @@ public class PlayerdataDAO implements IDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            plugin.writeLog(logName, Level.SEVERE, "Failed to get last known Name: " + e);
         }
         return null;
     }
@@ -89,7 +93,7 @@ public class PlayerdataDAO implements IDAO {
             pstmt.setString(2, player.getUniqueId().toString());
             pstmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            plugin.writeLog(logName, Level.SEVERE, "Failed to update last online Time: " + e);
         }
     }
 }
