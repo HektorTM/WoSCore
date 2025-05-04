@@ -106,7 +106,7 @@ public final class WoSCore extends JavaPlugin {
         reloadConfig();
         try {
             dbManager.closeConnection();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             writeLog("WoSCore", Level.SEVERE, "Failed to close database: " + e.getMessage());
         }
         if (jda != null) {
