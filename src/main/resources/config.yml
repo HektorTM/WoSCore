@@ -9,3 +9,8 @@ database:
 
 housepoint-channel: 'ID'
 warning-channel: 'ID'
+
+discord:
+  webhook:
+    error: ''
+    warning: ''
