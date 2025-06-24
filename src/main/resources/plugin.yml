@@ -1,5 +1,5 @@
 name: WoSCore
-version: '1.6.9'
+version: '1.7.0'
 main: me.hektortm.wosCore.WoSCore
 api-version: '1.21'
 author: HektorTM

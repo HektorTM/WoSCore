@@ -1,6 +1,7 @@
 package me.hektortm.wosCore;
 
 import me.hektortm.wosCore.database.DatabaseManager;
+import me.hektortm.wosCore.database.LoggingDAO;
 import me.hektortm.wosCore.database.PlayerdataDAO;
 import me.hektortm.wosCore.discord.DiscordListener;
 import me.hektortm.wosCore.discord.command.DiscordCommand;
@@ -63,7 +64,9 @@ public final class WoSCore extends JavaPlugin {
 
             // Initialize DAOs
             PlayerdataDAO playerdataDAO = new PlayerdataDAO(dbManager);
+            LoggingDAO loggingDAO = new LoggingDAO(dbManager);
             dbManager.registerDAO(playerdataDAO);
+            dbManager.registerDAO(loggingDAO);
             dbManager.initializeAllDAOs();
 
             // Register other DAOs and components...
@@ -107,7 +110,7 @@ public final class WoSCore extends JavaPlugin {
 
         Bukkit.getPluginManager().registerEvents(new WhitelistLogin(), this);
         Bukkit.getPluginManager().registerEvents(new JoinListener(new PlayerdataDAO(dbManager)), this);
-        commandReg("debug", new DebugCommand(logManager, lang, this));
+        commandReg("writelog", new DebugCommand(logManager, lang, this));
         commandReg("discord", new DiscordCommand(this));
     }
 

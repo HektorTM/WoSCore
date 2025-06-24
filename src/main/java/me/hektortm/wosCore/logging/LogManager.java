@@ -22,19 +22,10 @@ public class LogManager {
 
     private final LangManager lang;
     private final WoSCore plugin;
-    private final File logFolder;
-    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yy");
-    private final DateTimeFormatter logEntryFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public LogManager(LangManager lang, WoSCore plugin) {
         this.lang = lang;
         this.plugin = plugin;
-        this.logFolder = new File(plugin.getDataFolder(), "logs");
-
-        // Ensure the log folder exists
-        if (!logFolder.exists()) {
-            logFolder.mkdirs();
-        }
     }
 
     /**
@@ -43,41 +34,7 @@ public class LogManager {
      * @param message The message to log
      */
     public void writeLog(Player executor, String message) {
-        String date = dateFormatter.format(LocalDateTime.now());
-        File logFile = new File(logFolder, date + "-log.txt");
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(logFile, true))) {
-            String time = logEntryFormatter.format(LocalDateTime.now());
-            String logEntry = String.format("[%s] %s: %s",
-                    time, executor.getName(), message);
-
-            writer.write(logEntry);
-            writer.newLine();
-        } catch (IOException e) {
-            plugin.getLogger().severe("Failed to write log entry: " + e.getMessage());
-        }
-    }
-
-    public List<String> getLogsForPlayer(String playerName) {
-        List<String> playerLogs = new ArrayList<>();
-
-        // Loop through all files in the log directory
-        File[] logFiles = logFolder.listFiles();
-        if (logFiles == null) return playerLogs;
-
-        for (File file : logFiles) {
-            if (file.isFile() && file.getName().endsWith("-log.txt")) {
-                try (Stream<String> lines = Files.lines(file.toPath())) {
-                    List<String> filteredLines = lines
-                            .filter(line -> line.contains(playerName))
-                            .collect(Collectors.toList());
-                    playerLogs.addAll(filteredLines);
-                } catch (IOException e) {
-                    plugin.getLogger().severe("Failed to read log file: " + file.getName());
-                }
-            }
-        }
-        return playerLogs;
     }
 
     public void sendWarning(String message) {
